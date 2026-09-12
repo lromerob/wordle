@@ -216,3 +216,12 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Node / React
+node_modules/
+dist/
+.env.local
+.env.production
+
+# K8s secrets (nunca subir al repo)
+k8s/secrets/
