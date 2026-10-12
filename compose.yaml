@@ -1,0 +1,49 @@
+name: wordle
+services:
+  backend:
+    build:
+      context: ./backend
+      target: runtime
+    image: wordle-backend:v1-local
+    environment:
+      SUPABASE_URL: ${SUPABASE_URL:-}
+      SUPABASE_KEY: ${SUPABASE_KEY:-}
+    expose:
+      - "8000"
+    restart: unless-stopped
+    init: true
+    read_only: true
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=32m
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    healthcheck:
+      test: [CMD, python, -c, "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health', timeout=2)"]
+      interval: 15s
+      timeout: 3s
+      start_period: 15s
+      retries: 3
+    stop_grace_period: 15s
+  frontend:
+    build:
+      context: ./frontend
+    image: wordle-frontend:v1-local
+    ports:
+      - "127.0.0.1:8080:8080"
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: unless-stopped
+    init: true
+    read_only: true
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=32m
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    healthcheck:
+      test: [CMD-SHELL, "wget -q -O /dev/null http://127.0.0.1:8080/healthz || exit 1"]
+      interval: 15s
+      timeout: 3s
+      start_period: 5s
+      retries: 3
+    stop_grace_period: 10s

@@ -1,0 +1,17 @@
+# Allowlist: local secrets, environments and caches cannot enter the context.
+**
+!Dockerfile
+!requirements.lock
+!app/
+!app/**
+!tests/
+!tests/test_backend.py
+!docker/
+!docker/memory_server.py
+**/__pycache__/
+**/*.py[cod]
+**/.env*
+**/*credentials*
+**/*secret*
+**/*.key
+**/*.pem

@@ -90,4 +90,103 @@ A configured backend with a populated dictionary is required for real games;
 no real database integration was exercised during frontend development.
 
 This is the initial Wordle v1.0 UI for a future Blue release. No Green variant,
-container, Kubernetes configuration or deployment is included.
+Kubernetes configuration or deployment is included. Local containers are
+documented below.
+
+
+## Docker and Compose (local v1.0)
+
+Requires a running Docker engine in Linux-container mode and Docker Compose.
+Only Nginx is published, at http://localhost:8080 and bound to loopback.
+The browser uses same-origin /api; Nginx strips that prefix and forwards to
+backend:8000 on the Compose network. Do not put Docker service names into a
+browser URL. The frontend image fixes VITE_API_BASE_URL=/api at build time.
+Neither the backend game logic nor the database schema is changed here.
+
+### Safe local validation, without Supabase
+
+From the repository root (PowerShell or a shell), always include both files:
+
+```sh
+docker compose -f compose.yaml -f compose.test.yaml config --quiet
+docker compose -f compose.yaml -f compose.test.yaml build --pull
+docker compose -f compose.yaml -f compose.test.yaml up -d --wait
+docker compose -f compose.yaml -f compose.test.yaml ps
+curl http://localhost:8080/healthz
+curl http://localhost:8080/api/health
+docker compose -f compose.yaml -f compose.test.yaml logs --tail=100
+docker compose -f compose.yaml -f compose.test.yaml down
+```
+
+On Windows PowerShell, use curl.exe rather than its Invoke-WebRequest alias.
+Open http://localhost:8080 to play. The memory fixture solution is CASAS; the
+valid dictionary also contains PERRO, SACAS and AAAAA. ZZZZZ must be rejected.
+Check a win using CASAS and a loss using PERRO six times. New games reset the
+board. Data is ephemeral, shared by the single test worker, and lost when the
+backend restarts. This is a test fixture, not an offline production database.
+The test override selects the memory-test image target, clears both Supabase
+environment variables, blocks Supabase imports, .env loading, external DNS and
+outbound external socket connections. FastAPI joins only the internal default
+network and publishes no host ports. Nginx joins both that network and the
+non-internal ingress bridge, which enables loopback port publication on Windows.
+Only Nginx is exposed at 127.0.0.1:8080. Its ingress network permits outbound
+traffic; backend isolation and the memory-mode guards remain in place.
+Builds still need access to package registries and image registries.
+
+### Normal runtime configuration (not exercised against Supabase)
+
+```sh
+docker compose build --pull
+docker compose up -d --wait
+docker compose ps
+docker compose down
+```
+
+The default backend uses app.main and the existing lazy Supabase dependency.
+Provide SUPABASE_URL and SUPABASE_KEY only to the backend at runtime via your
+local shell or a private untracked environment file. Do not put real values in
+Compose, Dockerfiles, build arguments or any VITE_ variable. No credential files
+are copied into either image or mounted into the containers. Runtime environment
+values are visible to users with Docker administrative access. Avoid printing
+`docker compose config` without --quiet when real environment values are set.
+Without configuration /health works but gameplay requires Supabase; use the
+memory override above for all validation that must avoid real database calls.
+Do not switch from memory to normal mode to continue a test.
+
+Both runtime images run as non-root users with read-only filesystems, a /tmp
+mount, dropped capabilities, healthchecks and restart: unless-stopped. The
+frontend waits for backend startup health. Backend /health checks process
+availability, not database readiness; frontend /healthz checks Nginx, while
+/api/health checks the proxy path. Health status alone does not restart an
+unhealthy container; restart policy applies when the process exits. Nginx uses
+Docker DNS to refresh the backend address. SPA routes fall back to index.html.
+This is a local HTTP environment; no TLS or deployment infrastructure is added.
+
+### Reproducible dependencies and validation limits
+
+Backend requirements.lock pins transitive dependencies with hashes for Python
+3.12 and Linux x86_64. Docker installs wheels with --require-hashes and
+--only-binary. To intentionally update the lock, use uv 0.13.0 in an isolated
+environment and review the resulting changes:
+
+```sh
+uv pip compile backend/requirements.txt --python-version 3.12 --python-platform x86_64-unknown-linux-gnu --generate-hashes --no-emit-index-url --index-url https://pypi.org/simple --output-file backend/requirements.lock
+```
+
+The Linux lock is not a Windows development requirements file. Frontend uses
+npm ci and the existing package-lock.json. Base images use version tags
+(python:3.12-slim-bookworm, node:24-bookworm-slim, nginx:1.28-alpine), which can
+move; digest pinning remains necessary for byte-identical image rebuilds. Other
+architectures have not been validated.
+
+Validation completed locally with Docker Desktop 29.4.1, Linux containers and
+WSL2: both images built, both services healthy, Nginx configuration valid, and
+GET /, GET /api/health and game creation plus a win passed from Windows at
+127.0.0.1:8080. Invalid guesses, evaluation colors, a six-attempt loss and seventh
+attempt rejection also passed through Nginx in the memory environment. No real
+Supabase calls or credentials were used. The original single internal network
+prevented host port publication; the two-network test topology above fixes it.
+Temporary test containers and networks were removed without deleting volumes
+or unrelated resources. The 20 backend and 12 frontend tests and the /api build
+also passed. Production Supabase integration, other architectures and cloud
+deployments have not been validated.
