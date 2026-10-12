@@ -1,11 +1,11 @@
-from app.database import supabase
-from fastapi import APIRouter
+from app.database import get_supabase
+from fastapi import APIRouter, Depends
 
 router = APIRouter(prefix="/stats", tags=["stats"])
 
 
 @router.get("/{usuario_id}")
-async def obtener_estadisticas(usuario_id: str):
+async def obtener_estadisticas(usuario_id: str, supabase=Depends(get_supabase)):
     stats = supabase.table("estadisticas") \
         .select("*") \
         .eq("usuario_id", usuario_id) \
@@ -27,7 +27,7 @@ async def obtener_estadisticas(usuario_id: str):
 
 
 @router.get("/ranking/global")
-async def ranking_global():
+async def ranking_global(supabase=Depends(get_supabase)):
     stats = supabase.table("estadisticas") \
         .select("usuario_id, partidas_ganadas, racha_maxima, partidas_jugadas") \
         .order("partidas_ganadas", desc=True) \

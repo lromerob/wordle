@@ -1,7 +1,7 @@
 import random
 
-from app.database import supabase
-from fastapi import APIRouter, HTTPException
+from app.database import get_supabase
+from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel
 
 router = APIRouter(prefix="/game", tags=["game"])
@@ -35,7 +35,7 @@ def evaluar_intento(palabra_secreta: str, intento: str) -> list[dict]:
 
 
 @router.post("/nueva")
-async def nueva_partida(usuario_id: str):
+async def nueva_partida(usuario_id: str, supabase=Depends(get_supabase)):
     palabra = supabase.table("palabras").select("palabra").execute()
 
     if not palabra.data:
@@ -54,7 +54,7 @@ async def nueva_partida(usuario_id: str):
 
 
 @router.post("/intento")
-async def registrar_intento(body: IntentoPeticion):
+async def registrar_intento(body: IntentoPeticion, supabase=Depends(get_supabase)):
     intento = body.palabra.upper().strip()
 
     if len(intento) != LONGITUD_PALABRA:
@@ -66,6 +66,9 @@ async def registrar_intento(body: IntentoPeticion):
         raise HTTPException(status_code=404, detail="Partida no encontrada")
 
     p = partida.data
+    # Consistency check only: usuario_id is unverified until authentication exists.
+    if p["usuario_id"] != body.usuario_id:
+        raise HTTPException(status_code=403, detail="El usuario no coincide con la partida")
     if p["estado"] != "en_curso":
         raise HTTPException(status_code=400, detail=f"La partida ya terminó: {p['estado']}")
 
@@ -96,7 +99,7 @@ async def registrar_intento(body: IntentoPeticion):
     }).eq("id", body.partida_id).execute()
 
     if nuevo_estado in ("ganada", "perdida"):
-        _actualizar_estadisticas(body.usuario_id, nuevo_estado == "ganada", nuevo_intento)
+        _actualizar_estadisticas(p["usuario_id"], nuevo_estado == "ganada", nuevo_intento, supabase)
 
     return {
         "resultado": resultado,
@@ -107,7 +110,7 @@ async def registrar_intento(body: IntentoPeticion):
 
 
 @router.get("/{partida_id}")
-async def estado_partida(partida_id: str):
+async def estado_partida(partida_id: str, supabase=Depends(get_supabase)):
     partida = supabase.table("partidas").select("*").eq("id", partida_id).single().execute()
 
     if not partida.data:
@@ -115,10 +118,13 @@ async def estado_partida(partida_id: str):
 
     intentos = supabase.table("intentos").select("*").eq("partida_id", partida_id).order("numero").execute()
 
-    return {"partida": partida.data, "intentos": intentos.data}
+    public_partida = dict(partida.data)
+    if public_partida["estado"] == "en_curso":
+        public_partida.pop("palabra_secreta", None)
+    return {"partida": public_partida, "intentos": intentos.data}
 
 
-def _actualizar_estadisticas(usuario_id: str, gano: bool, intentos: int):
+def _actualizar_estadisticas(usuario_id: str, gano: bool, intentos: int, supabase):
     stats = supabase.table("estadisticas").select("*").eq("usuario_id", usuario_id).execute()
 
     if not stats.data:
