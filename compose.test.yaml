@@ -1,0 +1,20 @@
+# Local validation only: no credentials, no Supabase, no persistent data.
+services:
+  backend:
+    build:
+      target: memory-test
+    image: wordle-backend:v1-memory-test
+    environment:
+      SUPABASE_URL: ""
+      SUPABASE_KEY: ""
+  frontend:
+    networks:
+      - default
+      - ingress
+networks:
+  default:
+    internal: true
+  # A non-internal network is required for Docker Desktop host port publishing.
+  # Only Nginx joins it; the backend stays exclusively on the internal network.
+  ingress:
+    driver: bridge
