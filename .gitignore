@@ -225,3 +225,41 @@ dist/
 
 # K8s secrets (nunca subir al repo)
 k8s/secrets/
+
+# Private configuration and credentials
+.env.*
+!.env.example
+**/.env.example
+!**/.env.example
+.envrc.*
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+*.keystore
+id_rsa*
+id_ed25519*
+credentials*.json
+*credentials*.json
+service-account*.json
+service_account*.json
+secrets.*
+secrets/
+.aws/
+.azure/
+.gcloud/
+*.tfstate
+*.tfstate.*
+*.tfvars
+*.tfvars.json
+
+# Virtual environments and temporary files
+.venv*/
+venv*/
+ENV/
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
