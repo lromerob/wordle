@@ -55,17 +55,21 @@ async def nueva_partida(usuario_id: str, supabase=Depends(get_supabase)):
 
 @router.post("/intento")
 async def registrar_intento(body: IntentoPeticion, supabase=Depends(get_supabase)):
-    intento = body.palabra.upper().strip()
+    palabra = body.palabra.strip()
+    # Validate before upper(): Unicode case expansion can change word length.
+    if len(palabra) != LONGITUD_PALABRA or any(
+        letra not in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZñÑ"
+        for letra in palabra
+    ):
+        raise HTTPException(status_code=400, detail="La palabra debe tener 5 letras de A a Z o Ñ")
+    intento = palabra.upper()
 
-    if len(intento) != LONGITUD_PALABRA:
-        raise HTTPException(status_code=400, detail="La palabra debe tener 5 letras")
-
-    partida = supabase.table("partidas").select("*").eq("id", body.partida_id).single().execute()
+    partida = supabase.table("partidas").select("*").eq("id", body.partida_id).limit(1).execute()
 
     if not partida.data:
         raise HTTPException(status_code=404, detail="Partida no encontrada")
 
-    p = partida.data
+    p = partida.data[0]
     # Consistency check only: usuario_id is unverified until authentication exists.
     if p["usuario_id"] != body.usuario_id:
         raise HTTPException(status_code=403, detail="El usuario no coincide con la partida")
@@ -111,15 +115,15 @@ async def registrar_intento(body: IntentoPeticion, supabase=Depends(get_supabase
 
 @router.get("/{partida_id}")
 async def estado_partida(partida_id: str, supabase=Depends(get_supabase)):
-    partida = supabase.table("partidas").select("*").eq("id", partida_id).single().execute()
+    partida = supabase.table("partidas").select("*").eq("id", partida_id).limit(1).execute()
 
     if not partida.data:
         raise HTTPException(status_code=404, detail="Partida no encontrada")
 
     intentos = supabase.table("intentos").select("*").eq("partida_id", partida_id).order("numero").execute()
 
-    public_partida = dict(partida.data)
-    if public_partida["estado"] == "en_curso":
+    public_partida = dict(partida.data[0])
+    if public_partida.get("estado") not in ("ganada", "perdida"):
         public_partida.pop("palabra_secreta", None)
     return {"partida": public_partida, "intentos": intentos.data}
 
@@ -142,6 +146,11 @@ def _actualizar_estadisticas(usuario_id: str, gano: bool, intentos: int, supabas
         supabase.table("estadisticas").update({
             "partidas_jugadas": s["partidas_jugadas"] + 1,
             "partidas_ganadas": s["partidas_ganadas"] + (1 if gano else 0),
+            "intentos_promedio": (
+                ((s.get("intentos_promedio") or 0) * s["partidas_ganadas"] + intentos)
+                / (s["partidas_ganadas"] + 1)
+                if gano else (s.get("intentos_promedio") or 0)
+            ),
             "racha_actual": nueva_racha,
             "racha_maxima": max(s["racha_maxima"], nueva_racha),
         }).eq("usuario_id", usuario_id).execute()
