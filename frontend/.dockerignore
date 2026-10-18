@@ -1,0 +1,18 @@
+# Allowlist: no node_modules, local env, dist, credentials or temporary files.
+**
+!Dockerfile
+!package.json
+!package-lock.json
+!index.html
+!vite.config.js
+!nginx.conf
+!src/
+!src/**
+src/**/*.test.*
+src/test-setup.js
+**/__pycache__/
+**/.env*
+**/*credentials*
+**/*secret*
+**/*.key
+**/*.pem
