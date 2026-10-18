@@ -127,10 +127,11 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 25
     env:
-      KUBECONFIG: ${{ runner.temp }}/wordle-ci.kubeconfig
       KIND_CLUSTER_NAME: wordle-ci
       KIND_EXPERIMENTAL_PROVIDER: docker
     steps:
+      - name: Set isolated kubeconfig path
+        run: echo "KUBECONFIG=$RUNNER_TEMP/wordle-ci.kubeconfig" >> "$GITHUB_ENV"
       - uses: actions/checkout@v4
         with:
           persist-credentials: false
