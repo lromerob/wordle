@@ -119,3 +119,142 @@ jobs:
         # Parses Kustomize inputs and checks referenced resources/ConfigMap files.
         # Does not perform API schema validation, admission or a deployment.
         run: kubectl kustomize k8s/local > /dev/null
+
+
+  kind-smoke-test:
+    name: Integration / ephemeral kind smoke test
+    needs: [backend-tests, frontend-build, docker-build, kubernetes-validation]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    env:
+      KIND_CLUSTER_NAME: wordle-ci
+      KIND_EXPERIMENTAL_PROVIDER: docker
+    steps:
+      - name: Set isolated kubeconfig path
+        run: echo "KUBECONFIG=$RUNNER_TEMP/wordle-ci.kubeconfig" >> "$GITHUB_ENV"
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: azure/setup-kubectl@v4
+        with:
+          version: v1.34.1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install kind 0.33.0 with release checksum
+        run: |
+          mkdir -p "$RUNNER_TEMP/kind-bin"
+          curl --fail --location --retry 3 --output "$RUNNER_TEMP/kind-bin/kind" \
+            https://github.com/kubernetes-sigs/kind/releases/download/v0.33.0/kind-linux-amd64
+          curl --fail --location --retry 3 --output "$RUNNER_TEMP/kind-bin/kind.sha256sum" \
+            https://github.com/kubernetes-sigs/kind/releases/download/v0.33.0/kind-linux-amd64.sha256sum
+          checksum=$(awk '{print $1}' "$RUNNER_TEMP/kind-bin/kind.sha256sum")
+          printf '%s  %s\n' "$checksum" "$RUNNER_TEMP/kind-bin/kind" | sha256sum --check
+          chmod +x "$RUNNER_TEMP/kind-bin/kind"
+          echo "$RUNNER_TEMP/kind-bin" >> "$GITHUB_PATH"
+      - name: Build memory-only backend and frontend images
+        # Jobs have separate Docker daemons; rebuild here without a registry.
+        run: |
+          docker build --target memory-test --tag wordle-backend:v1-kind-memory backend
+          docker build --tag wordle-frontend:v1-kind frontend
+      - name: Create ephemeral Kubernetes cluster
+        # Pin a node image published for kind 0.33.0; kubectl stays on 1.34.
+        run: |
+          kind create cluster --name "$KIND_CLUSTER_NAME" --config k8s/local/kind.yaml \
+            --image kindest/node:v1.34.11@sha256:44e222ee2132dab25ff87301682f89eb82c7880ea3a1bf543bfe9708fd08d67d \
+            --kubeconfig "$KUBECONFIG" --wait 180s
+      - name: Load local images into kind
+        run: |
+          kind load docker-image --name "$KIND_CLUSTER_NAME" \
+            wordle-backend:v1-kind-memory wordle-frontend:v1-kind
+      - name: Deploy existing memory manifests and wait for readiness
+        run: |
+          kubectl apply -f k8s/local/namespace.yaml
+          kubectl apply --dry-run=server -k k8s/local
+          kubectl apply -k k8s/local
+          kubectl -n wordle-local rollout status deployment/backend --timeout=180s
+          kubectl -n wordle-local rollout status deployment/frontend --timeout=180s
+          kubectl -n wordle-local get pods,services
+      - name: HTTP smoke test through frontend proxy
+        run: |
+          kubectl -n wordle-local port-forward --address 127.0.0.1 service/frontend 8080:8080 \
+            > "$RUNNER_TEMP/wordle-port-forward.log" 2>&1 &
+          forward_pid=$!
+          trap 'kill "$forward_pid" 2>/dev/null || true; wait "$forward_pid" 2>/dev/null || true' EXIT
+          for attempt in $(seq 1 30); do
+            if curl --fail --silent --max-time 2 http://127.0.0.1:8080/api/health > /dev/null; then
+              break
+            fi
+            if ! kill -0 "$forward_pid" 2>/dev/null; then
+              cat "$RUNNER_TEMP/wordle-port-forward.log"
+              exit 1
+            fi
+            sleep 1
+          done
+          python - <<'PY'
+          import json
+          import urllib.error
+          import urllib.request
+
+          # Ignore proxy environment variables; every request stays on loopback.
+          opener = urllib.request.build_opener(urllib.request.ProxyHandler({}))
+          base = "http://127.0.0.1:8080"
+
+          def request(path, method="GET", payload=None, expected=200):
+              data = json.dumps(payload).encode() if payload is not None else None
+              req = urllib.request.Request(base + path, data=data, method=method,
+                                           headers={"Content-Type": "application/json"})
+              try:
+                  response = opener.open(req, timeout=10)
+              except urllib.error.HTTPError as error:
+                  response = error
+              with response:
+                  assert response.status == expected, (path, response.status, expected)
+                  return response.read()
+
+          assert b'<div id="root">' in request("/")
+          assert json.loads(request("/api/health")) == {"status": "ok"}
+          game = json.loads(request("/api/game/nueva?usuario_id=ci-smoke", "POST"))["partida_id"]
+          state = json.loads(request(f"/api/game/{game}"))
+          assert "palabra_secreta" not in state["partida"]
+          body = {"partida_id": game, "usuario_id": "ci-smoke", "palabra": "ZZZZZ"}
+          request("/api/game/intento", "POST", body, expected=400)
+          body["palabra"] = "CASAS"
+          result = json.loads(request("/api/game/intento", "POST", body))
+          assert result["estado"] == "ganada"
+          assert result["intentos_usados"] == 1
+          assert [item["estado"] for item in result["resultado"]] == ["correcto"] * 5
+          print("PASS: frontend, /api/health, creation, hidden answer, invalid guess and victory")
+          PY
+      - name: Collect diagnostics on failure
+        if: ${{ failure() }}
+        run: |
+          mkdir -p "$RUNNER_TEMP/wordle-diagnostics"
+          kubectl get nodes -o wide > "$RUNNER_TEMP/wordle-diagnostics/nodes.txt" 2>&1 || true
+          kubectl -n wordle-local get pods,services -o wide > "$RUNNER_TEMP/wordle-diagnostics/resources.txt" 2>&1 || true
+          kubectl -n wordle-local describe pods > "$RUNNER_TEMP/wordle-diagnostics/pods.txt" 2>&1 || true
+          kubectl -n wordle-local get events --sort-by=.metadata.creationTimestamp > "$RUNNER_TEMP/wordle-diagnostics/events.txt" 2>&1 || true
+          for component in backend frontend; do
+            kubectl -n wordle-local logs "deployment/$component" --all-containers --tail=200 > "$RUNNER_TEMP/wordle-diagnostics/$component.log" 2>&1 || true
+            kubectl -n wordle-local logs "deployment/$component" --all-containers --previous --tail=200 > "$RUNNER_TEMP/wordle-diagnostics/$component-previous.log" 2>&1 || true
+          done
+          if [ -f "$RUNNER_TEMP/wordle-port-forward.log" ]; then
+            cp "$RUNNER_TEMP/wordle-port-forward.log" "$RUNNER_TEMP/wordle-diagnostics/"
+          fi
+          if command -v kind > /dev/null; then
+            kind export logs --name "$KIND_CLUSTER_NAME" "$RUNNER_TEMP/wordle-diagnostics/kind" || true
+          fi
+      - name: Upload failure diagnostics (no kubeconfig)
+        if: ${{ failure() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: wordle-kind-diagnostics-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/wordle-diagnostics/
+          retention-days: 7
+          if-no-files-found: warn
+      - name: Delete only this runner's ephemeral cluster
+        if: ${{ always() }}
+        run: |
+          if command -v kind > /dev/null; then
+            kind delete cluster --name "$KIND_CLUSTER_NAME"
+          fi
