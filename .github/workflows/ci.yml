@@ -3,6 +3,8 @@ name: Wordle CI
 on:
   pull_request:
   workflow_dispatch:
+  push:
+    branches: [main]
 
 permissions:
   contents: read
@@ -258,3 +260,41 @@ jobs:
           if command -v kind > /dev/null; then
             kind delete cluster --name "$KIND_CLUSTER_NAME"
           fi
+
+
+  publish-ghcr:
+    name: Publish / GHCR production images
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+    needs: [backend-tests, frontend-build, docker-build, kubernetes-validation, kind-smoke-test]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Log in to GHCR with the workflow token
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build production images tagged with the full commit SHA
+        # Separate runners do not share Docker images. Preserve existing CI jobs;
+        # rebuild here rather than adding artifact transfers or registry caches.
+        # Never publish the backend memory-test target.
+        run: |
+          docker build --target runtime \
+            --label "org.opencontainers.image.source=https://github.com/lromerob/wordle" \
+            --label "org.opencontainers.image.revision=$GITHUB_SHA" \
+            --tag "ghcr.io/lromerob/wordle-backend:$GITHUB_SHA" backend
+          docker build --target runtime \
+            --label "org.opencontainers.image.source=https://github.com/lromerob/wordle" \
+            --label "org.opencontainers.image.revision=$GITHUB_SHA" \
+            --tag "ghcr.io/lromerob/wordle-frontend:$GITHUB_SHA" frontend
+      - name: Publish both SHA-tagged images
+        run: |
+          docker push "ghcr.io/lromerob/wordle-backend:$GITHUB_SHA"
+          docker push "ghcr.io/lromerob/wordle-frontend:$GITHUB_SHA"
