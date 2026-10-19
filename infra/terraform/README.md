@@ -18,7 +18,7 @@ Los manifiestos k8s/local NO son manifiestos AKS de producción: usan imagePullP
 
 ## Versiones y capacidad
 
-Terraform >=1.6 y <2; AzureRM fijado a 4.50.0 para revisar un esquema concreto. No hay lock de proveedor porque Terraform no está instalado en el entorno de preparación. Tras el primer init autorizado, revisar y versionar .terraform.lock.hcl (incluyendo hashes para las plataformas necesarias). Revisar versiones y avisos de seguridad antes del aprovisionamiento.
+Terraform >=1.6 y <2; AzureRM fijado a 4.50.0 para revisar un esquema concreto. El lock del proveedor se versiona tras init -backend=false; revisar sus cambios y hashes antes de actualizarlo. CI utiliza Terraform 1.9.8 y AzureRM 4.50.0. El binario local de validación es temporal, sin instalación global. Revisar versiones y avisos de seguridad antes del aprovisionamiento.
 
 kubernetes_version admite una versión explícita soportada en la región; null deja a AKS elegir y NO garantiza la misma versión entre despliegues. Seleccionar y registrar la versión antes de la prueba real; no asumir que la versión usada en kind está disponible en AKS.
 
@@ -34,6 +34,38 @@ La documentación de Microsoft consultada el 19/10/2026 exige al menos dos nodos
 6. Permiso Storage Blob Data Contributor sobre el contenedor para la identidad que ejecuta Terraform. Autenticación Entra mediante Azure CLI u OIDC futuro; nunca claves de cuenta, SAS ni secretos en HCL o argumentos.
 
 Los permisos del backend remoto y los permisos de aprovisionamiento son distintos. Si se endurece Storage deshabilitando las claves compartidas, mantener autenticación Entra. No usar el Resource Group de AKS como almacenamiento del estado: debe sobrevivir a su destrucción.
+
+## Acceso futuro desde GitHub Actions al API de AKS
+
+El CI actual no necesita acceder a AKS: Terraform solo inicializa proveedores localmente y kind está dentro del runner. No añadir Azure login ni modificar api_authorized_cidrs para ejecutar estas validaciones.
+
+Los runners hospedados estándar tienen IP de salida variable. GitHub desaconseja autorizar todos sus rangos compartidos como lista de acceso; tampoco usar 0.0.0.0/0. OIDC autentica una identidad, pero no resuelve conectividad ni restricciones de red.
+
+Para un CD futuro, decidir entre un runner dedicado con salida pública fija (/32 autorizada en AKS), un runner con conectividad privada a un API privado, o larger runners con red/IP fija si el plan y la organización lo permiten. Las dos últimas opciones exigen diseño adicional de red/DNS y pueden tener coste; nada de ello se provisiona aquí. Un runner propio no debe ejecutar código no confiable de pull requests.
+
+No se automatiza añadir y quitar la IP de cada runner: requeriría permisos ARM de modificación de AKS, control de concurrencia, restauración ante cancelaciones y evitar drift respecto de Terraform. Para este TFG, la decisión queda pendiente; mantener mientras tanto solo las IP administrativas de confianza. Cualquier CD futuro deberá usar una identidad OIDC restringida al repositorio/entorno protegido y RBAC mínimo, separada de los grupos humanos de administración. No otorgar cluster-admin al runner por defecto.
+
+## Microsoft Entra con una suscripción personal
+
+Una cuenta Microsoft personal y ser Owner de la suscripción no garantizan privilegios de administración del directorio ni acceso Kubernetes. Identificar el tenant asociado, verificar que el usuario existe en ese tenant y con qué identidad inicia sesión; para invitados, confirmar las restricciones del directorio y que la identidad/grupo son utilizables por AKS.
+
+Antes de provisionar, un administrador autorizado debe crear o identificar un grupo de seguridad Entra y añadir al operador como miembro efectivo. Si la creación de grupos está restringida, solicitarla al administrador del tenant: no asumir que los permisos Azure RBAC conceden permisos Microsoft Graph. Un grupo de seguridad asignado evita depender de grupos dinámicos o funciones premium; no asumir que una suscripción personal incluye Entra P1/P2.
+
+Introducir el object ID del grupo, no su nombre ni client ID, en admin_group_object_ids. Este módulo usa autenticación Entra con Kubernetes RBAC (azure_rbac_enabled=false): ese grupo obtiene administración Kubernetes, pero Owner/Contributor del recurso por sí solos no sustituyen su pertenencia. Verificar además el rol AKS Cluster User para obtener kubeconfig de usuario, acceso de red y kubelogin compatible. Cuentas locales están deshabilitadas: --admin no es una vía de recuperación. Preparar un segundo miembro administrativo autorizado y un procedimiento de recuperación de pertenencia antes de eliminar accesos.
+
+La identidad administrada de AKS, la identidad del operador, la del backend de estado y la futura identidad OIDC del pipeline tienen funciones distintas. No se crean grupos, usuarios, aplicaciones ni credenciales en esta iteración.
+
+## Alternativas de SKU para reducir coste
+
+Se conserva Standard_D4s_v5. Candidatas x86-64 a cotizar, sin afirmar que sean más baratas en una región/suscripción concreta:
+
+| SKU | vCPU / RAM | Evaluación |
+| --- | --- | --- |
+| Standard_D4s_v5 | 4 / 16 GiB | Referencia actual. |
+| Standard_D4as_v5 | 4 / 16 GiB | Alternativa AMD con la misma capacidad nominal; comparar tarifa Linux y cuota regional. |
+| Standard_D4ls_v5 | 4 / 8 GiB | Menor RAM; candidata para carga ligera, con menor margen tras las reservas del sistema. |
+
+Las dos candidatas satisfacen nominalmente los mínimos CPU/RAM de System y mantienen arquitectura compatible con las imágenes actuales. Esto no prueba elegibilidad AKS, disponibilidad ni precio inferior: confirmar soporte del SKU para AKS, versión, región, restricciones de suscripción y cuota; comparar precio total de dos nodos más discos/red antes de cambiar node_vm_size en variables privadas. No sustituir por B-series, Spot en System, ARM ni un SKU de dos vCPU solo por precio. Observabilidad futura requiere dimensionamiento independiente.
 
 ## Archivos y configuración local
 
@@ -57,7 +89,7 @@ terraform init -backend=false
 terraform validate
 ```
 
-init -backend=false descarga el proveedor y escribe cache/lock locales, pero no inicializa el estado remoto ni autentica el proveedor. validate no es una prueba de capacidad, permisos, cuota o disponibilidad de AKS. En esta fase Terraform no está instalado: estos tres comandos NO se han ejecutado. No se instaló software para simular su ejecución.
+init -backend=false descarga el proveedor y escribe cache/lock locales, pero no inicializa el estado remoto ni autentica el proveedor. validate no es una prueba de capacidad, permisos, cuota o disponibilidad de AKS. DEVOPS-04A no ejecutó estas comprobaciones. DEVOPS-04A.1 añade el job independiente terraform-validation para pull requests, push a main y ejecución manual; no configura credenciales ni inicializa el backend remoto. El resultado real del job se comprobará en GitHub. Los seis jobs anteriores permanecen sin cambios: este nuevo job no se añade como requisito del publicador GHCR. Para exigirlo como bloqueo de merge, seleccionar su check en las reglas de protección de main mediante una decisión independiente.
 
 ## Aprovisionamiento FUTURO: no ejecutado ni autorizado en DEVOPS-04A
 
@@ -108,7 +140,7 @@ Nunca ejecutar ahora. No eliminar manualmente el Resource Group administrado de 
 
 ## Riesgos y validación pendiente
 
-Pendientes terraform fmt/init/validate, lock del proveedor y, en una fase posterior, revisión del plan real, cuota, capacidad, disponibilidad regional de Free/SKU/versiones, propagación RBAC y prueba en AKS. La configuración no es evidencia de un despliegue funcional. No hay alta disponibilidad garantizada, aislamiento de egress, políticas de red ni endurecimiento completo de producción. El acceso a Supabase, la autenticación efectiva de Wordle y la promoción de imágenes pertenecen a iteraciones posteriores.
+Pendientes ejecución real del nuevo job en GitHub y, en una fase posterior, revisión del plan real, cuota, capacidad, disponibilidad regional de Free/SKU/versiones, propagación RBAC y prueba en AKS. Las comprobaciones locales de esta iteración se registran al finalizar, sin equivaler a validación en Azure. La configuración no es evidencia de un despliegue funcional. No hay alta disponibilidad garantizada, aislamiento de egress, políticas de red ni endurecimiento completo de producción. El acceso a Supabase, la autenticación efectiva de Wordle y la promoción de imágenes pertenecen a iteraciones posteriores.
 
 ## Referencias oficiales
 
@@ -118,3 +150,22 @@ Pendientes terraform fmt/init/validate, lock del proveedor y, en una fase poster
 - [Identidades administradas y permisos de red](https://learn.microsoft.com/en-us/azure/aks/managed-identity-overview)
 - [Backend azurerm y autenticación Entra](https://developer.hashicorp.com/terraform/language/backend/azurerm)
 - [Calculadora Azure](https://azure.microsoft.com/en-us/pricing/calculator/)
+
+Referencias adicionales para DEVOPS-04A.1:
+
+- [IP variables y alternativas de runners](https://docs.github.com/en/actions/reference/runners/github-hosted-runners#ip-addresses)
+- [Rangos autorizados del API AKS](https://learn.microsoft.com/en-us/azure/aks/api-server-authorized-ip-ranges)
+- [Autenticación Entra del control plane](https://learn.microsoft.com/en-us/azure/aks/entra-id-control-plane-authentication)
+- [Especificaciones Dasv5](https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/general-purpose/dasv5-series)
+- [Especificaciones Dlsv5](https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/general-purpose/dlsv5-series)
+
+## Validación local DEVOPS-04A.1 (19/10/2026)
+
+Terraform 1.9.8 ejecutado mediante binario oficial temporal con SHA256 comprobado, sin instalación global ni autenticación Azure:
+
+- El primer fmt -check detectó únicamente formato en variables.tf; terraform fmt lo corrigió y el segundo fmt -check pasó. No cambian tipos, valores ni validaciones.
+- init -backend=false -input=false finalizó correctamente y descargó AzureRM 4.50.0 firmado por HashiCorp, sin inicializar el backend remoto.
+- validate finalizó correctamente. No se ejecutó plan, apply, destroy ni Azure CLI.
+- Se incorpora .terraform.lock.hcl; los hashes zh de los paquetes distribuidos permiten verificar también el paquete Linux usado en CI. .terraform/ permanece ignorado.
+
+Estas comprobaciones no confirman precio, cuota, acceso Entra, conectividad ni despliegue funcional en Azure. La ejecución del séptimo job en GitHub sigue pendiente.
