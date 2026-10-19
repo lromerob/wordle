@@ -298,3 +298,29 @@ jobs:
         run: |
           docker push "ghcr.io/lromerob/wordle-backend:$GITHUB_SHA"
           docker push "ghcr.io/lromerob/wordle-frontend:$GITHUB_SHA"
+
+
+  terraform-validation:
+    name: Infrastructure / Terraform validation (no Azure)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: infra/terraform
+    env:
+      TF_IN_AUTOMATION: "true"
+      TF_INPUT: "false"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.9.8"
+          terraform_wrapper: false
+      - name: Check Terraform formatting
+        run: terraform fmt -check
+      - name: Initialize providers without remote state or Azure credentials
+        run: terraform init -backend=false
+      - name: Validate Terraform configuration
+        run: terraform validate

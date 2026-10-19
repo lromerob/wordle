@@ -131,7 +131,7 @@ variable "api_authorized_cidrs" {
 variable "tags" {
   description = "Non-sensitive ownership, environment and lifecycle tags; no credentials or personal data."
   type        = map(string)
-  default     = {
+  default = {
     environment = "academic"
     lifecycle   = "temporary"
   }
