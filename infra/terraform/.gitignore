@@ -1,0 +1,11 @@
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
+*.tfvars
+*.tfvars.json
+backend.hcl
+crash.log
+crash.*.log
+*.kubeconfig
+# Commit .terraform.lock.hcl after a future reviewed init; it is not a secret.
