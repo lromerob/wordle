@@ -1,0 +1,24 @@
+# EXAMPLE ONLY: replace identifiers and documentation-only address before use.
+# IDs are placeholders, not credentials. Copy to ignored terraform.tfvars.
+subscription_id          = "00000000-0000-0000-0000-000000000000"
+tenant_id                = "00000000-0000-0000-0000-000000000000"
+admin_group_object_ids   = ["00000000-0000-0000-0000-000000000000"]
+api_authorized_cidrs     = ["203.0.113.10/32"]
+location                 = "westeurope"
+resource_group_name      = "rg-wordle-academic"
+node_resource_group_name = "rg-wordle-academic-nodes"
+cluster_name             = "aks-wordle-academic"
+dns_prefix               = "wordle-academic"
+vnet_name                = "vnet-wordle-academic"
+subnet_name              = "snet-aks"
+identity_name            = "id-wordle-aks"
+node_pool_name           = "system"
+node_vm_size             = "Standard_D4s_v5"
+node_count               = 2
+os_disk_size_gb          = 64
+# Choose a supported AKS version for your region before provisioning.
+kubernetes_version = null
+tags               = {
+  environment = "academic"
+  lifecycle   = "temporary"
+}

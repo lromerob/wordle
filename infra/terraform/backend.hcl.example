@@ -1,0 +1,6 @@
+# Existing state storage, provisioned separately with explicit authorization.
+# Copy to ignored backend.hcl and replace placeholders; never add access keys.
+resource_group_name  = "rg-state-example"
+storage_account_name = "replacestateaccount"
+container_name       = "tfstate"
+key                  = "wordle/academic/terraform.tfstate"
