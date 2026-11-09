@@ -1,12 +1,13 @@
 # Local validation only: no credentials, no Supabase, no persistent data.
 services:
+  postgres:
+    profiles: [persistent]
   backend:
     build:
       target: memory-test
-    image: wordle-backend:v1-memory-test
-    environment:
-      SUPABASE_URL: ""
-      SUPABASE_KEY: ""
+    image: ${COMPOSE_PROJECT_NAME:-wordle}-backend:v1-memory-test
+    environment: !reset {}
+    depends_on: !reset {}
   frontend:
     networks:
       - default

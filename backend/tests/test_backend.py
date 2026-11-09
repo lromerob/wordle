@@ -1,6 +1,7 @@
-"""Offline tests: no .env reads and no real Supabase client creation."""
+"""Offline tests using an async in-memory domain adapter, never a database."""
 import ast
 import copy
+from contextlib import asynccontextmanager
 import importlib.util
 from pathlib import Path
 import socket
@@ -51,7 +52,8 @@ class EvaluationTests(unittest.TestCase):
     def test_dependency_import_is_lazy(self):
         with patch("socket.socket", side_effect=AssertionError("Network forbidden")):
             import app.database as database
-            self.assertEqual(database.get_supabase.cache_info().currsize, 0)
+            self.assertTrue(callable(database.create_pool))
+            self.assertFalse(hasattr(database, "pool"))
 
 
 class MemoryDB:
@@ -62,67 +64,64 @@ class MemoryDB:
             "intentos": [], "estadisticas": [],
         }
 
-    def table(self, name):
-        return MemoryQuery(self.rows[name])
+    @asynccontextmanager
+    async def transaction(self):
+        # Snapshot for offline fault tests only, not a model of PostgreSQL locks.
+        before = copy.deepcopy(self.rows)
+        try:
+            yield
+        except BaseException:
+            self.rows.clear()
+            self.rows.update(before)
+            raise
 
+    async def get_game_for_update(self, partida_id):
+        # Deliberately no concurrency guarantees in MemoryDB.
+        return await self.get_game(partida_id)
 
-class MemoryQuery:
-    def __init__(self, rows):
-        self.rows = rows
-        self.filters = []
-        self.columns = "*"
-        self.operation = "select"
-        self.single_row = False
-        self.sort = None
-        self.maximum = None
+    async def get_stats_for_update(self, usuario_id):
+        return await self.get_stats(usuario_id)
 
-    def select(self, columns):
-        self.columns = columns
-        return self
+    async def list_words(self):
+        return copy.deepcopy(self.rows["palabras"])
 
-    def eq(self, field, value):
-        self.filters.append((field, value))
-        return self
+    async def create_game(self, values):
+        row = dict(copy.deepcopy(values), id=f"new-{len(self.rows['partidas']) + 1}")
+        self.rows["partidas"].append(row)
+        return copy.deepcopy(row)
 
-    def single(self):
-        self.single_row = True
-        return self
+    async def get_game(self, partida_id):
+        return copy.deepcopy(next((r for r in self.rows["partidas"] if str(r["id"]) == str(partida_id)), None))
 
-    def order(self, field, desc=False):
-        self.sort = (field, desc)
-        return self
+    async def word_exists(self, word):
+        return any(r["palabra"] == word for r in self.rows["palabras"])
 
-    def limit(self, value):
-        self.maximum = value
-        return self
+    async def add_guess(self, values):
+        self.rows["intentos"].append(dict(copy.deepcopy(values), id=f"new-{len(self.rows['intentos']) + 1}"))
 
-    def insert(self, payload):
-        self.operation, self.payload = "insert", copy.deepcopy(payload)
-        return self
+    async def update_game(self, partida_id, values):
+        for row in self.rows["partidas"]:
+            if str(row["id"]) == str(partida_id):
+                row.update(copy.deepcopy(values))
 
-    def update(self, payload):
-        self.operation, self.payload = "update", copy.deepcopy(payload)
-        return self
+    async def get_guesses(self, partida_id):
+        return copy.deepcopy(sorted((r for r in self.rows["intentos"] if str(r["partida_id"]) == str(partida_id)), key=lambda r: r["numero"]))
 
-    def execute(self):
-        selected = [r for r in self.rows if all(r.get(k) == v for k, v in self.filters)]
-        if self.operation == "insert":
-            self.payload.setdefault("id", f"new-{len(self.rows) + 1}")
-            self.rows.append(self.payload)
-            selected = [self.payload]
-        elif self.operation == "update":
-            for row in selected:
-                row.update(self.payload)
-        if self.sort:
-            field, desc = self.sort
-            selected = sorted(selected, key=lambda r: r[field], reverse=desc)
-        if self.maximum is not None:
-            selected = selected[:self.maximum]
-        if self.columns != "*":
-            columns = [c.strip() for c in self.columns.split(",")]
-            selected = [{k: r[k] for k in columns} for r in selected]
-        data = (selected[0] if selected else None) if self.single_row else selected
-        return SimpleNamespace(data=copy.deepcopy(data))
+    async def get_stats(self, usuario_id):
+        return copy.deepcopy(next((r for r in self.rows["estadisticas"] if r["usuario_id"] == usuario_id), None))
+
+    async def create_stats(self, values):
+        self.rows["estadisticas"].append(copy.deepcopy(values))
+
+    async def update_stats(self, usuario_id, values):
+        for row in self.rows["estadisticas"]:
+            if row["usuario_id"] == usuario_id:
+                row.update(copy.deepcopy(values))
+
+    async def ranking(self):
+        columns = ("usuario_id", "partidas_ganadas", "racha_maxima", "partidas_jugadas")
+        rows = sorted(self.rows["estadisticas"], key=lambda r: r["partidas_ganadas"], reverse=True)[:10]
+        return [{key: row[key] for key in columns} for row in rows]
 
 
 class HandlerTests(unittest.TestCase):
@@ -202,19 +201,20 @@ WEB_AVAILABLE = all(importlib.util.find_spec(m) for m in ("fastapi", "httpx"))
 class EndpointTests(unittest.TestCase):
     def setUp(self):
         from fastapi.testclient import TestClient
-        from app.database import get_supabase
+        from app.database import get_repository
         from app.main import app
-        self.app, self.dependency = app, get_supabase
+        self.app, self.dependency = app, get_repository
         self.db = MemoryDB()
-        self.app.dependency_overrides[get_supabase] = lambda: self.db
+        self.app.dependency_overrides[get_repository] = lambda: self.db
         self.addCleanup(self.app.dependency_overrides.clear)
-        self.client = TestClient(app)
-        self.addCleanup(self.client.close)
-        # Any accidental production client or external socket fails the test.
+        self.client = self.enterContext(TestClient(app))
+        # A mistaken SQL dependency must fail before libpq (which bypasses Python sockets).
+        self.enterContext(patch("psycopg.AsyncConnection.connect", side_effect=AssertionError("Database forbidden")))
+        # Any accidental production pool or external socket fails the test.
         self.network = patch("socket.socket.connect", new=offline_connect)
         self.network.start()
         self.addCleanup(self.network.stop)
-        self.factory = patch("app.database.get_supabase", side_effect=AssertionError("Production dependency forbidden"))
+        self.factory = patch("app.database.create_pool", side_effect=AssertionError("Production pool forbidden"))
         self.factory.start()
         self.addCleanup(self.factory.stop)
 

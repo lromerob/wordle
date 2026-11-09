@@ -1,0 +1,37 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: wordle-pg06
+resources:
+  - ../local
+  - postgres.yaml
+configMapGenerator:
+  - name: wordle-pg-config
+    literals:
+      - PGHOST=postgres
+      - PGPORT=5432
+      - PGDATABASE=wordle
+      - PGUSER=wordle_app
+      - PGSSLMODE=disable
+  - name: wordle-readiness
+    files:
+      - readiness.py
+images:
+  - name: wordle-backend
+    newTag: v1-pg06
+  - name: wordle-frontend
+    newTag: v1-pg06
+patches:
+  - target:
+      kind: Namespace
+      name: wordle-local
+    patch: |-
+      - op: replace
+        path: /metadata/name
+        value: wordle-pg06
+      - op: replace
+        path: /metadata/labels/wordle.environment
+        value: local-postgres-test
+      - op: replace
+        path: /metadata/labels/pod-security.kubernetes.io~1enforce-version
+        value: v1.35
+  - path: backend-patch.yaml

@@ -263,3 +263,7 @@ ENV/
 *.swp
 *.swo
 *~
+
+# Local Kubernetes credentials and PG-06 runtime state
+*.kubeconfig
+/k8s/postgres/.local/

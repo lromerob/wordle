@@ -1,17 +1,14 @@
-from app.database import get_supabase
+from app.database import get_repository
 from fastapi import APIRouter, Depends
 
 router = APIRouter(prefix="/stats", tags=["stats"])
 
 
 @router.get("/{usuario_id}")
-async def obtener_estadisticas(usuario_id: str, supabase=Depends(get_supabase)):
-    stats = supabase.table("estadisticas") \
-        .select("*") \
-        .eq("usuario_id", usuario_id) \
-        .execute()
+async def obtener_estadisticas(usuario_id: str, repository=Depends(get_repository)):
+    stats = await repository.get_stats(usuario_id)
 
-    if not stats.data:
+    if not stats:
         return {
             "partidas_jugadas": 0,
             "partidas_ganadas": 0,
@@ -20,18 +17,14 @@ async def obtener_estadisticas(usuario_id: str, supabase=Depends(get_supabase)):
             "porcentaje_victorias": 0
         }
 
-    s = stats.data[0]
+    s = stats
     porcentaje = round((s["partidas_ganadas"] / s["partidas_jugadas"]) * 100) if s["partidas_jugadas"] > 0 else 0
 
     return {**s, "porcentaje_victorias": porcentaje}
 
 
 @router.get("/ranking/global")
-async def ranking_global(supabase=Depends(get_supabase)):
-    stats = supabase.table("estadisticas") \
-        .select("usuario_id, partidas_ganadas, racha_maxima, partidas_jugadas") \
-        .order("partidas_ganadas", desc=True) \
-        .limit(10) \
-        .execute()
+async def ranking_global(repository=Depends(get_repository)):
+    stats = await repository.ranking()
 
-    return {"ranking": stats.data}
+    return {"ranking": stats}

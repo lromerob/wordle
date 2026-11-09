@@ -36,10 +36,12 @@ class StabilizationTests(unittest.TestCase):
                 self.assertEqual(self.db.rows, before)
 
     def test_missing_game_does_not_use_provider_single(self):
-        from unittest.mock import patch
-        with patch.object(fixtures.MemoryQuery, "single", side_effect=AssertionError("single must not be used")):
+        from unittest.mock import AsyncMock, patch
+        # The new adapter returns None for missing rows, not a provider single() error.
+        with patch.object(self.db, "get_game", new=AsyncMock(return_value=None)) as lookup:
             self.assertEqual(self.guess(game="missing").status_code, 404)
             self.assertEqual(self.client.get("/game/missing").status_code, 404)
+            self.assertEqual(lookup.await_count, 2)
 
     def test_average_updates_on_win_and_stays_on_loss(self):
         self.db.rows["estadisticas"].append({

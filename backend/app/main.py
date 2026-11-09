@@ -1,8 +1,9 @@
+from app.database import lifespan
 from app.routers import game, stats
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-app = FastAPI(title="Wordle ES API", version="1.0.0")
+app = FastAPI(title="Wordle ES API", version="1.0.0", lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,

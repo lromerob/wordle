@@ -1,0 +1,2 @@
+# Keep Docker initialization scripts portable on Windows checkouts.
+*.sh text eol=lf

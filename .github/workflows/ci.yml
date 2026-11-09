@@ -52,12 +52,52 @@ jobs:
               "socket.socket.connect_ex", side_effect=AssertionError("External network forbidden")
           ), patch("socket.getaddrinfo", side_effect=AssertionError("DNS forbidden")), patch(
               "dotenv.load_dotenv", side_effect=AssertionError(".env loading forbidden")
-          ):
+          ), patch("psycopg.AsyncConnection.connect", side_effect=AssertionError("Native DB forbidden")):
               suite = unittest.defaultTestLoader.discover("backend/tests")
               result = unittest.TextTestRunner(verbosity=2).run(suite)
-          if result.testsRun == 0 or result.skipped or not result.wasSuccessful():
+          if result.testsRun != 55 or result.skipped or not result.wasSuccessful():
               raise SystemExit(1)
           PY
+
+  postgres-integration:
+    name: Integration / real PostgreSQL 16
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    services:
+      postgres:
+        image: postgres:16.15
+        env:
+          POSTGRES_DB: pg07_ci
+          POSTGRES_USER: pg04_owner
+          # Public, disposable CI credential only; never use for an actual environment.
+          POSTGRES_PASSWORD: pg07-disposable-ci-only
+        options: >-
+          --label wordle.pg07=ci
+          --publish 127.0.0.1::5432
+          --tmpfs /var/lib/postgresql/data:rw,noexec,nosuid,size=256m
+          --tmpfs /var/run/postgresql:rw,noexec,nosuid,size=16m
+          --memory 512m --cpus 1
+          --health-cmd "pg_isready -h 127.0.0.1 -U pg04_owner -d pg07_ci"
+          --health-interval 5s --health-timeout 3s --health-retries 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install existing locked backend dependencies
+        run: |
+          python -m pip install --only-binary=:all: --require-hashes -r backend/requirements.lock
+      - name: Initialize empty database and run eleven real PG-04 tests
+        # Service ID is passed as data, not interpolated into shell source.
+        env:
+          PG07_SERVICE_CONTAINER: ${{ job.services.postgres.id }}
+          PG07_CI_ADMIN_PASSWORD: pg07-disposable-ci-only
+          PYTHONDONTWRITEBYTECODE: "1"
+        run: python -B backend/integration/run_pg07_ci.py --service-container "$PG07_SERVICE_CONTAINER"
 
   frontend-build:
     name: Build / frontend
@@ -84,7 +124,7 @@ jobs:
 
   docker-build:
     name: Build / Docker images (no push)
-    needs: [backend-tests, frontend-build]
+    needs: [backend-tests, postgres-integration, frontend-build]
     runs-on: ubuntu-24.04
     timeout-minutes: 20
     steps:
@@ -264,13 +304,13 @@ jobs:
 
   publish-ghcr:
     name: Publish / GHCR production images
-    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+    # PG-07: publication paused by explicit request; keep definition for later review.
+    if: ${{ false }}
     needs: [backend-tests, frontend-build, docker-build, kubernetes-validation, kind-smoke-test]
     runs-on: ubuntu-24.04
     timeout-minutes: 20
     permissions:
       contents: read
-      packages: write
     steps:
       - uses: actions/checkout@v4
         with:

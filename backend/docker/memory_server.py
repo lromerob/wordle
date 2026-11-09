@@ -48,13 +48,18 @@ with patch("socket.socket.connect", new=guard_connect(original_connect)), patch(
     "dotenv.load_dotenv", side_effect=RuntimeError(".env loading forbidden")
 ):
     from test_backend import MemoryDB
-    from app.database import get_supabase
+    # libpq uses native sockets: block its connection entrypoint as well.
+    import psycopg
+    def no_database(*args, **kwargs):
+        raise RuntimeError("PostgreSQL is forbidden in memory-test mode")
+    psycopg.AsyncConnection.connect = no_database
+    from app.database import get_repository
     from app.main import app
     from app.routers import game
     import uvicorn
 
     database = MemoryDB()
-    app.dependency_overrides[get_supabase] = lambda: database
+    app.dependency_overrides[get_repository] = lambda: database
     # Deterministic solution for manual checks; no game-rule changes.
     game.random.choice = lambda entries: next(row for row in entries if row["palabra"] == "CASAS")
     uvicorn.run(app, host="0.0.0.0", port=8000, workers=1, loop="asyncio")

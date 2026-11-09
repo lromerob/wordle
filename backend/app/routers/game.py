@@ -1,6 +1,6 @@
 import random
 
-from app.database import get_supabase
+from app.database import get_repository
 from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel
 
@@ -35,26 +35,26 @@ def evaluar_intento(palabra_secreta: str, intento: str) -> list[dict]:
 
 
 @router.post("/nueva")
-async def nueva_partida(usuario_id: str, supabase=Depends(get_supabase)):
-    palabra = supabase.table("palabras").select("palabra").execute()
+async def nueva_partida(usuario_id: str, repository=Depends(get_repository)):
+    palabra = await repository.list_words()
 
-    if not palabra.data:
+    if not palabra:
         raise HTTPException(status_code=500, detail="No hay palabras disponibles")
 
-    palabra_elegida = random.choice(palabra.data)["palabra"].upper()
+    palabra_elegida = random.choice(palabra)["palabra"].upper()
 
-    partida = supabase.table("partidas").insert({
+    partida = await repository.create_game({
         "usuario_id": usuario_id,
         "palabra_secreta": palabra_elegida,
         "intentos_usados": 0,
         "estado": "en_curso"
-    }).execute()
+    })
 
-    return {"partida_id": partida.data[0]["id"]}
+    return {"partida_id": partida["id"]}
 
 
 @router.post("/intento")
-async def registrar_intento(body: IntentoPeticion, supabase=Depends(get_supabase)):
+async def registrar_intento(body: IntentoPeticion, repository=Depends(get_repository)):
     palabra = body.palabra.strip()
     # Validate before upper(): Unicode case expansion can change word length.
     if len(palabra) != LONGITUD_PALABRA or any(
@@ -64,46 +64,47 @@ async def registrar_intento(body: IntentoPeticion, supabase=Depends(get_supabase
         raise HTTPException(status_code=400, detail="La palabra debe tener 5 letras de A a Z o Ñ")
     intento = palabra.upper()
 
-    partida = supabase.table("partidas").select("*").eq("id", body.partida_id).limit(1).execute()
+    async with repository.transaction():
+        partida = await repository.get_game_for_update(body.partida_id)
 
-    if not partida.data:
-        raise HTTPException(status_code=404, detail="Partida no encontrada")
+        if not partida:
+            raise HTTPException(status_code=404, detail="Partida no encontrada")
 
-    p = partida.data[0]
-    # Consistency check only: usuario_id is unverified until authentication exists.
-    if p["usuario_id"] != body.usuario_id:
-        raise HTTPException(status_code=403, detail="El usuario no coincide con la partida")
-    if p["estado"] != "en_curso":
-        raise HTTPException(status_code=400, detail=f"La partida ya terminó: {p['estado']}")
+        p = partida
+        # Consistency check only: usuario_id is unverified until authentication exists.
+        if p["usuario_id"] != body.usuario_id:
+            raise HTTPException(status_code=403, detail="El usuario no coincide con la partida")
+        if p["estado"] != "en_curso":
+            raise HTTPException(status_code=400, detail=f"La partida ya terminó: {p['estado']}")
 
-    if p["intentos_usados"] >= MAX_INTENTOS:
-        raise HTTPException(status_code=400, detail="No quedan intentos")
+        if p["intentos_usados"] >= MAX_INTENTOS:
+            raise HTTPException(status_code=400, detail="No quedan intentos")
 
-    palabra_valida = supabase.table("palabras").select("palabra").eq("palabra", intento).execute()
+        palabra_valida = await repository.word_exists(intento)
 
-    if not palabra_valida.data:
-        raise HTTPException(status_code=400, detail="Palabra no válida")
+        if not palabra_valida:
+            raise HTTPException(status_code=400, detail="Palabra no válida")
 
-    resultado = evaluar_intento(p["palabra_secreta"], intento)
-    gano = all(r["estado"] == "correcto" for r in resultado)
-    nuevo_intento = p["intentos_usados"] + 1
-    nuevo_estado = "ganada" if gano else ("perdida" if nuevo_intento >= MAX_INTENTOS else "en_curso")
+        resultado = evaluar_intento(p["palabra_secreta"], intento)
+        gano = all(r["estado"] == "correcto" for r in resultado)
+        nuevo_intento = p["intentos_usados"] + 1
+        nuevo_estado = "ganada" if gano else ("perdida" if nuevo_intento >= MAX_INTENTOS else "en_curso")
 
-    supabase.table("intentos").insert({
-        "partida_id": body.partida_id,
-        "usuario_id": body.usuario_id,
-        "numero": nuevo_intento,
-        "palabra": intento,
-        "resultado": resultado
-    }).execute()
+        await repository.add_guess({
+            "partida_id": body.partida_id,
+            "usuario_id": body.usuario_id,
+            "numero": nuevo_intento,
+            "palabra": intento,
+            "resultado": resultado
+        })
 
-    supabase.table("partidas").update({
-        "intentos_usados": nuevo_intento,
-        "estado": nuevo_estado
-    }).eq("id", body.partida_id).execute()
+        await repository.update_game(body.partida_id, {
+            "intentos_usados": nuevo_intento,
+            "estado": nuevo_estado
+        })
 
-    if nuevo_estado in ("ganada", "perdida"):
-        _actualizar_estadisticas(p["usuario_id"], nuevo_estado == "ganada", nuevo_intento, supabase)
+        if nuevo_estado in ("ganada", "perdida"):
+            await _actualizar_estadisticas(p["usuario_id"], nuevo_estado == "ganada", nuevo_intento, repository)
 
     return {
         "resultado": resultado,
@@ -114,36 +115,36 @@ async def registrar_intento(body: IntentoPeticion, supabase=Depends(get_supabase
 
 
 @router.get("/{partida_id}")
-async def estado_partida(partida_id: str, supabase=Depends(get_supabase)):
-    partida = supabase.table("partidas").select("*").eq("id", partida_id).limit(1).execute()
+async def estado_partida(partida_id: str, repository=Depends(get_repository)):
+    partida = await repository.get_game(partida_id)
 
-    if not partida.data:
+    if not partida:
         raise HTTPException(status_code=404, detail="Partida no encontrada")
 
-    intentos = supabase.table("intentos").select("*").eq("partida_id", partida_id).order("numero").execute()
+    intentos = await repository.get_guesses(partida_id)
 
-    public_partida = dict(partida.data[0])
+    public_partida = dict(partida)
     if public_partida.get("estado") not in ("ganada", "perdida"):
         public_partida.pop("palabra_secreta", None)
-    return {"partida": public_partida, "intentos": intentos.data}
+    return {"partida": public_partida, "intentos": intentos}
 
 
-def _actualizar_estadisticas(usuario_id: str, gano: bool, intentos: int, supabase):
-    stats = supabase.table("estadisticas").select("*").eq("usuario_id", usuario_id).execute()
+async def _actualizar_estadisticas(usuario_id: str, gano: bool, intentos: int, repository):
+    stats = await repository.get_stats_for_update(usuario_id)
 
-    if not stats.data:
-        supabase.table("estadisticas").insert({
+    if not stats:
+        await repository.create_stats({
             "usuario_id": usuario_id,
             "partidas_jugadas": 1,
             "partidas_ganadas": 1 if gano else 0,
             "racha_actual": 1 if gano else 0,
             "racha_maxima": 1 if gano else 0,
             "intentos_promedio": intentos if gano else 0
-        }).execute()
+        })
     else:
-        s = stats.data[0]
+        s = stats
         nueva_racha = (s["racha_actual"] + 1) if gano else 0
-        supabase.table("estadisticas").update({
+        await repository.update_stats(usuario_id, {
             "partidas_jugadas": s["partidas_jugadas"] + 1,
             "partidas_ganadas": s["partidas_ganadas"] + (1 if gano else 0),
             "intentos_promedio": (
@@ -153,4 +154,4 @@ def _actualizar_estadisticas(usuario_id: str, gano: bool, intentos: int, supabas
             ),
             "racha_actual": nueva_racha,
             "racha_maxima": max(s["racha_maxima"], nueva_racha),
-        }).eq("usuario_id", usuario_id).execute()
+        })
