@@ -2,6 +2,25 @@
 
 Fecha: 08/11/2026. **Backlog propuesto para revisión y aprobación; no es el backlog oficial y no autoriza implementación.** Se conservan arquitectura y tecnologías existentes. Fuente académica y estado: [matriz](TFG-COMPLIANCE-MATRIX.md); decisiones y riesgos: [brechas](TFG-GAP-ANALYSIS.md).
 
+## Seguimiento vigente — FIN-01T, 10/11/2026
+
+El responsable aprobó la hoja FIN posteriormente a su redacción y ha aprobado expresamente el cierre de FIN-01. Este registro actualiza únicamente el estado indicado; las definiciones históricas y las 22 tareas/dependencias se conservan. No se crea ni actualiza un backlog externo.
+
+| Identificador | Estado | Aceptación y evidencia |
+|---|---|---|
+| FIN-01 | **Completado** — 10 de noviembre de 2026 | Aprobada por el responsable del proyecto. Baseline PostgreSQL ratificado como esquema inicial para base nueva; no equivalencia total con Supabase. Validaciones SQL FIN-01B, API/driver PG-04, persistencia PG-05/06 y CI remoto PG-07/PUB-05B. |
+| FIN-02 | **Pendiente** — no iniciado por FIN-01T | Dependencia FIN-01 satisfecha; criterios originales conservados. [Punto de partida](../fin-02/FIN-02-STARTING-POINT.md). |
+
+Commit publicado de referencia: `b330ae70caf08ac789786376ca5de0305ea4471f`, rama `codex/pg01-07-consolidation`. [CI VERIFIED, run 42692713269](https://github.com/lromerob/wordle/actions/runs/42692713269): 55 offline y 11 reales, sin omisiones según guardas exitosas; builds frontend/Docker, Kustomize, kind memoria y Terraform correctos. GHCR omitido intencionadamente; no AKS desplegado. Detalle y límite de logs HTTP403 en [PUB-05B](../pub-05b/PUB-05B-CI-RESULTS.md).
+
+Evidencia documental seleccionada para un futuro commit, **sin git add**:
+
+- [Matriz FIN-01R, incluido diagrama](../fin-01r/FIN-01R-ACCEPTANCE-MATRIX.md).
+- [Decisión arquitectónica FIN-01S](../fin-01s/FIN-01S-ARCHITECTURE-DECISION.md).
+- [Recomendación de cierre FIN-01S](../fin-01s/FIN-01S-CLOSURE-RECOMMENDATION.md).
+
+Los demás informes se preservan sin modificaciones ni incorporación automática. La revisión detallada FIN-01S y los resultados locales existentes siguen como soporte consultable. Los estados anteriores «pendiente/ready» conservan su fecha y no se reescriben retroactivamente. FIN-01T registra ahora la aceptación final, no nuevas pruebas ni cierre de FIN-02 u otras tareas.
+
 ## Estrategia y dependencias
 
 Camino crítico: FIN-01 esquema -> FIN-02 persistencia/restore -> FIN-03 seguridad decidida -> FIN-05/06/07 perfil AKS/Ingress/secretos -> FIN-08/09 promoción y rollback -> FIN-15 stack integrado -> FIN-16 prerrequisitos Azure -> FIN-17 despliegue controlado -> FIN-18 evidencia Azure -> FIN-19 recreación -> FIN-20 memoria -> FIN-21 ensayo -> FIN-22 respuestas a docente.

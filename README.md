@@ -5,10 +5,13 @@ Aplicación académica: React/Vite servido por Nginx → `/api` → FastAPI →
 Supabase ya no es una dependencia operativa. El nombre `supabase/` se conserva
 para no romper la ruta de la migración estructural validada.
 
-PG-01 a PG-07 tienen evidencia local; el CI PostgreSQL nuevo **todavía no tiene
-una ejecución real verificada en GitHub**. AKS es un objetivo posterior, no un
-despliegue validado. No están implementados Blue-Green, rollback automático,
-Ingress definitivo ni observabilidad completa. FIN-01 continúa pendiente.
+PG-01 a PG-07 tienen evidencia local y [CI remoto verificado](https://github.com/lromerob/wordle/actions/runs/42692713269)
+para el commit `b330ae70caf08ac789786376ca5de0305ea4471f`.
+FIN-01 está **Completado**, aprobado por el responsable el 10/11/2026;
+[registro de cierre](docs/analysis/tfg-plan-001/TFG-COMPLETION-PLAN.md).
+FIN-02 permanece pendiente. AKS es un objetivo posterior, no un despliegue
+validado. No están implementados Blue-Green, rollback automático, Ingress
+definitivo ni observabilidad completa.
 
 ## Requisitos e instalación
 
@@ -193,7 +196,7 @@ eliminar kind. Manual/evidencia y limpieza autorizada:
 
 ## Integración continua y estado de validación
 
-[ci.yml](.github/workflows/ci.yml) se configura para PR, manual y push a main:
+[ci.yml](.github/workflows/ci.yml) se configura para PR, manual y push a `main` y `codex/**`:
 55 offline, servicio PostgreSQL16.15/once reales, npm ci/build, builds Docker,
 Kustomize memoria, kind memoria efímero y validación Terraform sin Azure.
 El job GHCR se conserva **deshabilitado** y sin permiso packages:write.
@@ -201,9 +204,13 @@ No hay CD persistente ni publicación de imágenes autorizada por este README.
 
 [PG-07](docs/analysis/pg-07/PG-07-TEST-RESULTS.md) registra 55 offline aprobadas en
 Windows/Linux y once reales más outage, así como builds locales con caché válida.
-Son resultados locales del 09/11/2026, no prueba de un workflow remoto verde.
-Los archivos nuevos deben incluirse junto al código/lock para que checkout CI
-sea completo; PUB-02 prepara un manifiesto, no los incorpora al índice.
+Son resultados locales del 09/11/2026. Posteriormente,
+[PUB-05B](docs/analysis/pub-05b/PUB-05B-CI-RESULTS.md) confirmó el run remoto
+42692713269 para el commit publicado: siete jobs obligatorios correctos y GHCR
+omitido intencionadamente. Los conteos 55/11 se sustentan en las guardas de los
+pasos exitosos; no se descargaron logs completos (HTTP403). El smoke kind usa
+memoria, no PostgreSQL persistente ni AKS. La rama publicada contiene las fuentes,
+el lock y los recursos necesarios para checkout CI; no se afirma su merge a main.
 
 ## Seguridad e historia
 
@@ -218,12 +225,13 @@ HA ni resolución de un fallo exactamente al COMMIT. Véanse
 histórico Supabase. Los scripts de permisos abiertos **no forman parte del
 bootstrap actual**. Los informes FIN/plan se conservan como trazabilidad del
 momento en que se redactaron; no son instrucciones para reactivar Supabase ni
-actualizaciones del backlog. La hoja TFG-PLAN-001 fue aprobada posteriormente
-por el propietario; sus archivos conservan el texto de propuesta original.
+actualizaciones automáticas del backlog. La hoja TFG-PLAN-001 fue aprobada
+posteriormente por el propietario; conserva sus definiciones originales y añade
+el registro vigente FIN-01T de cierre de FIN-01.
 FIN-02 corresponde a datos/recuperación y FIN-03 a límites de seguridad; esta
 nota no cambia el estado ni las dependencias de esas tareas. La auditoría
 [PUB-01](docs/analysis/pub-01/PUB-01-REPOSITORY-AUDIT.md) es histórica; el estado de
-consolidación más reciente está en [PUB-02](docs/analysis/pub-02/PUB-02-CORRECTION-REPORT.md).
+consolidación más reciente está en [PUB-05B](docs/analysis/pub-05b/PUB-05B-PUSH-REPORT.md), tras la corrección de identidad PUB-05C.
 
 ## Registro anterior a la transición PostgreSQL
 
