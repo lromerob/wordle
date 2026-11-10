@@ -9,7 +9,9 @@ PG-01 a PG-07 tienen evidencia local y [CI remoto verificado](https://github.com
 para el commit `b330ae70caf08ac789786376ca5de0305ea4471f`.
 FIN-01 está **Completado**, aprobado por el responsable el 10/11/2026;
 [registro de cierre](docs/analysis/tfg-plan-001/TFG-COMPLETION-PLAN.md).
-FIN-02 permanece pendiente. AKS es un objetivo posterior, no un despliegue
+FIN-02 está **Completado** desde el 10/11/2026: [semillas idempotentes](docs/analysis/fin-02a/FIN-02A-IMPLEMENTATION-REPORT.md)
+y [restauración independiente PostgreSQL con SQL/HTTP real](docs/analysis/fin-02b/FIN-02B-RESTORE-REPORT.md).
+FIN-03 permanece pendiente. AKS es un objetivo posterior, no un despliegue
 validado. No están implementados Blue-Green, rollback automático, Ingress
 definitivo ni observabilidad completa.
 

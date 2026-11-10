@@ -2,14 +2,15 @@
 
 Fecha: 08/11/2026. **Backlog propuesto para revisión y aprobación; no es el backlog oficial y no autoriza implementación.** Se conservan arquitectura y tecnologías existentes. Fuente académica y estado: [matriz](TFG-COMPLIANCE-MATRIX.md); decisiones y riesgos: [brechas](TFG-GAP-ANALYSIS.md).
 
-## Seguimiento vigente — FIN-01T, 10/11/2026
+## Seguimiento vigente — FIN-01T / FIN-02C, 10/11/2026
 
-El responsable aprobó la hoja FIN posteriormente a su redacción y ha aprobado expresamente el cierre de FIN-01. Este registro actualiza únicamente el estado indicado; las definiciones históricas y las 22 tareas/dependencias se conservan. No se crea ni actualiza un backlog externo.
+El responsable aprobó la hoja FIN posteriormente a su redacción y ha aprobado expresamente el cierre de FIN-01. FIN-02C registra además la aceptación técnica de FIN-02 autorizada por el responsable tras revisar sus evidencias. Este registro actualiza únicamente los estados indicados; las definiciones históricas y las 22 tareas/dependencias se conservan. No se crea ni actualiza un backlog externo.
 
 | Identificador | Estado | Aceptación y evidencia |
 |---|---|---|
 | FIN-01 | **Completado** — 10 de noviembre de 2026 | Aprobada por el responsable del proyecto. Baseline PostgreSQL ratificado como esquema inicial para base nueva; no equivalencia total con Supabase. Validaciones SQL FIN-01B, API/driver PG-04, persistencia PG-05/06 y CI remoto PG-07/PUB-05B. |
-| FIN-02 | **Pendiente** — no iniciado por FIN-01T | Dependencia FIN-01 satisfecha; criterios originales conservados. [Punto de partida](../fin-02/FIN-02-STARTING-POINT.md). |
+| FIN-02 | **Completado** — 10 de noviembre de 2026 | Aceptación técnica autorizada por el responsable, al verificarse los criterios originales: [semillas FIN-02A](../fin-02a/FIN-02A-IMPLEMENTATION-REPORT.md) y [recuperación independiente FIN-02B](../fin-02b/FIN-02B-RESTORE-REPORT.md), con respaldo PG-05/06 para E2E persistente y reinicio. [Punto de partida histórico](../fin-02/FIN-02-STARTING-POINT.md). |
+| FIN-03 | **Pendiente** — no iniciado por FIN-02C | Siguiente tarea: cerrar límites de seguridad para demo, conforme a su definición original. No se aprueba exposición pública ni un sistema nuevo de autenticación. |
 
 Commit publicado de referencia: `b330ae70caf08ac789786376ca5de0305ea4471f`, rama `codex/pg01-07-consolidation`. [CI VERIFIED, run 42692713269](https://github.com/lromerob/wordle/actions/runs/42692713269): 55 offline y 11 reales, sin omisiones según guardas exitosas; builds frontend/Docker, Kustomize, kind memoria y Terraform correctos. GHCR omitido intencionadamente; no AKS desplegado. Detalle y límite de logs HTTP403 en [PUB-05B](../pub-05b/PUB-05B-CI-RESULTS.md).
 
@@ -20,6 +21,24 @@ Evidencia documental seleccionada para un futuro commit, **sin git add**:
 - [Recomendación de cierre FIN-01S](../fin-01s/FIN-01S-CLOSURE-RECOMMENDATION.md).
 
 Los demás informes se preservan sin modificaciones ni incorporación automática. La revisión detallada FIN-01S y los resultados locales existentes siguen como soporte consultable. Los estados anteriores «pendiente/ready» conservan su fecha y no se reescriben retroactivamente. FIN-01T registra ahora la aceptación final, no nuevas pruebas ni cierre de FIN-02 u otras tareas.
+
+## Aceptación FIN-02 — FIN-02C, 10/11/2026
+
+El responsable autorizó el cierre condicionado a evidencia suficiente; la revisión confirma los criterios originales sin añadir requisitos de producción. PostgreSQL nuevo y datos sintéticos, sin migración de historial Supabase. El corpus de cinco palabras solicitado e implementado en FIN-02A es el conjunto acotado de demostración; no se presenta como diccionario general.
+
+| Criterio original / componente | Estado | Evidencia concreta y alcance |
+|---|---|---|
+| Inicialización y datos sintéticos compatibles | PASS | Baseline ratificado, FIN-02A: cinco palabras, tres partidas ganada/perdida/activa, ocho intentos y estadísticas coherentes; FK real respetada, sin tabla Auth inventada. |
+| Dos cargas sin duplicados, datos ajenos intactos | PASS | FIN-02A: tres cargas con misma huella de todas las filas y secuencia; cuatro registros ajenos preservados; autorización y colisiones rechazadas. |
+| Respaldo y restauración desde cero | PASS | FIN-02B: pg_dump custom7098bytes y SHA256 registrado; pg_restore en otra instancia vacía, sin reutilizar almacenamiento; rol/grants preparados por script vigente. |
+| Integridad SQL tras restore | PASS | FIN-02B: esquema/constraints/índices, todas las filas/IDs/FK/estadísticas y secuencia iguales; snapshot origen/destino 6d3e00b87366427c25e49fe91ea078cd0f4f0cbdc3149567f4b904df8e349890; origen intacto. |
+| Recuperación funcional y E2E persistente válido/inválido/victoria/derrota | PASS | FIN-02B HTTP TCP real: lectura de las tres partidas restauradas, stats/ranking, inválido sin escritura y victoria sobre activa restaurada, media1.5 y nueva partida. PG-05/PG-06 ya demostraron derrota completa de seis y los demás casos sobre PG persistente. No se afirma una nueva derrota completa en el destino restaurado. |
+| Reinicio conserva datos | PASS | PG-05-TEST-RESULTS.md: restart/down-up sobre mismo volumen y snapshots idénticos; PG-06-TEST-RESULTS.md: recreación de pod y reinicio app sobre mismo PVC. Se reutiliza evidencia válida; no se afirma reinicio del destino tmpfs FIN-02B. |
+| Reproducibilidad, evidencia y aislamiento/limpieza | PASS | Scripts opt-in run_fin02a.py/run_fin02b.py y seed versionables, sin destinos arbitrarios por CLI; informes con comandos, huellas/resultados y retirada verificada de recursos propios. Sin operaciones PG-05/06 ni secretos/binaries en Git. |
+
+La recuperación independiente pendiente de PG-05 queda demostrada por FIN-02B, no solo por exit0 de pg_restore. Se mantienen límites: una instancia sin HA, corpus de demo pequeño, seguridad de jugador pendiente FIN-03 y sin certificación de backup de producción. No se repitieron pruebas, servicios ni builds en FIN-02C. Los informes previos conservan sus fechas/resultados; sus referencias a «pendiente de cierre» describen el estado anterior a esta aceptación. No se marca otra tarea completada.
+
+Consolidación autorizada: seed, ambos ejecutores, informes FIN-02A/FIN-02B, este plan y corrección mínima de estado en README. Sin informes PUB adicionales ni cambio funcional, SQL baseline o infraestructura. El commit es local; cualquier push y CI nuevo requieren autorización posterior. Siguiente tarea: **FIN-03 — Cerrar límites de seguridad para demo**, sin iniciarla ahora.
 
 ## Estrategia y dependencias
 
