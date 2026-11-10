@@ -68,3 +68,16 @@ Se consolida FIN-05 a FIN-15 y se habilita el job GHCR existente tras los siete 
 Validación local de esta consolidación: Python AST, YAML/JSON, Bash y Python embebido en el workflow; cuatro pruebas de telemetría aprobadas; seis perfiles Kustomize correctos (6/10/19/19/27/63 objetos), sin valores de Secret. Terraform 1.9.8 fmt/init sin backend/validate satisfactorios en copia temporal: el primer intento con lock readonly impidió completar el hash Linux; con el init normal de CI se completó solo en esa copia y validate pasó. No se modifica el lock del repositorio ni se opera Azure. No se repiten demos kind completas; sus JSON existentes confirman PASS local.
 
 FIN-04 permanece PARTIAL hasta la evidencia remota y GHCR. El criterio histórico «publicación solo en main» se conserva en el plan y no se da por satisfecho con la excepción autorizada de rama. FIN-05 conserva aceptación AKS pendiente; publicar imágenes no acredita un despliegue Azure. Los doce informes históricos se excluyen y se verifican por SHA-256.
+
+## FIN-CONSOLIDATE — GHCR y CI verificados
+
+Commit fuente publicado: `782d37abaf96471f8db0e637a415647b5055cb96`. [Workflow satisfactorio](https://github.com/lromerob/wordle/actions/runs/42840960356): ocho jobs success, incluidos los siete controles previos y el publicador GHCR. Guards exitosos: 55 backend, 9 CORS, 11 PostgreSQL y 12 frontend, sin omisiones; cuatro pruebas adicionales de telemetría aprobadas. Se ejecutaron builds, runtime por ID, seis renders Kustomize, smoke kind y Terraform. Advertencia Node.js 20/24 de mantenimiento, sin convertirla en vulnerabilidad confirmada.
+
+Referencias publicadas y verificadas (linux/amd64):
+
+- Backend: `ghcr.io/lromerob/wordle-backend@sha256:cb070479c18b6c0edbdc469774b55a09f31397809d7449f64f9fd86fbd1b388a`; tamaño local descomprimido 315335981 bytes.
+- Frontend: `ghcr.io/lromerob/wordle-frontend@sha256:411839215543e410458e5de93850f4ad5de16f66b181285b5a055b583821084f`; tamaño local descomprimido 92817925 bytes.
+
+Ambas usan etiqueta del SHA completo y etiqueta OCI revision coincidente. El publicador, autenticado únicamente mediante GITHUB_TOKEN con packages:write limitado a ese job, descargó ambas por digest, comprobó igualdad con el ID construido y verificó HTTP 200/healthy en contenedores sin red/puertos/credenciales. Artefacto wordle-ghcr-images-1 y anotaciones contienen las referencias. También se ejecutó docker pull por ambos digests desde Windows, exit 0 y revisión coincidente; no se configuraron nuevas credenciales. Los tamaños anteriores no son tamaños comprimidos de descarga. AKS fija estos digests; demo-kind/Blue-Green/observabilidad conservan sus imágenes locales. No se usa latest.
+
+**FIN-04 PARTIAL por criterio original**: la evidencia técnica de artefactos ya está satisfecha, pero el plan exige publicación solo en main y esta publicación usa la excepción de rama autorizada por FIN-CONSOLIDATE. No se afirma haber cumplido ese requisito original ni se modifica silenciosamente. **FIN-05 PARTIAL**: dependencia técnica GHCR resuelta; validación real AKS/FIN-18 sigue pendiente. Ninguna publicación acredita Azure, CSI o capacidad gestionada. No se ha desplegado Azure, ejecutado apply ni modificado PG-05/PG-06. Los doce históricos siguen excluidos e íntegros.

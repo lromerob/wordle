@@ -365,3 +365,11 @@ Para la defensa, reconstruir el día anterior y verificar íntegramente; reserva
 ## Relación con backlog oficial
 
 No se detectó un archivo de backlog oficial. No se crean tickets ni se modifica ninguna herramienta externa. Tras aprobación, mapear FIN-01..FIN-22 a los IDs oficiales y revisar prioridades, sin duplicar tareas completadas ni reemplazar el enunciado por este plan.
+
+## FIN-CONSOLIDATE — consolidación y artefactos, 10/11/2026
+
+FIN-05 a FIN-15 consolidados en `782d37abaf96471f8db0e637a415647b5055cb96`. [CI/GHCR satisfactorios](https://github.com/lromerob/wordle/actions/runs/42840960356): siete controles CI y publicación GHCR aprobados; 55 backend + 9 CORS + 11 PostgreSQL + 12 frontend sin omisiones y cuatro pruebas de telemetría. Backend/frontend descargados por digest y runtime HTTP 200/healthy verificado; perfil AKS fija las referencias inmutables conservadas en [FIN-04](../fin-04/FIN-04-IMPLEMENTATION-REPORT.md).
+
+- FIN-04 **PARTIAL respecto al criterio original**: artefactos/digests disponibles; el criterio «publicación solo en main» no se acredita mediante la excepción de rama expresamente autorizada en FIN-CONSOLIDATE. No se reescriben los criterios originales.
+- FIN-05 **PARTIAL**: GHCR disponible y perfiles locales separados; aceptación real en AKS/FIN-18 pendiente, sin crear recursos Azure.
+- FIN-06 a FIN-15 conservan únicamente el alcance local demostrado anteriormente; esta ejecución CI no repite la demo completa de observabilidad/Blue-Green. No se inicia FIN-16 ni se toca PG-05/PG-06. Doce informes históricos excluidos.

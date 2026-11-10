@@ -8,10 +8,10 @@ resources:
 images:
   - name: wordle-backend
     newName: ghcr.io/lromerob/wordle-backend
-    newTag: 774405e6b92c33b438509832c6722605fee7d289
+    digest: sha256:cb070479c18b6c0edbdc469774b55a09f31397809d7449f64f9fd86fbd1b388a
   - name: wordle-frontend
     newName: ghcr.io/lromerob/wordle-frontend
-    newTag: 774405e6b92c33b438509832c6722605fee7d289
+    digest: sha256:411839215543e410458e5de93850f4ad5de16f66b181285b5a055b583821084f
 configMapGenerator:
   - name: wordle-pg-config
     behavior: merge

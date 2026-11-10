@@ -47,3 +47,7 @@ GHCR sigue deshabilitado y no se han publicado imágenes. Azure sigue sin aprovi
 Los doce informes históricos y la modificación local del informe FIN-04 se preservan byte a byte; índice vacío. `git diff --check` satisfactorio. La evidencia es local, no una nueva ejecución GitHub Actions.
 
 Fuentes oficiales: [Traefik Ingress](https://doc.traefik.io/traefik/reference/install-configuration/providers/kubernetes/kubernetes-ingress/), [soporte de releases](https://doc.traefik.io/traefik/deprecation/releases/), [restricciones pool System AKS](https://learn.microsoft.com/en-us/azure/aks/use-system-pools).
+
+## Actualización FIN-CONSOLIDATE
+
+GHCR ya no está deshabilitado para la rama expresamente autorizada: [publicación y verificaciones reales](https://github.com/lromerob/wordle/actions/runs/42840960356), fuente `782d37abaf96471f8db0e637a415647b5055cb96`. Backend/frontend recuperados por digest y fijados en k8s/aks; los perfiles kind conservan imágenes locales. Se resuelve la disponibilidad técnica de artefactos, sin afirmar una prueba AKS. FIN-05 permanece PARTIAL para aceptación cloud FIN-18; FIN-04 conserva el pendiente de su criterio histórico solo-main. Los apartados anteriores describen la ejecución local previa a esta consolidación.
