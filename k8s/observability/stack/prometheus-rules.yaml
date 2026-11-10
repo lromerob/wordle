@@ -1,0 +1,10 @@
+groups:
+- name: wordle
+  rules:
+  - alert: WordleUnavailable
+    expr: sum(wordle_backend_dependency_ready) < 1 or sum(up{job="wordle"}) < 1
+    for: 5s
+    labels:
+      severity: demo
+    annotations:
+      summary: No real Wordle backend scrape is available

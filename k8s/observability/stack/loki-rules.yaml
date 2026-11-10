@@ -1,0 +1,12 @@
+groups:
+- name: wordle-log
+  interval: 5s
+  rules:
+  - alert: WordleCriticalLog
+    expr: sum(count_over_time({service_name=~"wordle-(backend|frontend)"} | json |
+      level="ERROR" [20s])) > 0
+    for: 5s
+    labels:
+      severity: demo
+    annotations:
+      summary: Sanitized operational ERROR observed

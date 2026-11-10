@@ -1,0 +1,39 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: wordle-observability
+resources:
+- resources.yaml
+configMapGenerator:
+- name: collector-config
+  files:
+  - collector.yaml
+- name: loki-config
+  files:
+  - loki.yaml
+- name: loki-rules
+  files:
+  - rules.yaml=loki-rules.yaml
+- name: tempo-config
+  files:
+  - tempo.yaml
+- name: prometheus-config
+  files:
+  - prometheus.yaml
+- name: prometheus-rules
+  files:
+  - rules.yaml=prometheus-rules.yaml
+- name: alertmanager-config
+  files:
+  - alertmanager.yaml
+- name: grafana-datasources
+  files:
+  - datasources.yaml
+- name: grafana-providers
+  files:
+  - dashboards.yaml
+- name: grafana-dashboard
+  files:
+  - dashboard.json
+- name: notification-receiver
+  files:
+  - receiver.py

@@ -1,0 +1,32 @@
+apiVersion: networking.k8s.io/v1
+kind: IngressClass
+metadata:
+  name: wordle-traefik
+spec:
+  controller: traefik.io/ingress-controller
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: wordle
+spec:
+  ingressClassName: wordle-traefik
+  rules:
+    - host: wordle.test
+      http:
+        paths:
+          # Preserve /api: the existing Nginx proxy strips it before FastAPI.
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: frontend
+                port:
+                  number: 8080
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: frontend
+                port:
+                  number: 8080

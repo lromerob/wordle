@@ -1,0 +1,41 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- ../demo-kind
+- green.yaml
+- services.yaml
+configMapGenerator:
+- name: wordle-nginx-blue
+  files:
+  - nginx.conf=blue.conf
+- name: wordle-nginx-green
+  files:
+  - nginx.conf=green.conf
+- name: wordle-nginx-blue-fault
+  files:
+  - nginx.conf=blue-fault.conf
+patches:
+- target:
+    kind: Deployment
+    name: backend
+  patch: '[{"op": "replace", "path": "/metadata/name", "value": "backend-blue"}, {"op":
+    "add", "path": "/spec/selector/matchLabels/wordle.slot", "value": "blue"}, {"op":
+    "add", "path": "/spec/template/metadata/labels/wordle.slot", "value": "blue"}]'
+- target:
+    kind: Deployment
+    name: frontend
+  patch: '[{"op": "replace", "path": "/metadata/name", "value": "frontend-blue"},
+    {"op": "add", "path": "/spec/selector/matchLabels/wordle.slot", "value": "blue"},
+    {"op": "add", "path": "/spec/template/metadata/labels/wordle.slot", "value": "blue"},
+    {"op": "replace", "path": "/spec/template/spec/volumes/1/configMap/name", "value":
+    "wordle-nginx-blue"}]'
+- target:
+    kind: Service
+    name: backend
+  patch: '[{"op": "replace", "path": "/metadata/name", "value": "backend-blue"}, {"op":
+    "add", "path": "/spec/selector/wordle.slot", "value": "blue"}]'
+- target:
+    kind: Service
+    name: frontend
+  patch: '[{"op": "add", "path": "/spec/selector/wordle.slot", "value": "blue"}]'
+namespace: wordle-demo

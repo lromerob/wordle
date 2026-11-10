@@ -12,9 +12,9 @@ Estado: código preparado, sin aprovisionamiento ni conexión con Azure. No se h
 - Salida mediante Standard Load Balancer y una IP pública administrada. Son recursos asociados facturables aunque no se exponga ningún Service de la aplicación. No se crea NAT Gateway.
 - Sin ACR, base de datos Azure, Log Analytics, Prometheus, Ingress, CD, Blue-Green ni rollback.
 
-Las imágenes de producción proceden de GHCR; Azure Managed Identity no autentica contra GHCR. La visibilidad pública de los paquetes debe verificarse antes de desplegar. Paquetes privados requerirían una decisión posterior de autenticación/imagePullSecrets; no se añaden tokens aquí. Supabase continúa como base de datos externa y no se configura ni contacta desde este módulo. kind sigue siendo el entorno efímero del CI.
+Las imágenes de producción proceden de GHCR; Azure Managed Identity no autentica contra GHCR. La visibilidad pública de los paquetes debe verificarse antes de desplegar. Paquetes privados requerirían una decisión posterior de autenticación/imagePullSecrets; no se añaden tokens aquí. La arquitectura ratificada utiliza PostgreSQL 16 directo, una réplica con PVC en Kubernetes; no hay dependencia operativa de Supabase ni base administrada de Azure. kind sigue siendo el entorno efímero del CI.
 
-Los manifiestos k8s/local NO son manifiestos AKS de producción: usan imagePullPolicy Never, etiquetas locales y memoria con estado efímero. Su futura adaptación a imágenes GHCR por SHA y configuración de producción queda fuera de DEVOPS-04A.
+Los manifiestos k8s/local NO son manifiestos AKS de producción: usan imagePullPolicy Never, etiquetas locales y memoria con estado efímero. El perfil separado k8s/aks referencia runtimes GHCR por SHA y PostgreSQL real; k8s/demo-kind lo valida con imágenes locales. La disponibilidad de los paquetes GHCR sigue pendiente de FIN-04; no se acredita un despliegue AKS.
 
 ## Versiones y capacidad
 
@@ -169,3 +169,12 @@ Terraform 1.9.8 ejecutado mediante binario oficial temporal con SHA256 comprobad
 - Se incorpora .terraform.lock.hcl; los hashes zh de los paquetes distribuidos permiten verificar también el paquete Linux usado en CI. .terraform/ permanece ignorado.
 
 Estas comprobaciones no confirman precio, cuota, acceso Entra, conectividad ni despliegue funcional en Azure. La ejecución del séptimo job en GitHub sigue pendiente.
+
+
+## FIN-05/06/07: perfil privado de aplicación
+
+La base Terraform existente ya declara RG, red, pool System, identidad, RBAC de red, variables y outputs. No se duplican recursos ni se reduce arbitrariamente el SKU: dos D4s_v5 siguen siendo el punto inicial parametrizado; comprobar coste/cuota y capacidad antes de cualquier apply. No hay capacidad de observabilidad garantizada. AKS Free no elimina los costes de nodos, discos, IP/salida, Load Balancer o estado.
+
+Después de un aprovisionamiento futuro expresamente autorizado, el perfil `k8s/aks` requiere StorageClass `managed-csi`, paquetes GHCR accesibles y secretos externos. Su controlador Traefik es ClusterIP: no crea otro LoadBalancer ni exposición pública. Acceso privado mediante port-forward para la demo; no activar exposición pública como parte de este perfil. PostgreSQL mantiene una réplica y PVC 8Gi, sin HA. Nginx conserva el proxy /api y FastAPI permanece ClusterIP.
+
+Reproducción local y decisión DNS/TLS/secretos: `k8s/README.md`, sección FIN-05/06/07. La validación local no demuestra disponibilidad de SKU, permisos Entra, discos CSI ni conectividad de AKS. No se ejecutan plan, apply o destroy en este incremento.

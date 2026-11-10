@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-blue
+  namespace: wordle-demo
+spec:
+  template:
+    spec:
+      containers:
+      - name: frontend
+      - name: log-agent
+        image: otel/opentelemetry-collector-contrib:0.165.0
+        args:
+        - --config=/etc/agent/config.yaml
+        resources:
+          requests:
+            cpu: 25m
+            memory: 48Mi
+          limits:
+            cpu: 150m
+            memory: 128Mi
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          capabilities:
+            drop:
+            - ALL
+        volumeMounts:
+        - name: tmp
+          mountPath: /var/wordle
+          readOnly: true
+        - name: log-agent
+          mountPath: /etc/agent
+          readOnly: true
+      volumes:
+      - name: tmp
+      - name: nginx-config
+      - name: log-agent
+        configMap:
+          name: wordle-log-agent-blue

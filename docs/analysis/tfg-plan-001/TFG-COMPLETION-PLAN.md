@@ -82,6 +82,13 @@ Es una representación de gates, no una obligación de serializar todo. FIN-04 p
 
 Las estimaciones son días efectivos de trabajo de una persona familiarizada con el repositorio, unas 6 horas/día; no son plazos ni compromisos. Las esperas por docente, permisos, cuota o revisión no se incluyen. Cada evidencia debe identificar commit/digest, modo memoria o Supabase y entorno.
 
+## Avance FIN-05/06/07 — implementación integrada local, 10/11/2026
+
+- **FIN-05 PARTIAL**: perfiles Kustomize AKS/runtime PostgreSQL y kind separados, render y prueba integrada local satisfactorios; Terraform existente validado sin Azure. La dependencia FIN-04 sigue abierta para disponibilidad/verificación de imágenes GHCR; no se acredita un despliegue AKS.
+- **FIN-06 PASS en alcance local**: único controlador Traefik, Ingress host/rutas comprobados en kind a través de Nginx/API, sin servicios públicos. DNS/TLS cloud documentados y pendientes de verificación FIN-18 si se autorizan.
+- **FIN-07 PASS en alcance local**: Secret externo por stdin, referencias y permisos documentados; recuperación desde la misma fuente externa y nueva conexión backend verificadas, sin valores en Git/render. No se afirma rotación automática, cifrado garantizado del estado ni aislamiento de jugadores.
+- Evidencia y reproducción: [informe integrado FIN-05/06/07](../fin-05-07/FIN-05-07-INFRASTRUCTURE-REPORT.md). Clústeres temporales retirados; PG-05/PG-06 y la modificación local FIN-04 preservados. No cambia el estado de otras tareas ni se inicia Blue-Green.
+
 ### F1
 
 #### FIN-01 - Reproducir esquema Supabase
@@ -156,6 +163,12 @@ Las estimaciones son días efectivos de trabajo de una persona familiarizada con
 - Riesgos: Base64 no es cifrado; planes/estado/logs pueden filtrar.
 - Esfuerzo orientativo: 1-1.5 días.
 
+## Avance FIN-08/09 — Blue-Green y rollback local, 10/11/2026
+
+- **FIN-08 PASS local**: dos parejas frontend/backend identificadas por cabecera y selectores, PostgreSQL/PVC único compartido; Blue atendió mientras Green arrancaba y la promoción se verificó por HTTP. En la ejecución final, 86 muestras durante preparación/promoción normal sin errores observados; no es una garantía de disponibilidad continua.
+- **FIN-09 PASS local**: revisión Blue no sana rechazada sin cambiar Green; promoción real posterior a Blue, fallo funcional 503 provocado y rollback automático del selector a Green. Datos/secuencia y PVC intactos; recuperación verificada antes de limpiar el clúster. Las dos pruebas son distintas y no hay rollback de base de datos.
+- Evidencia: [informe FIN-08/09](../fin-08-09/FIN-08-09-BLUE-GREEN-REPORT.md), con 405 peticiones muestreadas y cuatro fallos durante la avería provocada. Sin intervención manual en promoción/recuperación de la ejecución final. Falta repetir en Azure en FIN-18; no cambia FIN-04/05 ni se publican imágenes. No se inicia la tarea siguiente.
+
 ### F3
 
 #### FIN-08 - Blue-Green demostrable
@@ -177,6 +190,16 @@ Las estimaciones son días efectivos de trabajo de una persona familiarizada con
 - Necesidad de Azure: No para desarrollo; sí repetición final FIN-18.
 - Riesgos: Confundir cleanup con rollback; rollback de datos no diseñado.
 - Esfuerzo orientativo: 1-2 días.
+
+## Avance FIN-10 a FIN-15 — observabilidad integrada local, 10/11/2026
+
+- **FIN-10 PASS local**: intento real con span HTTP, métrica OTLP exportada a Prometheus y error 500 correlacionado por trace ID; Collector y Tempo consultados, sin datos de entrada/solución en telemetría.
+- **FIN-11 PASS local**: seis targets UP; cAdvisor por kubelet/API con RBAC, Node Exporter y métricas reales de contenedores/nodo. Endpoints gestionados de AKS pendientes de FIN-18.
+- **FIN-12 PASS local**: Loki recibe backend por OTLP y frontend por agente Collector filelog; errores y conmutaciones/rollback consultados. Retención configurada 24h sobre almacenamiento efímero, no durabilidad de producción.
+- **FIN-13 PASS local**: Grafana provisiona tres datasources y ocho paneles desde cero; consultas de métricas/logs a través de Grafana devuelven datos. Sin captura de render visual ni configuración manual.
+- **FIN-14 PASS local**: alerta métrica WordleUnavailable y de log WordleCriticalLog; webhook HTTP dedicado recibió firing/resolved reales, emparejados por startsAt. Receptor externo a los motores de alerta pero dentro del clúster de demo; no correo/Slack ni canal corporativo.
+- **FIN-15 PASS local**: E2E, Blue-Green y rollback visibles en señales; datos persistidos intactos, sin OOM observado y capacidad medida. Aplicación+observabilidad solicitaron 1.3 CPU/1248MiB; muestra de uso 0.175 CPU/896.3MiB. Propuesta mantiene Terraform parametrizado y costes por horas/discos/IP/estado, sin garantizar capacidad o precio AKS.
+- Evidencia: [informe FIN-10/15](../fin-10-15/FIN-10-15-OBSERVABILITY-REPORT.md). Un clúster desechable nuevo por intento, retirado al finalizar; PG-05/PG-06 y cambios previos intactos. Solo alcance local: no cambia FIN-04/05, no hay GHCR/Azure/CI remoto nuevo y no se inicia FIN-16.
 
 ### F4
 

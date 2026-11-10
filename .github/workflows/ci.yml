@@ -63,6 +63,9 @@ jobs:
                   if result.testsRun != expected_count or result.skipped or not result.wasSuccessful():
                       raise SystemExit(1)
           PY
+      - name: Test optional telemetry adapter offline
+        run: python -B k8s/observability/test_telemetry.py
+
 
   postgres-integration:
     name: Integration / real PostgreSQL 16
@@ -197,7 +200,10 @@ jobs:
       - name: Render manifests without a cluster
         # Parses Kustomize inputs and checks referenced resources/ConfigMap files.
         # Does not perform API schema validation, admission or a deployment.
-        run: kubectl kustomize k8s/local > /dev/null
+        run: |
+          for profile in local postgres aks demo-kind blue-green observability; do
+            kubectl kustomize "k8s/$profile" > /dev/null
+          done
 
 
   kind-smoke-test:
@@ -340,14 +346,16 @@ jobs:
 
 
   publish-ghcr:
-    name: Publish / GHCR production images
-    # PG-07: publication paused by explicit request; keep definition for later review.
-    if: ${{ false && github.event_name == 'push' && github.ref == 'refs/heads/main' }}
-    needs: [backend-tests, frontend-build, docker-build, kubernetes-validation, kind-smoke-test]
+    name: Publish / GHCR SHA images
+    # FIN-CONSOLIDATE explicitly authorizes this project branch in addition to main.
+    # Pull requests and manual CI runs never publish; every CI gate must succeed.
+    if: ${{ github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/codex/pg01-07-consolidation') }}
+    needs: [backend-tests, postgres-integration, frontend-build, docker-build, kubernetes-validation, kind-smoke-test, terraform-validation]
     runs-on: ubuntu-24.04
     timeout-minutes: 20
     permissions:
       contents: read
+      packages: write
     steps:
       - uses: actions/checkout@v4
         with:
@@ -375,6 +383,69 @@ jobs:
         run: |
           docker push "ghcr.io/lromerob/wordle-backend:$GITHUB_SHA"
           docker push "ghcr.io/lromerob/wordle-frontend:$GITHUB_SHA"
+
+
+      - name: Recover published images by digest and verify revision
+        run: |
+          python3 - <<'PY'
+          import json, os, re, subprocess
+          from pathlib import Path
+          sha = os.environ["GITHUB_SHA"]
+          refs = {}
+          def docker(*args):
+              return subprocess.check_output(["docker", *args], text=True).strip()
+          for component in ("backend", "frontend"):
+              name = "ghcr.io/lromerob/wordle-" + component
+              tag = name + ":" + sha
+              built_id = docker("image", "inspect", "--format", "{{.Id}}", tag)
+              docker("pull", tag)
+              digests = json.loads(docker("image", "inspect", "--format", "{{json .RepoDigests}}", tag))
+              matching = [d for d in digests if re.fullmatch(re.escape(name) + r"@sha256:[0-9a-f]{64}", d)]
+              if len(matching) != 1:
+                  raise SystemExit("Expected one registry manifest digest for " + component)
+              ref = matching[0]
+              docker("pull", ref)
+              recovered = docker("image", "inspect", "--format", "{{.Id}}", ref)
+              revision = docker("image", "inspect", "--format", '{{index .Config.Labels "org.opencontainers.image.revision"}}', ref)
+              if recovered != built_id or revision != sha:
+                  raise SystemExit("Registry image does not match built commit: " + component)
+              refs[component] = ref
+          Path(os.environ["RUNNER_TEMP"], "wordle-ghcr-refs.json").write_text(
+              json.dumps({"revision": sha, "images": refs}, indent=2) + "\n")
+          with open(os.environ["GITHUB_ENV"], "a") as env:
+              for component, ref in refs.items():
+                  env.write("GHCR_" + component.upper() + "_REF=" + ref + "\n")
+          PY
+      - name: Verify recovered digest runtimes without network or credentials
+        run: |
+          python3 scripts/verify_ci_images.py --revision "$GITHUB_SHA" \
+            --backend "$GHCR_BACKEND_REF" --frontend "$GHCR_FRONTEND_REF" \
+            --output "$RUNNER_TEMP/wordle-ghcr-runtime.json"
+          python3 - <<'PY'
+          import json, os
+          from pathlib import Path
+          root = Path(os.environ["RUNNER_TEMP"])
+          refs = json.loads((root / "wordle-ghcr-refs.json").read_text())
+          runtime = json.loads((root / "wordle-ghcr-runtime.json").read_text())
+          runtime["digest_scope"] = "Published GHCR manifest digests, pulled and matched to build IDs and commit revision"
+          runtime["registry_references"] = refs["images"]
+          (root / "wordle-ghcr-runtime.json").write_text(json.dumps(runtime, indent=2) + "\n")
+          for component, ref in refs["images"].items():
+              print("::notice title=GHCR " + component + " digest::" + ref)
+          with open(os.environ["GITHUB_STEP_SUMMARY"], "a") as summary:
+              summary.write("## Verified GHCR images\nCommit: `" + refs["revision"] + "`\n\n")
+              for component, ref in refs["images"].items():
+                  summary.write("- " + component + ": `" + ref + "` (pulled; runtime HTTP 200 and healthy)\n")
+          PY
+      - name: Preserve registry digests and runtime evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: wordle-ghcr-images-${{ github.run_attempt }}
+          path: |
+            ${{ runner.temp }}/wordle-ghcr-refs.json
+            ${{ runner.temp }}/wordle-ghcr-runtime.json
+          if-no-files-found: error
+          retention-days: 7
 
 
   terraform-validation:

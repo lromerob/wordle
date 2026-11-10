@@ -1,0 +1,139 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: wordle-ingress
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: wordle-ingress
+rules:
+  - apiGroups: [""]
+    resources: [services, secrets]
+    verbs: [get, list, watch]
+  - apiGroups: [discovery.k8s.io]
+    resources: [endpointslices]
+    verbs: [get, list, watch]
+  - apiGroups: [networking.k8s.io]
+    resources: [ingresses]
+    verbs: [get, list, watch]
+  - apiGroups: [networking.k8s.io]
+    resources: [ingresses/status]
+    verbs: [update]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: wordle-ingress
+subjects:
+  - kind: ServiceAccount
+    name: wordle-ingress
+    namespace: wordle-demo
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: wordle-ingress
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: wordle-ingress-discovery
+rules:
+  - apiGroups: [networking.k8s.io]
+    resources: [ingressclasses]
+    verbs: [get, list, watch]
+  - apiGroups: [""]
+    resources: [nodes]
+    verbs: [get, list, watch]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: wordle-ingress-discovery
+subjects:
+  - kind: ServiceAccount
+    name: wordle-ingress
+    namespace: wordle-demo
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: wordle-ingress-discovery
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ingress
+spec:
+  # Private by default, including AKS. No public LoadBalancer or NodePort.
+  type: ClusterIP
+  selector:
+    app: wordle-ingress
+  ports:
+    - name: web
+      port: 8080
+      targetPort: web
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ingress
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wordle-ingress
+  template:
+    metadata:
+      labels:
+        app: wordle-ingress
+    spec:
+      serviceAccountName: wordle-ingress
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65532
+        runAsGroup: 65532
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: ingress
+          image: traefik:v3.7.17@sha256:f4bb143d1135a579b630ed491e17ec50f6f7c9c6a30585ff3d385471d2a86f5a
+          imagePullPolicy: IfNotPresent
+          args:
+            - --entrypoints.web.address=:8080
+            - --entrypoints.health.address=:9000
+            - --ping=true
+            - --ping.entrypoint=health
+            - --providers.kubernetesingress=true
+            - --providers.kubernetesingress.namespaces=wordle-demo
+            - --providers.kubernetesingress.ingressclass=wordle-traefik
+            - --api.dashboard=false
+            - --global.checknewversion=false
+            - --global.sendanonymoususage=false
+            - --log.level=ERROR
+          ports:
+            - name: web
+              containerPort: 8080
+            - name: health
+              containerPort: 9000
+          readinessProbe:
+            httpGet:
+              path: /ping
+              port: health
+            periodSeconds: 3
+          livenessProbe:
+            httpGet:
+              path: /ping
+              port: health
+            periodSeconds: 15
+          resources:
+            requests:
+              cpu: 50m
+              memory: 64Mi
+            limits:
+              cpu: 250m
+              memory: 192Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: [ALL]

@@ -1,0 +1,167 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-green
+  namespace: wordle-demo
+spec:
+  replicas: 0
+  selector:
+    matchLabels:
+      app: wordle-backend
+      wordle.slot: green
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: wordle-backend
+        wordle.slot: green
+    spec:
+      automountServiceAccountToken: false
+      containers:
+      - env:
+        - name: PGPASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: app-password
+              name: wordle-db
+        envFrom:
+        - configMapRef:
+            name: wordle-pg-config
+        image: wordle-fin0507-backend:local
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: http
+          periodSeconds: 15
+          timeoutSeconds: 2
+        name: backend
+        ports:
+        - containerPort: 8000
+          name: http
+        readinessProbe:
+          exec:
+            command:
+            - python
+            - /opt/probes/readiness.py
+          failureThreshold: 1
+          periodSeconds: 10
+          timeoutSeconds: 7
+        resources:
+          limits:
+            cpu: 500m
+            memory: 384Mi
+          requests:
+            cpu: 100m
+            memory: 128Mi
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+          readOnlyRootFilesystem: true
+        startupProbe:
+          failureThreshold: 30
+          httpGet:
+            path: /health
+            port: http
+          periodSeconds: 2
+        volumeMounts:
+        - mountPath: /opt/probes
+          name: readiness
+          readOnly: true
+        - mountPath: /tmp
+          name: tmp
+      securityContext:
+        fsGroup: 10001
+        runAsGroup: 10001
+        runAsNonRoot: true
+        runAsUser: 10001
+        seccompProfile:
+          type: RuntimeDefault
+      volumes:
+      - configMap:
+          name: wordle-readiness
+        name: readiness
+      - emptyDir:
+          sizeLimit: 32Mi
+        name: tmp
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-green
+  namespace: wordle-demo
+spec:
+  replicas: 0
+  selector:
+    matchLabels:
+      app: wordle-frontend
+      wordle.slot: green
+  template:
+    metadata:
+      labels:
+        app: wordle-frontend
+        wordle.slot: green
+    spec:
+      automountServiceAccountToken: false
+      containers:
+      - image: wordle-fin0507-frontend:local
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: http
+          periodSeconds: 15
+          timeoutSeconds: 2
+        name: frontend
+        ports:
+        - containerPort: 8080
+          name: http
+        readinessProbe:
+          httpGet:
+            path: /api/health
+            port: http
+          periodSeconds: 5
+          timeoutSeconds: 2
+        resources:
+          limits:
+            cpu: 250m
+            memory: 96Mi
+          requests:
+            cpu: 50m
+            memory: 32Mi
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+          readOnlyRootFilesystem: true
+        startupProbe:
+          failureThreshold: 30
+          httpGet:
+            path: /healthz
+            port: http
+          periodSeconds: 2
+        volumeMounts:
+        - mountPath: /tmp
+          name: tmp
+        - mountPath: /etc/nginx/nginx.conf
+          name: nginx-config
+          readOnly: true
+          subPath: nginx.conf
+      securityContext:
+        fsGroup: 101
+        runAsGroup: 101
+        runAsNonRoot: true
+        runAsUser: 101
+        seccompProfile:
+          type: RuntimeDefault
+      volumes:
+      - emptyDir:
+          sizeLimit: 32Mi
+        name: tmp
+      - configMap:
+          name: wordle-nginx-green
+        name: nginx-config

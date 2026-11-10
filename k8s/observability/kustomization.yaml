@@ -1,0 +1,38 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- ../blue-green
+- stack
+configMapGenerator:
+- name: wordle-telemetry
+  namespace: wordle-demo
+  files:
+  - telemetry_app.py
+- name: wordle-nginx-blue
+  namespace: wordle-demo
+  behavior: replace
+  files:
+  - nginx.conf=blue.conf
+- name: wordle-nginx-green
+  namespace: wordle-demo
+  behavior: replace
+  files:
+  - nginx.conf=green.conf
+- name: wordle-nginx-blue-fault
+  namespace: wordle-demo
+  behavior: replace
+  files:
+  - nginx.conf=blue-fault.conf
+- name: wordle-log-agent-blue
+  namespace: wordle-demo
+  files:
+  - config.yaml=agent-blue.yaml
+- name: wordle-log-agent-green
+  namespace: wordle-demo
+  files:
+  - config.yaml=agent-green.yaml
+patches:
+- path: backend-blue.yaml
+- path: frontend-blue.yaml
+- path: backend-green.yaml
+- path: frontend-green.yaml

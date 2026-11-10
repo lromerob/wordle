@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-green
+spec:
+  type: ClusterIP
+  selector:
+    app: wordle-backend
+    wordle.slot: green
+  ports:
+  - name: http
+    port: 8000
+    targetPort: http
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-blue
+spec:
+  type: ClusterIP
+  selector:
+    app: wordle-frontend
+    wordle.slot: blue
+  ports:
+  - name: http
+    port: 8080
+    targetPort: http
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-green
+spec:
+  type: ClusterIP
+  selector:
+    app: wordle-frontend
+    wordle.slot: green
+  ports:
+  - name: http
+    port: 8080
+    targetPort: http

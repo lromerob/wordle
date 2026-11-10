@@ -1,0 +1,26 @@
+receivers:
+  filelog:
+    include:
+    - /var/wordle/access.log
+    start_at: beginning
+processors:
+  resource:
+    attributes:
+    - key: service.name
+      value: wordle-frontend
+      action: upsert
+  batch:
+    timeout: 1s
+exporters:
+  otlphttp:
+    endpoint: http://collector.wordle-observability:4318
+service:
+  pipelines:
+    logs:
+      receivers:
+      - filelog
+      processors:
+      - resource
+      - batch
+      exporters:
+      - otlphttp

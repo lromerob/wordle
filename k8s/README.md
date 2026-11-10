@@ -152,3 +152,59 @@ failed final health checks. Supabase integration and production authorization
 remain outside this test. Do not interpret the owner-ID consistency check as
 verified authentication. The local cluster and application resources are kept
 for follow-up; use the scoped cleanup commands only when no longer needed.
+
+
+## FIN-05/06/07 — Perfil privado con Ingress y PostgreSQL real
+
+`local` conserva la demo en memoria. `postgres` conserva PG-06 sin cambios. El nuevo `aks` deriva del perfil PostgreSQL, elimina la entrada memory, usa runtimes GHCR con tag SHA completo, pull IfNotPresent, readiness SQL y StatefulSet de una réplica con PVC 8Gi managed-csi. `demo-kind` sustituye únicamente imágenes locales y almacenamiento standard/2Gi. Las referencias GHCR no aseguran que los paquetes estén publicados: FIN-04 sigue pendiente de esa evidencia.
+
+Ruta: navegador → Service ingress → Traefik → Ingress host wordle.test → Service frontend/Nginx → /api → Service backend/FastAPI → Service postgres/PVC. Tanto / como /api se encaminan a Nginx; solo Nginx retira el prefijo /api. No se expone FastAPI ni PostgreSQL mediante NodePort o LoadBalancer. Todos los Services son ClusterIP, incluido el controlador.
+
+### Demostración local desechable
+
+Prerrequisitos: Docker, kind, kubectl y Python existentes. No se usa el contexto Kubernetes activo del operador. Desde la raíz:
+
+```sh
+python -B k8s/demo-kind/run_demo.py --run-disposable-kind
+```
+
+En Windows puede usarse `.venv\Scripts\python.exe`. Crea un nombre aleatorio wordle-fin0507-*, kubeconfig temporal y contexto explícito; construye/carga runtimes locales, usa PostgreSQL 16.15 y Traefik 3.7.17 fijado por digest. Inyecta dos contraseñas sintéticas aleatorias desde el entorno del proceso; no se guardan en archivos ni se muestran. Inicializa una base nueva con el baseline ratificado, cinco palabras y el rol app vigente. Comprueba HTTP a través del controlador, SQL real, recuperación del Secret, nueva conexión backend y persistencia tras recrear el pod PostgreSQL. Al terminar, también ante fallo, detiene su port-forward y elimina solo su clúster; no toca PG-05/PG-06. Conserva imágenes y cachés de Docker para reproducir la prueba. No ejecutar este script para administrar entornos persistentes.
+
+Render sin clúster ni secretos:
+
+```sh
+kubectl kustomize k8s/local
+kubectl kustomize k8s/aks
+kubectl kustomize k8s/demo-kind
+```
+
+### Configuración externa e inicialización manual autorizada
+
+Para un entorno NUEVO autorizado: elegir kubeconfig/contexto explícitos, verificar destino y crear el Namespace wordle-demo con las etiquetas del render. Cargar externamente WORDLE_DEMO_ADMIN_PASSWORD y WORDLE_DEMO_APP_PASSWORD (distintas, al menos 32 caracteres) mediante entorno protegido o entrada interactiva oculta; no usar literales en shell, argumentos, archivos Git ni logs. Por ejemplo, una sesión Python puede usar getpass.getpass para poblar os.environ y lanzar el comando siguiente como subproceso; no imprimir el entorno. La demo automática anterior genera esos valores con secrets.token_urlsafe.
+
+```sh
+python -B scripts/configure_demo_secrets.py --kubeconfig <ARCHIVO_PRIVADO> --context <CONTEXTO_EXPLICITO> --authorize-private-demo
+kubectl --kubeconfig <ARCHIVO_PRIVADO> --context <CONTEXTO_EXPLICITO> apply -k k8s/demo-kind
+# Tras disponibilidad de PostgreSQL, backend, frontend e ingress:
+kubectl --kubeconfig <ARCHIVO_PRIVADO> --context <CONTEXTO_EXPLICITO> -n wordle-demo port-forward --address 127.0.0.1 service/ingress 18085:8080
+curl -H 'Host: wordle.test' http://127.0.0.1:18085/
+curl -H 'Host: wordle.test' http://127.0.0.1:18085/api/health
+```
+
+Para AKS futuro se usa `-k k8s/aks`, solo tras autorización cloud y revisión de imágenes/discos. Primero inspeccionar colisiones de Namespace/IngressClass/ClusterRole y no adoptar recursos ajenos. La configuración externa crea wordle-db y el ConfigMap inmutable wordle-postgres-init a partir de los cuatro archivos fuente existentes; no duplica SQL ni ejecuta semillas FIN-02A automáticamente. Rechaza sobreescribir un Secret existente. Las credenciales no pertenecen al render Kustomize.
+
+Nombres de configuración: ConfigMap wordle-pg-config (con hash) contiene PGHOST/PORT/DATABASE/USER/SSLMODE y WORDLE_CORS_ORIGINS vacío: mismo origen por Ingress, sin autorización cross-origin. Secret wordle-db: admin-password solo PostgreSQL; app-password PostgreSQL y backend. Frontend no recibe secretos. Las cuentas app/owner conservan grants SQL existentes; no son identidad de jugador. Application ServiceAccounts no montan token; el controlador sí lo necesita.
+
+### Recuperación, permisos y rotación
+
+Conservar la fuente externa de credenciales en almacenamiento protegido fuera de Git y del repositorio, accesible solo al operador; el Secret Kubernetes no es un respaldo. Evitar kubectl get secret -o yaml, shell tracing, dumps de entorno y artefactos con valores. Base64 no cifra. Un administrador de Kubernetes puede leer Secrets. Traefik dispone de lectura de Secrets/Services/Ingress/EndpointSlices únicamente en wordle-demo y descubrimiento de nodos/IngressClass a nivel clúster; el operador que crea la configuración necesita crear Secret/ConfigMap y los recursos del perfil. Ese permiso no se concede a frontend/backend. Aislar la demo en un clúster/namespace dedicado.
+
+Si se pierde solo wordle-db, recuperar **los mismos valores** de la fuente externa, ejecutar configure_demo_secrets.py con --recover-secret-only y reiniciar el Deployment backend. No regenerar contraseñas sobre un PVC existente: los env POSTGRES_* solo inicializan PGDATA vacío. La prueba automática reproduce esta recuperación sin leer ni mostrar valores del Secret. La recreación del Secret no rota contraseñas SQL.
+
+Para rotación futura: ventana privada de mantenimiento, conservar recuperación externa, cambiar las contraseñas de los roles PostgreSQL mediante sesión administrativa y SQL parametrizado sin logs, actualizar la fuente externa y wordle-db con esos mismos valores, reiniciar workloads dependientes y verificar readiness y operación real. No borrar PVC ni confiar en reiniciar PostgreSQL con otro env. Este incremento no automatiza ni afirma haber probado esa rotación. Si se pierde el origen externo de credenciales se requiere recuperación administrativa/backup aprobada; no se obtiene de los manifiestos.
+
+### DNS, TLS y perímetro
+
+wordle.test es un host de ensayo; curl usa Host explícito sin tocar hosts/DNS del sistema. HTTP sobre port-forward loopback es suficiente para la prueba local privada, no para uso público. No hay certificado real, ACME ni cert-manager. Para AKS se conserva Service ClusterIP y port-forward como primera demo; cualquier futuro acceso privado de red debe revisar DNS interno, TLS terminado en Traefik mediante Secret externo y, si se autoriza, LoadBalancer **interno** con alcance de red restringido. No se declara un LB público ni se despliega TLS aquí. El control plane Terraform sigue restringido por CIDR y Entra. No se implementa aislamiento por jugador: solo demo supervisada y datos sintéticos; CORS no autentica.
+
+Fuentes oficiales para la elección del controlador: [provider Kubernetes Ingress de Traefik](https://doc.traefik.io/traefik/reference/install-configuration/providers/kubernetes/kubernetes-ingress/) y [política de releases](https://doc.traefik.io/traefik/deprecation/releases/). La imagen estable disponible al validar fue v3.7.17; v3.7.18 aparecía en GitHub pero aún no existía su tag Docker, por lo que no se seleccionó una referencia no descargable. Solo se incorpora un controlador, sin Helm, operadores ni CRDs adicionales.

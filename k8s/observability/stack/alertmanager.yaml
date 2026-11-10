@@ -1,0 +1,12 @@
+route:
+  receiver: demo-webhook
+  group_by:
+  - alertname
+  group_wait: 0s
+  group_interval: 5s
+  repeat_interval: 1h
+receivers:
+- name: demo-webhook
+  webhook_configs:
+  - url: http://notifications:8080/hook
+    send_resolved: true

@@ -1,0 +1,794 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: wordle-observability
+  labels:
+    wordle.environment: private-observability-demo
+    pod-security.kubernetes.io/enforce: privileged
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: collector
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: collector
+  template:
+    metadata:
+      labels:
+        app: collector
+    spec:
+      automountServiceAccountToken: false
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 10001
+        runAsGroup: 10001
+        fsGroup: 10001
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+      - name: collector
+        image: otel/opentelemetry-collector-contrib:0.165.0
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: otlp
+          containerPort: 4318
+        - name: metrics
+          containerPort: 8889
+        - name: health
+          containerPort: 13133
+        resources:
+          requests:
+            cpu: 100m
+            memory: 96Mi
+          limits:
+            cpu: 500m
+            memory: 192Mi
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          capabilities:
+            drop:
+            - ALL
+        volumeMounts:
+        - name: data
+          mountPath: /data
+        - name: tmp
+          mountPath: /tmp
+        - name: config
+          mountPath: /etc/collector
+          readOnly: true
+        args:
+        - --config=/etc/collector/collector.yaml
+        readinessProbe:
+          httpGet:
+            path: /
+            port: health
+          periodSeconds: 3
+      volumes:
+      - name: data
+        emptyDir:
+          sizeLimit: 1Gi
+      - name: tmp
+        emptyDir:
+          sizeLimit: 64Mi
+      - name: config
+        configMap:
+          name: collector-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: collector
+spec:
+  type: ClusterIP
+  selector:
+    app: collector
+  ports:
+  - name: otlp
+    port: 4318
+    targetPort: otlp
+  - name: metrics
+    port: 8889
+    targetPort: metrics
+  - name: health
+    port: 13133
+    targetPort: health
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: loki
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: loki
+  template:
+    metadata:
+      labels:
+        app: loki
+    spec:
+      automountServiceAccountToken: false
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 10001
+        runAsGroup: 10001
+        fsGroup: 10001
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+      - name: loki
+        image: grafana/loki:3.6.20
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: http
+          containerPort: 3100
+        resources:
+          requests:
+            cpu: 100m
+            memory: 96Mi
+          limits:
+            cpu: 500m
+            memory: 384Mi
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          capabilities:
+            drop:
+            - ALL
+        volumeMounts:
+        - name: data
+          mountPath: /data
+        - name: tmp
+          mountPath: /tmp
+        - name: config
+          mountPath: /etc/loki
+          readOnly: true
+        - name: rules
+          mountPath: /etc/rules/fake
+          readOnly: true
+        args:
+        - -config.file=/etc/loki/loki.yaml
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: http
+          periodSeconds: 5
+      volumes:
+      - name: data
+        emptyDir:
+          sizeLimit: 1Gi
+      - name: tmp
+        emptyDir:
+          sizeLimit: 64Mi
+      - name: config
+        configMap:
+          name: loki-config
+      - name: rules
+        configMap:
+          name: loki-rules
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: loki
+spec:
+  type: ClusterIP
+  selector:
+    app: loki
+  ports:
+  - name: http
+    port: 3100
+    targetPort: http
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tempo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tempo
+  template:
+    metadata:
+      labels:
+        app: tempo
+    spec:
+      automountServiceAccountToken: false
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 10001
+        runAsGroup: 10001
+        fsGroup: 10001
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+      - name: tempo
+        image: grafana/tempo:2.10.10
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: http
+          containerPort: 3200
+        - name: otlp
+          containerPort: 4317
+        resources:
+          requests:
+            cpu: 100m
+            memory: 96Mi
+          limits:
+            cpu: 500m
+            memory: 384Mi
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          capabilities:
+            drop:
+            - ALL
+        volumeMounts:
+        - name: data
+          mountPath: /data
+        - name: tmp
+          mountPath: /tmp
+        - name: config
+          mountPath: /etc/tempo
+          readOnly: true
+        args:
+        - -config.file=/etc/tempo/tempo.yaml
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: http
+          periodSeconds: 5
+      volumes:
+      - name: data
+        emptyDir:
+          sizeLimit: 1Gi
+      - name: tmp
+        emptyDir:
+          sizeLimit: 64Mi
+      - name: config
+        configMap:
+          name: tempo-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tempo
+spec:
+  type: ClusterIP
+  selector:
+    app: tempo
+  ports:
+  - name: http
+    port: 3200
+    targetPort: http
+  - name: otlp
+    port: 4317
+    targetPort: otlp
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prometheus
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: prometheus
+  template:
+    metadata:
+      labels:
+        app: prometheus
+    spec:
+      automountServiceAccountToken: true
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65534
+        runAsGroup: 65534
+        fsGroup: 65534
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+      - name: prometheus
+        image: prom/prometheus:v3.16.0
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: http
+          containerPort: 9090
+        resources:
+          requests:
+            cpu: 100m
+            memory: 96Mi
+          limits:
+            cpu: 500m
+            memory: 384Mi
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          capabilities:
+            drop:
+            - ALL
+        volumeMounts:
+        - name: data
+          mountPath: /data
+        - name: tmp
+          mountPath: /tmp
+        - name: config
+          mountPath: /etc/prometheus
+          readOnly: true
+        - name: rules
+          mountPath: /etc/rules
+          readOnly: true
+        args:
+        - --config.file=/etc/prometheus/prometheus.yaml
+        - --storage.tsdb.path=/data
+        - --storage.tsdb.retention.time=1h
+        - --storage.tsdb.retention.size=128MB
+        - --web.enable-lifecycle
+        readinessProbe:
+          httpGet:
+            path: /-/ready
+            port: http
+          periodSeconds: 3
+      volumes:
+      - name: data
+        emptyDir:
+          sizeLimit: 1Gi
+      - name: tmp
+        emptyDir:
+          sizeLimit: 64Mi
+      - name: config
+        configMap:
+          name: prometheus-config
+      - name: rules
+        configMap:
+          name: prometheus-rules
+      serviceAccountName: prometheus
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: prometheus
+spec:
+  type: ClusterIP
+  selector:
+    app: prometheus
+  ports:
+  - name: http
+    port: 9090
+    targetPort: http
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: alertmanager
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: alertmanager
+  template:
+    metadata:
+      labels:
+        app: alertmanager
+    spec:
+      automountServiceAccountToken: false
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65534
+        runAsGroup: 65534
+        fsGroup: 65534
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+      - name: alertmanager
+        image: prom/alertmanager:v0.35.0
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: http
+          containerPort: 9093
+        resources:
+          requests:
+            cpu: 100m
+            memory: 96Mi
+          limits:
+            cpu: 500m
+            memory: 96Mi
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          capabilities:
+            drop:
+            - ALL
+        volumeMounts:
+        - name: data
+          mountPath: /data
+        - name: tmp
+          mountPath: /tmp
+        - name: config
+          mountPath: /etc/alertmanager
+          readOnly: true
+        args:
+        - --config.file=/etc/alertmanager/alertmanager.yaml
+        - --storage.path=/data
+        - --cluster.listen-address=
+      volumes:
+      - name: data
+        emptyDir:
+          sizeLimit: 1Gi
+      - name: tmp
+        emptyDir:
+          sizeLimit: 64Mi
+      - name: config
+        configMap:
+          name: alertmanager-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: alertmanager
+spec:
+  type: ClusterIP
+  selector:
+    app: alertmanager
+  ports:
+  - name: http
+    port: 9093
+    targetPort: http
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grafana
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: grafana
+  template:
+    metadata:
+      labels:
+        app: grafana
+    spec:
+      automountServiceAccountToken: false
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 472
+        runAsGroup: 472
+        fsGroup: 472
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+      - name: grafana
+        image: grafana/grafana:13.3.0
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: http
+          containerPort: 3000
+        resources:
+          requests:
+            cpu: 100m
+            memory: 96Mi
+          limits:
+            cpu: 500m
+            memory: 384Mi
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          capabilities:
+            drop:
+            - ALL
+        volumeMounts:
+        - name: data
+          mountPath: /data
+        - name: tmp
+          mountPath: /tmp
+        - name: datasources
+          mountPath: /etc/grafana/provisioning/datasources
+          readOnly: true
+        - name: providers
+          mountPath: /etc/grafana/provisioning/dashboards
+          readOnly: true
+        - name: dashboard
+          mountPath: /var/lib/wordle-dashboards
+          readOnly: true
+        env:
+        - name: GF_PATHS_DATA
+          value: /data
+        - name: GF_PATHS_LOGS
+          value: /tmp/logs
+        - name: GF_PATHS_PLUGINS
+          value: /data/plugins
+        - name: GF_SECURITY_ADMIN_USER
+          value: demo
+        - name: GF_AUTH_ANONYMOUS_ENABLED
+          value: 'false'
+        - name: GF_USERS_ALLOW_SIGN_UP
+          value: 'false'
+        - name: GF_ANALYTICS_REPORTING_ENABLED
+          value: 'false'
+        - name: GF_ANALYTICS_CHECK_FOR_UPDATES
+          value: 'false'
+        - name: GF_ANALYTICS_CHECK_FOR_PLUGIN_UPDATES
+          value: 'false'
+        - name: GF_PLUGINS_PREINSTALL_DISABLED
+          value: 'true'
+        - name: GF_NEWS_NEWS_FEED_ENABLED
+          value: 'false'
+        - name: GF_SECURITY_ADMIN_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: wordle-grafana
+              key: admin-password
+        readinessProbe:
+          httpGet:
+            path: /api/health
+            port: http
+          initialDelaySeconds: 10
+          periodSeconds: 5
+      volumes:
+      - name: data
+        emptyDir:
+          sizeLimit: 1Gi
+      - name: tmp
+        emptyDir:
+          sizeLimit: 64Mi
+      - name: datasources
+        configMap:
+          name: grafana-datasources
+      - name: providers
+        configMap:
+          name: grafana-providers
+      - name: dashboard
+        configMap:
+          name: grafana-dashboard
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: grafana
+spec:
+  type: ClusterIP
+  selector:
+    app: grafana
+  ports:
+  - name: http
+    port: 3000
+    targetPort: http
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: notifications
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: notifications
+  template:
+    metadata:
+      labels:
+        app: notifications
+    spec:
+      automountServiceAccountToken: false
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 10001
+        runAsGroup: 10001
+        fsGroup: 10001
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+      - name: notifications
+        image: wordle-fin0507-backend:local
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: http
+          containerPort: 8080
+        resources:
+          requests:
+            cpu: 100m
+            memory: 32Mi
+          limits:
+            cpu: 500m
+            memory: 64Mi
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          capabilities:
+            drop:
+            - ALL
+        volumeMounts:
+        - name: data
+          mountPath: /data
+        - name: tmp
+          mountPath: /tmp
+        - name: script
+          mountPath: /opt/receiver
+          readOnly: true
+        command:
+        - python
+        - /opt/receiver/receiver.py
+      volumes:
+      - name: data
+        emptyDir:
+          sizeLimit: 1Gi
+      - name: tmp
+        emptyDir:
+          sizeLimit: 64Mi
+      - name: script
+        configMap:
+          name: notification-receiver
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: notifications
+spec:
+  type: ClusterIP
+  selector:
+    app: notifications
+  ports:
+  - name: http
+    port: 8080
+    targetPort: http
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: prometheus
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: wordle-observability-metrics
+rules:
+- apiGroups:
+  - ''
+  resources:
+  - nodes
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - ''
+  resources:
+  - nodes/proxy
+  - nodes/metrics
+  verbs:
+  - get
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: wordle-observability-metrics
+subjects:
+- kind: ServiceAccount
+  name: prometheus
+  namespace: wordle-observability
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: wordle-observability-metrics
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: prometheus-discovery
+rules:
+- apiGroups:
+  - ''
+  resources:
+  - pods
+  verbs:
+  - get
+  - list
+  - watch
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: prometheus-discovery
+subjects:
+- kind: ServiceAccount
+  name: prometheus
+  namespace: wordle-observability
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: prometheus-discovery
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: node-exporter
+spec:
+  selector:
+    matchLabels:
+      app: node-exporter
+  template:
+    metadata:
+      labels:
+        app: node-exporter
+    spec:
+      automountServiceAccountToken: false
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65534
+        runAsGroup: 65534
+        fsGroup: 65534
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+      - name: node-exporter
+        image: prom/node-exporter:v1.12.1
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: metrics
+          containerPort: 9100
+        resources:
+          requests:
+            cpu: 100m
+            memory: 32Mi
+          limits:
+            cpu: 500m
+            memory: 64Mi
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          capabilities:
+            drop:
+            - ALL
+        volumeMounts:
+        - name: data
+          mountPath: /data
+        - name: tmp
+          mountPath: /tmp
+        - name: proc
+          mountPath: /host/proc
+          readOnly: true
+        - name: sys
+          mountPath: /host/sys
+          readOnly: true
+        args:
+        - --path.procfs=/host/proc
+        - --path.sysfs=/host/sys
+        - --collector.disable-defaults
+        - --collector.cpu
+        - --collector.meminfo
+        - --collector.stat
+        - --collector.loadavg
+        - --collector.diskstats
+      volumes:
+      - name: data
+        emptyDir:
+          sizeLimit: 1Gi
+      - name: tmp
+        emptyDir:
+          sizeLimit: 64Mi
+      - name: proc
+        hostPath:
+          path: /proc
+          type: Directory
+      - name: sys
+        hostPath:
+          path: /sys
+          type: Directory
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: node-exporter
+spec:
+  type: ClusterIP
+  selector:
+    app: node-exporter
+  ports:
+  - name: metrics
+    port: 9100
+    targetPort: metrics
