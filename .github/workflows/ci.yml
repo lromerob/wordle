@@ -124,6 +124,26 @@ jobs:
           cache-dependency-path: frontend/package-lock.json
       - name: Install existing frontend dependencies
         run: npm ci
+      - name: Run all twelve frontend tests without omissions
+        run: |
+          npm test -- --reporter=json --outputFile="$RUNNER_TEMP/wordle-frontend-tests.json"
+          node --input-type=module - "$RUNNER_TEMP/wordle-frontend-tests.json" <<'JS'
+          import fs from 'node:fs';
+          const report = JSON.parse(fs.readFileSync(process.argv[2], 'utf8'));
+          if (!report.success || report.numTotalTests !== 12 || report.numPassedTests !== 12 ||
+              report.numPendingTests !== 0 || report.numTodoTests !== 0) {
+            throw new Error('Expected exactly twelve passing frontend tests without omissions');
+          }
+          console.log('PASS: 12 frontend tests, zero omissions');
+          JS
+      - name: Preserve frontend test results
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: wordle-frontend-tests-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/wordle-frontend-tests.json
+          if-no-files-found: error
+          retention-days: 7
       - name: Build frontend
         run: npm run build
 
@@ -137,9 +157,21 @@ jobs:
         with:
           persist-credentials: false
       - name: Build backend production runtime
-        run: docker build --target runtime --tag wordle-backend:ci backend
+        run: docker build --target runtime --label "org.opencontainers.image.revision=$GITHUB_SHA" --tag wordle-backend:ci backend
       - name: Build frontend runtime
-        run: docker build --tag wordle-frontend:ci frontend
+        run: docker build --label "org.opencontainers.image.revision=$GITHUB_SHA" --tag wordle-frontend:ci frontend
+      - name: Verify runtime by immutable local image ID and record evidence
+        run: |
+          python3 scripts/verify_ci_images.py --revision "$GITHUB_SHA" \
+            --backend wordle-backend:ci --frontend wordle-frontend:ci \
+            --output "$RUNNER_TEMP/wordle-images.json"
+      - name: Preserve image evidence (no image publication)
+        uses: actions/upload-artifact@v4
+        with:
+          name: wordle-images-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/wordle-images.json
+          if-no-files-found: error
+          retention-days: 7
 
   kubernetes-validation:
     name: Infrastructure / Kustomize rendering
@@ -310,7 +342,7 @@ jobs:
   publish-ghcr:
     name: Publish / GHCR production images
     # PG-07: publication paused by explicit request; keep definition for later review.
-    if: ${{ false }}
+    if: ${{ false && github.event_name == 'push' && github.ref == 'refs/heads/main' }}
     needs: [backend-tests, frontend-build, docker-build, kubernetes-validation, kind-smoke-test]
     runs-on: ubuntu-24.04
     timeout-minutes: 20
