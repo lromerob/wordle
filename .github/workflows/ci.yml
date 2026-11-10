@@ -24,6 +24,7 @@ jobs:
       PYTHONDONTWRITEBYTECODE: "1"
       SUPABASE_URL: ""
       SUPABASE_KEY: ""
+      WORDLE_CORS_ORIGINS: "http://localhost:5173,http://127.0.0.1:5173"
     steps:
       - uses: actions/checkout@v4
         with:
@@ -35,7 +36,7 @@ jobs:
         run: |
           python -m pip install --only-binary=:all: --require-hashes -r backend/requirements.lock
       - name: Run unittest discovery with external access blocked
-        # Equivalent discovery to python -m unittest discover -s backend/tests -v.
+        # Separate discovery: 55 backend tests and nine CORS regressions; each runs once.
         # Guards cover the whole suite, including imports; HTTP uses MemoryDB.
         run: |
           python - <<'PY'
@@ -55,10 +56,12 @@ jobs:
           ), patch("socket.getaddrinfo", side_effect=AssertionError("DNS forbidden")), patch(
               "dotenv.load_dotenv", side_effect=AssertionError(".env loading forbidden")
           ), patch("psycopg.AsyncConnection.connect", side_effect=AssertionError("Native DB forbidden")):
-              suite = unittest.defaultTestLoader.discover("backend/tests")
-              result = unittest.TextTestRunner(verbosity=2).run(suite)
-          if result.testsRun != 55 or result.skipped or not result.wasSuccessful():
-              raise SystemExit(1)
+              for directory, expected_count in (("backend/tests", 55), ("backend/cors_tests", 9)):
+                  # A fresh loader per directory avoids reusing discovery's top-level path.
+                  suite = unittest.TestLoader().discover(directory)
+                  result = unittest.TextTestRunner(verbosity=2).run(suite)
+                  if result.testsRun != expected_count or result.skipped or not result.wasSuccessful():
+                      raise SystemExit(1)
           PY
 
   postgres-integration:

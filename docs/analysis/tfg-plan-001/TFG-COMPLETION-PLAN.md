@@ -2,7 +2,7 @@
 
 Fecha: 08/11/2026. **Backlog propuesto para revisión y aprobación; no es el backlog oficial y no autoriza implementación.** Se conservan arquitectura y tecnologías existentes. Fuente académica y estado: [matriz](TFG-COMPLIANCE-MATRIX.md); decisiones y riesgos: [brechas](TFG-GAP-ANALYSIS.md).
 
-## Seguimiento vigente — FIN-01T / FIN-02C, 10/11/2026
+## Seguimiento vigente — FIN-01T / FIN-02C / FIN-03D, 10/11/2026
 
 El responsable aprobó la hoja FIN posteriormente a su redacción y ha aprobado expresamente el cierre de FIN-01. FIN-02C registra además la aceptación técnica de FIN-02 autorizada por el responsable tras revisar sus evidencias. Este registro actualiza únicamente los estados indicados; las definiciones históricas y las 22 tareas/dependencias se conservan. No se crea ni actualiza un backlog externo.
 
@@ -10,7 +10,8 @@ El responsable aprobó la hoja FIN posteriormente a su redacción y ha aprobado 
 |---|---|---|
 | FIN-01 | **Completado** — 10 de noviembre de 2026 | Aprobada por el responsable del proyecto. Baseline PostgreSQL ratificado como esquema inicial para base nueva; no equivalencia total con Supabase. Validaciones SQL FIN-01B, API/driver PG-04, persistencia PG-05/06 y CI remoto PG-07/PUB-05B. |
 | FIN-02 | **Completado** — 10 de noviembre de 2026 | Aceptación técnica autorizada por el responsable, al verificarse los criterios originales: [semillas FIN-02A](../fin-02a/FIN-02A-IMPLEMENTATION-REPORT.md) y [recuperación independiente FIN-02B](../fin-02b/FIN-02B-RESTORE-REPORT.md), con respaldo PG-05/06 para E2E persistente y reinicio. [Punto de partida histórico](../fin-02/FIN-02-STARTING-POINT.md). |
-| FIN-03 | **Pendiente** — no iniciado por FIN-02C | Siguiente tarea: cerrar límites de seguridad para demo, conforme a su definición original. No se aprueba exposición pública ni un sistema nuevo de autenticación. |
+| FIN-03 | **Completado** — 10 de noviembre de 2026 | FIN-03D: responsable acepta demo privada/supervisada con datos sintéticos, sin exposición pública de backend/PG ni garantías multiusuario. Evidencias FIN-03A/B/C/D, CORS restringido y validación local55+9+11 sin omisiones. Validación remota del workflow modificado pendiente. |
+| FIN-04 | **Pendiente** — no iniciado por FIN-03D | Siguiente tarea original: verificar baseline CI y artefactos; incluye revisión remota, pruebas frontend y trazabilidad de imágenes según alcance autorizado. |
 
 Commit publicado de referencia: `b330ae70caf08ac789786376ca5de0305ea4471f`, rama `codex/pg01-07-consolidation`. [CI VERIFIED, run 42692713269](https://github.com/lromerob/wordle/actions/runs/42692713269): 55 offline y 11 reales, sin omisiones según guardas exitosas; builds frontend/Docker, Kustomize, kind memoria y Terraform correctos. GHCR omitido intencionadamente; no AKS desplegado. Detalle y límite de logs HTTP403 en [PUB-05B](../pub-05b/PUB-05B-CI-RESULTS.md).
 
@@ -39,6 +40,26 @@ El responsable autorizó el cierre condicionado a evidencia suficiente; la revis
 La recuperación independiente pendiente de PG-05 queda demostrada por FIN-02B, no solo por exit0 de pg_restore. Se mantienen límites: una instancia sin HA, corpus de demo pequeño, seguridad de jugador pendiente FIN-03 y sin certificación de backup de producción. No se repitieron pruebas, servicios ni builds en FIN-02C. Los informes previos conservan sus fechas/resultados; sus referencias a «pendiente de cierre» describen el estado anterior a esta aceptación. No se marca otra tarea completada.
 
 Consolidación autorizada: seed, ambos ejecutores, informes FIN-02A/FIN-02B, este plan y corrección mínima de estado en README. Sin informes PUB adicionales ni cambio funcional, SQL baseline o infraestructura. El commit es local; cualquier push y CI nuevo requieren autorización posterior. Siguiente tarea: **FIN-03 — Cerrar límites de seguridad para demo**, sin iniciarla ahora.
+
+## Aceptación FIN-03 — FIN-03D, 10/11/2026
+
+Decisión expresa del responsable en FIN-03D: **se acepta Wordle exclusivamente como demostración académica privada y supervisada, con datos sintéticos y sin exposición pública del backend ni de PostgreSQL**. No se autoriza uso con datos personales, despliegue público sin controles adicionales ni presentar jugadores como usuarios independientes seguros.
+
+Se aceptan explícitamente ausencia de autenticación y autorización robusta por jugador, lectura cruzada y suplantación mediante usuario_id. CORS no impide llamadas directas a la API ni peticiones sin Origin. Los negativos de acceso ajeno demostraron esas limitaciones; no se reinterpretan como denegaciones inexistentes. Se conserva el criterio original y se registra su alcance aceptado, sin añadir login ni RLS multiusuario.
+
+| Criterio original FIN-03 | Estado local | Evidencia y alcance |
+|---|---|---|
+| Decisión de identidad/propiedad y alcance de credencial revisada | PASS | Aceptación expresa anterior; matriz FIN-03B y este registro. Rol técnico app separado de owner; no identidad de jugador. |
+| Pruebas negativas de lectura/escritura ajena | PASS como evaluación del límite, sin aislamiento individual | FIN-03B:403 por usuario_id distinto sin writes;200 al leer datos ajenos o suplantar string conocido, registrado como riesgo aceptado solo en demo privada. |
+| Sin garantía falsa basada en usuario_id | PASS | FIN-03A/B/C/D declaran la limitación; no se atribuye protección por UUID, red privada o CORS. |
+| Exposición limitada | PASS en demo ensayada | FIN-03B:frontend loopback, backend/PG sin puertos publicados, red interna y probe desde red Docker ajena bloqueado. No prueba universal contra administrador/otra máquina LAN ni evidencia AKS. |
+| CORS y errores acotados | PASS local | FIN-03C y suite9:allowlist exacta, preflight ajeno400 y GET ajeno200 sin ACAO; errores DB sanitizados en FIN-03B/PG-04. |
+| Concurrencia mínima | PASS reutilizado y regresado | PG-04 real:rollback/FOR UPDATE/estadísticas;11 pruebas reales aprobadas de nuevo en FIN-03D. No es autorización individual. |
+| Evidencia mantenible | PASS local; CI remoto del cambio pendiente | Job offline existente ejecuta55+9 una vez por suite, falla por recuento/error/skip; integraciónPG11 conserva job. No nuevos jobs, permisos/publicación/cloud. |
+
+Referencias: [auditoría FIN-03A](../fin-03a/FIN-03A-SECURITY-REVIEW.md), [perímetro y negativos FIN-03B](../fin-03b/FIN-03B-DEMO-SECURITY-BOUNDARY.md), [CORS FIN-03C](../fin-03c/FIN-03C-CORS-VALIDATION.md), [aceptación FIN-03D](../fin-03d/FIN-03D-ACCEPTANCE-REPORT.md). Los estados pendientes en informes anteriores corresponden a su fecha; FIN-03D registra la aceptación posterior sin alterarlos. No se certifica seguridad de producción ni se autorizan servicios públicos. Mantener identificadores sintéticos en logs y no publicar valores Secret/configuración privada.
+
+Cierre **local y documental** justificado por los criterios anteriores y la aceptación del riesgo; no significa que GitHub Actions haya validado el nuevo cambio sin push. Las64 pruebas offline/CORS pasan localmente y las11PG pasan en recursos nuevos limpiados. FIN-04 continúa pendiente y no se inicia aquí; FIN-01/02 y las demás tareas conservan su estado. No commits ni push en FIN-03D.
 
 ## Estrategia y dependencias
 
