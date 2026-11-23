@@ -1,0 +1,14 @@
+{
+  "reference_base": "docs/evidence/local",
+  "path": "20261122-capture-01/results/persistence/restore.json",
+  "sha256": "e613b6ae64c904869e04a82f1cff673a3a011da78f32d0464c890a9a33fc63f3",
+  "ev": [
+    "EV-14"
+  ],
+  "requirements": [
+    "A01",
+    "A50",
+    "A51"
+  ],
+  "limitation": "Separate execution; retain original date/environment and results; not relabelled as this run"
+}

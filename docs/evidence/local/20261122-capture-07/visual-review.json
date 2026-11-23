@@ -1,0 +1,94 @@
+{
+  "utc": "2026-11-22T12:30:27.115771+00:00",
+  "method": "Human inspection of all 22 full-resolution browser screenshots; loaded Wordle, Grafana, Prometheus, Loki and Tempo views. Real queries checked independently by executor.",
+  "images": {
+    "screenshots/grafana/wordle-dashboard-lower.png": {
+      "status": "PASS",
+      "reason": "Opened and inspected: legible real UI, expected state/data, no credentials visible"
+    },
+    "screenshots/grafana/wordle-dashboard.png": {
+      "status": "PASS",
+      "reason": "Opened and inspected: legible real UI, expected state/data, no credentials visible"
+    },
+    "screenshots/loki/backend-logs.png": {
+      "status": "PASS",
+      "reason": "Opened and inspected: legible real UI, expected state/data, no credentials visible"
+    },
+    "screenshots/loki/deployment-logs.png": {
+      "status": "PASS",
+      "reason": "Opened and inspected: legible real UI, expected state/data, no credentials visible"
+    },
+    "screenshots/loki/frontend-logs.png": {
+      "status": "PASS",
+      "reason": "Opened and inspected: legible real UI, expected state/data, no credentials visible"
+    },
+    "screenshots/prometheus/application-metrics.png": {
+      "status": "PASS",
+      "reason": "Opened and inspected: legible real UI, expected state/data, no credentials visible"
+    },
+    "screenshots/prometheus/containers-metrics.png": {
+      "status": "PASS",
+      "reason": "Opened and inspected: legible real UI, expected state/data, no credentials visible"
+    },
+    "screenshots/prometheus/nodes-metrics.png": {
+      "status": "PASS",
+      "reason": "Opened and inspected: legible real UI, expected state/data, no credentials visible"
+    },
+    "screenshots/prometheus/targets-up.png": {
+      "status": "PASS",
+      "reason": "Opened and inspected: legible real UI, expected state/data, no credentials visible"
+    },
+    "screenshots/tempo/real-attempt-trace.png": {
+      "status": "PASS",
+      "reason": "Opened and inspected: legible real UI, expected state/data, no credentials visible"
+    },
+    "screenshots/wordle/in-progress-desktop.png": {
+      "status": "PASS",
+      "reason": "Opened and inspected: legible real UI, expected state/data, no credentials visible"
+    },
+    "screenshots/wordle/initial-desktop.png": {
+      "status": "PASS",
+      "reason": "Opened and inspected: legible real UI, expected state/data, no credentials visible"
+    },
+    "screenshots/wordle/initial-new-game-mobile.png": {
+      "status": "PASS",
+      "reason": "Opened and inspected: legible real UI, expected state/data, no credentials visible"
+    },
+    "screenshots/wordle/invalid-word-no-attempt.png": {
+      "status": "PASS",
+      "reason": "Opened and inspected: legible real UI, expected state/data, no credentials visible"
+    },
+    "screenshots/wordle/loss-mobile-six-attempts.png": {
+      "status": "PASS",
+      "reason": "Opened and inspected: legible real UI, expected state/data, no credentials visible"
+    },
+    "screenshots/wordle/persisted-victory.png": {
+      "status": "PASS",
+      "reason": "Opened and inspected: legible real UI, expected state/data, no credentials visible"
+    },
+    "screenshots/wordle/promoted-green.png": {
+      "status": "PASS",
+      "reason": "Opened and inspected: legible real UI, expected state/data, no credentials visible"
+    },
+    "screenshots/wordle/restart-mobile.png": {
+      "status": "PASS",
+      "reason": "Opened and inspected: legible real UI, expected state/data, no credentials visible"
+    },
+    "screenshots/wordle/rollback-green.png": {
+      "status": "PASS",
+      "reason": "Opened and inspected: legible real UI, expected state/data, no credentials visible"
+    },
+    "screenshots/wordle/signals.png": {
+      "status": "PASS",
+      "reason": "Opened and inspected: legible real UI, expected state/data, no credentials visible"
+    },
+    "screenshots/wordle/stable-blue.png": {
+      "status": "PASS",
+      "reason": "Opened and inspected: legible real UI, expected state/data, no credentials visible"
+    },
+    "screenshots/wordle/victory-desktop.png": {
+      "status": "PASS",
+      "reason": "Opened and inspected: legible real UI, expected state/data, no credentials visible"
+    }
+  }
+}

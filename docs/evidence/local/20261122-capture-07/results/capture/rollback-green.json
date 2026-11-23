@@ -1,0 +1,39 @@
+{
+  "utc": "2026-11-22T12:29:21.581Z",
+  "stage": "rollback-green",
+  "checks": [
+    {
+      "name": "Ingress health",
+      "status": 200,
+      "release": "green"
+    }
+  ],
+  "screenshots": [
+    {
+      "ev": "EV-04",
+      "requirements": [
+        "A10",
+        "A11",
+        "A12",
+        "A15"
+      ],
+      "scenario": "rollback-green",
+      "utc": "2026-11-22T12:29:20.955Z",
+      "environment": "kind-local",
+      "persistence": "PostgreSQL 16 real",
+      "expected": "Real frontend through Traefik; release green",
+      "observed": "Verified before screenshot",
+      "status": "PASS",
+      "path": "screenshots/wordle/rollback-green.png",
+      "sha256": "ed1f8fd059e0f0bc2139c506b63213bb5f86f7b3f57f5403d63506641298b9e5",
+      "width": 1440,
+      "height": 1000,
+      "format": "PNG",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": false
+    }
+  ]
+}

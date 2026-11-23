@@ -1,0 +1,44 @@
+[
+  {
+    "elapsed": 0.422,
+    "utc": "2026-11-22T11:42:14.029939+00:00",
+    "event": "cluster_create",
+    "name": "wordle-fin1015-0133e3db",
+    "version": "1.35.0"
+  },
+  {
+    "elapsed": 37.047,
+    "utc": "2026-11-22T11:42:50.662562+00:00",
+    "event": "cluster_ready"
+  },
+  {
+    "elapsed": 106.922,
+    "utc": "2026-11-22T11:44:00.537179+00:00",
+    "event": "image_archive_ready"
+  },
+  {
+    "elapsed": 230.109,
+    "utc": "2026-11-22T11:46:03.730166+00:00",
+    "event": "images_imported"
+  },
+  {
+    "elapsed": 299.469,
+    "utc": "2026-11-22T11:47:13.090011+00:00",
+    "event": "stable_blue_verified",
+    "postgres": "16.15",
+    "pvc_bound": true
+  },
+  {
+    "elapsed": 309.515,
+    "utc": "2026-11-22T11:47:23.128895+00:00",
+    "event": "cleanup_pass",
+    "owned_cluster_removed": true,
+    "prior_clusters_preserved": true
+  },
+  {
+    "elapsed": 310.547,
+    "utc": "2026-11-22T11:47:24.163998+00:00",
+    "event": "run_failed",
+    "reason": "Operation failed: <local>\\.venv\\Scripts\\python.exe <local>\\scripts\\evidence\\hook.py; raw output suppressed"
+  }
+]

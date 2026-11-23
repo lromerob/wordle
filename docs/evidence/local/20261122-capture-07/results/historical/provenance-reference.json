@@ -1,0 +1,13 @@
+{
+  "reference_base": "docs/evidence/local",
+  "path": "20261122-capture-01/historical/provenance.json",
+  "sha256": "66d6fba51a1cc46f9c22d14d795e35bbfc5eedcea06fac1ffbd048131304267f",
+  "ev": [
+    "EV-01"
+  ],
+  "requirements": [
+    "A01",
+    "A50"
+  ],
+  "limitation": "Separate execution; retain original date/environment and results; not relabelled as this run"
+}

@@ -1,0 +1,11 @@
+{
+  "result": "PASS",
+  "utc": "2026-11-22T11:38:45.676Z",
+  "browser": "158.0.4370.33",
+  "channel": "msedge",
+  "sha256": "1147c231b322aa2035b7c80bf6e8af55c9a301d2ac2bc4a23c5a310d70d170a9",
+  "width": 1440,
+  "height": 1000,
+  "format": "PNG",
+  "limitation": "Tool diagnostic only, not Wordle evidence"
+}

@@ -1,0 +1,196 @@
+{
+  "run_id": "20261122-capture-01",
+  "utc": "2026-11-22T11:49:04.088283+00:00",
+  "environment": "kind-local; NOT AKS",
+  "branch": "codex/pg01-07-consolidation",
+  "head": "4d56cf265cc5f0af8c72c64f2a93373660e8f122",
+  "integrated_result": "FAIL",
+  "screenshots": [
+    {
+      "ev": "EV-04",
+      "requirements": [
+        "A10",
+        "A11",
+        "A12",
+        "A15"
+      ],
+      "scenario": "stable-blue",
+      "utc": "2026-11-22T11:47:18.397Z",
+      "environment": "kind-local",
+      "persistence": "PostgreSQL 16 real",
+      "expected": "Real frontend through Traefik; release blue",
+      "observed": "Verified before screenshot",
+      "status": "PASS",
+      "path": "screenshots/wordle/stable-blue.png",
+      "sha256": "ed1f8fd059e0f0bc2139c506b63213bb5f86f7b3f57f5403d63506641298b9e5",
+      "width": 1440,
+      "height": 1000,
+      "format": "PNG",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": false,
+      "run_id": "20261122-capture-01",
+      "branch": "codex/pg01-07-consolidation",
+      "head": "4d56cf265cc5f0af8c72c64f2a93373660e8f122",
+      "working_tree": "Includes uncommitted capture hooks; not reproduced by HEAD alone",
+      "executor": "scripts/evidence/run_local.py",
+      "original_results": [
+        {
+          "path": "results/integrated/events.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-01/integrated/events.json",
+          "sha256": "98f36fc896338170f7022afa276676b1f4464b47225df4e1556d741645983524",
+          "original_sha256": "e482b1d83a8d9758e8d00c7011a53deb9aa66f007c4c2d959a5fd80664305058",
+          "sanitized_derivative": true
+        },
+        {
+          "path": "results/integrated/summary.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-01/integrated/summary.json",
+          "sha256": "325bfa823d51dabfd0eaae5f5b332b413066e9256f10498d6f9d8dd41cdf5293",
+          "original_sha256": "325bfa823d51dabfd0eaae5f5b332b413066e9256f10498d6f9d8dd41cdf5293",
+          "sanitized_derivative": false
+        },
+        {
+          "path": "results/integrated/traffic.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-01/integrated/traffic.json",
+          "sha256": "a5338d955b09046ec0b16f3a9625b7955c763aae07dc722e474e6078745f932f",
+          "original_sha256": "a5338d955b09046ec0b16f3a9625b7955c763aae07dc722e474e6078745f932f",
+          "sanitized_derivative": false
+        }
+      ]
+    },
+    {
+      "ev": "EV-01",
+      "requirements": [
+        "A01",
+        "A50"
+      ],
+      "scenario": "initial-desktop",
+      "utc": "2026-11-22T11:47:18.486Z",
+      "environment": "kind-local",
+      "persistence": "PostgreSQL 16 real",
+      "expected": "Initial screen",
+      "observed": "Verified before screenshot",
+      "status": "PASS",
+      "path": "screenshots/wordle/initial-desktop.png",
+      "sha256": "ed1f8fd059e0f0bc2139c506b63213bb5f86f7b3f57f5403d63506641298b9e5",
+      "width": 1440,
+      "height": 1000,
+      "format": "PNG",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": false,
+      "run_id": "20261122-capture-01",
+      "branch": "codex/pg01-07-consolidation",
+      "head": "4d56cf265cc5f0af8c72c64f2a93373660e8f122",
+      "working_tree": "Includes uncommitted capture hooks; not reproduced by HEAD alone",
+      "executor": "scripts/evidence/run_local.py",
+      "original_results": [
+        {
+          "path": "results/integrated/events.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-01/integrated/events.json",
+          "sha256": "98f36fc896338170f7022afa276676b1f4464b47225df4e1556d741645983524",
+          "original_sha256": "e482b1d83a8d9758e8d00c7011a53deb9aa66f007c4c2d959a5fd80664305058",
+          "sanitized_derivative": true
+        },
+        {
+          "path": "results/integrated/summary.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-01/integrated/summary.json",
+          "sha256": "325bfa823d51dabfd0eaae5f5b332b413066e9256f10498d6f9d8dd41cdf5293",
+          "original_sha256": "325bfa823d51dabfd0eaae5f5b332b413066e9256f10498d6f9d8dd41cdf5293",
+          "sanitized_derivative": false
+        },
+        {
+          "path": "results/integrated/traffic.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-01/integrated/traffic.json",
+          "sha256": "a5338d955b09046ec0b16f3a9625b7955c763aae07dc722e474e6078745f932f",
+          "original_sha256": "a5338d955b09046ec0b16f3a9625b7955c763aae07dc722e474e6078745f932f",
+          "sanitized_derivative": false
+        }
+      ]
+    }
+  ],
+  "originals": [
+    {
+      "path": "results/integrated/events.json",
+      "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-01/integrated/events.json",
+      "sha256": "98f36fc896338170f7022afa276676b1f4464b47225df4e1556d741645983524",
+      "original_sha256": "e482b1d83a8d9758e8d00c7011a53deb9aa66f007c4c2d959a5fd80664305058",
+      "sanitized_derivative": true
+    },
+    {
+      "path": "results/integrated/summary.json",
+      "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-01/integrated/summary.json",
+      "sha256": "325bfa823d51dabfd0eaae5f5b332b413066e9256f10498d6f9d8dd41cdf5293",
+      "original_sha256": "325bfa823d51dabfd0eaae5f5b332b413066e9256f10498d6f9d8dd41cdf5293",
+      "sanitized_derivative": false
+    },
+    {
+      "path": "results/integrated/traffic.json",
+      "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-01/integrated/traffic.json",
+      "sha256": "a5338d955b09046ec0b16f3a9625b7955c763aae07dc722e474e6078745f932f",
+      "original_sha256": "a5338d955b09046ec0b16f3a9625b7955c763aae07dc722e474e6078745f932f",
+      "sanitized_derivative": false
+    }
+  ],
+  "requirements": {
+    "EV-01": [
+      "A01",
+      "A50",
+      "A55"
+    ],
+    "EV-04": [
+      "A10",
+      "A11",
+      "A12",
+      "A15"
+    ],
+    "EV-06": [
+      "A20",
+      "A47"
+    ],
+    "EV-07": [
+      "A21",
+      "A31"
+    ],
+    "EV-08": [
+      "A22",
+      "A30",
+      "A48"
+    ],
+    "EV-09": [
+      "A23",
+      "A26",
+      "A27"
+    ],
+    "EV-10": [
+      "A24",
+      "A30"
+    ],
+    "EV-11": [
+      "A25",
+      "A30"
+    ],
+    "EV-12": [
+      "A28",
+      "A29",
+      "A30"
+    ],
+    "EV-14": [
+      "A01",
+      "A50",
+      "A51"
+    ]
+  },
+  "historical": "historical/provenance.json",
+  "limitations": [
+    "No Azure operations",
+    "Same application binary, Blue/Green configuration releases",
+    "Runtime local image metadata is recorded separately when available; no historical registry digest assigned",
+    "Signals are ephemeral; JSON exported before cluster cleanup by existing runner",
+    "Browser screenshots require human visual review"
+  ]
+}

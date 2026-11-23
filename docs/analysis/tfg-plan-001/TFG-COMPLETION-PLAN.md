@@ -11,7 +11,7 @@ El responsable aprobó la hoja FIN posteriormente a su redacción y ha aprobado 
 | FIN-01 | **Completado** — 10 de noviembre de 2026 | Aprobada por el responsable del proyecto. Baseline PostgreSQL ratificado como esquema inicial para base nueva; no equivalencia total con Supabase. Validaciones SQL FIN-01B, API/driver PG-04, persistencia PG-05/06 y CI remoto PG-07/PUB-05B. |
 | FIN-02 | **Completado** — 10 de noviembre de 2026 | Aceptación técnica autorizada por el responsable, al verificarse los criterios originales: [semillas FIN-02A](../fin-02a/FIN-02A-IMPLEMENTATION-REPORT.md) y [recuperación independiente FIN-02B](../fin-02b/FIN-02B-RESTORE-REPORT.md), con respaldo PG-05/06 para E2E persistente y reinicio. [Punto de partida histórico](../fin-02/FIN-02-STARTING-POINT.md). |
 | FIN-03 | **Completado** — 10 de noviembre de 2026 | FIN-03D: responsable acepta demo privada/supervisada con datos sintéticos, sin exposición pública de backend/PG ni garantías multiusuario. Evidencias FIN-03A/B/C/D, CORS restringido y validación local55+9+11 sin omisiones. Validación remota del workflow modificado pendiente. |
-| FIN-04 | **Pendiente** — no iniciado por FIN-03D | Siguiente tarea original: verificar baseline CI y artefactos; incluye revisión remota, pruebas frontend y trazabilidad de imágenes según alcance autorizado. |
+| FIN-04 | **Técnicamente completada; pendiente de aceptación documental definitiva** — 15/11/2026 | CI y artefactos verificados en FIN-CONSOLIDATE; excepción de publicación para `codex/pg01-07-consolidation` ratificada por el propietario. Véase la ratificación al final del plan y el informe FIN-04. No autoriza despliegues Azure/AKS. |
 
 Commit publicado de referencia: `b330ae70caf08ac789786376ca5de0305ea4471f`, rama `codex/pg01-07-consolidation`. [CI VERIFIED, run 42692713269](https://github.com/lromerob/wordle/actions/runs/42692713269): 55 offline y 11 reales, sin omisiones según guardas exitosas; builds frontend/Docker, Kustomize, kind memoria y Terraform correctos. GHCR omitido intencionadamente; no AKS desplegado. Detalle y límite de logs HTTP403 en [PUB-05B](../pub-05b/PUB-05B-CI-RESULTS.md).
 
@@ -125,7 +125,8 @@ Las estimaciones son días efectivos de trabajo de una persona familiarizada con
 
 - Objetivo/alcance técnico: Revisar runs de siete jobs/paquetes, ejecutar pruebas frontend en CI mediante cambio aprobado, conservar digests, tamaños y resultados.
 - Dependencias: Sin dependencia técnica; autorización posterior para cambios/consultas.
-- Criterios de aceptación: Backend y 12 casos frontend sin omisiones; build/runtime por digest verificables; publicación solo en main; check Terraform verde.
+- Criterios de aceptación vigentes (ratificación del propietario, 15/11/2026): Backend y 12 casos frontend sin omisiones; build/runtime por digest verificables; publicación desde `main` como rama principal y, excepcionalmente, desde `codex/pg01-07-consolidation`; ninguna otra rama autorizada; check Terraform verde. Publicar artefactos no autoriza despliegues Azure/AKS.
+- Trazabilidad: esta decisión sustituye el criterio original «publicación solo en main». Las anotaciones históricas PARTIAL conservan su fecha y describen el criterio vigente entonces; quedan superadas únicamente para FIN-04 por esta ratificación.
 - Evidencias a conservar: URL/run ID/commit, resumen tests, digests e inspección no sensible.
 - Necesidad de Azure: No.
 - Riesgos: Run no disponible, límites Actions o paquetes privados; no repetir históricos innecesariamente.
@@ -373,3 +374,24 @@ FIN-05 a FIN-15 consolidados en `782d37abaf96471f8db0e637a415647b5055cb96`. [CI/
 - FIN-04 **PARTIAL respecto al criterio original**: artefactos/digests disponibles; el criterio «publicación solo en main» no se acredita mediante la excepción de rama expresamente autorizada en FIN-CONSOLIDATE. No se reescriben los criterios originales.
 - FIN-05 **PARTIAL**: GHCR disponible y perfiles locales separados; aceptación real en AKS/FIN-18 pendiente, sin crear recursos Azure.
 - FIN-06 a FIN-15 conservan únicamente el alcance local demostrado anteriormente; esta ejecución CI no repite la demo completa de observabilidad/Blue-Green. No se inicia FIN-16 ni se toca PG-05/PG-06. Doce informes históricos excluidos.
+
+## FIN-16 a FIN-19 — preparación sin aprovisionar, 10/11/2026
+
+- **FIN-16 PARTIAL**: sesión Azure y consultas de lectura disponibles; tres providers no registrados, sin cuota/SKU efectiva, grupo Entra/backend/lease/presupuesto aprobados. No se modifica Azure.
+- **FIN-17 PARTIAL**: helpers de planes supervisados/confirmaciones y guía de ejecución preparados; faltan workflows protegidos/OIDC, adaptación de aceptación AKS y primer despliegue autorizado.
+- **FIN-18 PARTIAL, preparación local**: overlay aks-full con aplicación/Blue-Green/observabilidad y once digests, 63 objetos renderizados; no existe evidencia de despliegue real AKS.
+- **FIN-19 PARTIAL**: paquete de reconstrucción verificado y nuevo ensayo FIN-02B real SQL/HTTP PASS en PostgreSQL desechable; retirada/recreación Azure, tiempos y remanentes pendientes.
+
+Criterios originales conservados, sin cierres nuevos. Evidencia/limitaciones y autorización futura: [informe único FIN-16/19](../fin-16-19/FIN-16-19-AZURE-READINESS.md) y [procedimiento supervisado](../../operations/azure-demo.md). FIN-04/05 y demás tareas no cambian; no commits/push, apply/destroy ni recursos Azure. PG-05/PG-06 y doce históricos preservados.
+
+### Preparación final ejecutable FIN-16/19 — 10/11/2026
+
+Se completan workflow manual protegido opt-in, despacho serial, ejecutor AKS de despliegue/aceptación/reconstrucción y perfil de restauración sin escritores; promoción y observabilidad reutilizadas. Validación local: 31 pruebas focalizadas, ocho renders, Terraform sin backend y manifests GHCR reales correctos. FIN-16/17/18/19 siguen **PARTIAL**: no hay ejecución Azure ni activación externa de OIDC/environment/runner/workflow, pruebas reales de estado/Entra/cuota/coste pendientes. Criterios originales intactos y FIN-04/05 sin cambios. [Actualización en el único informe](../fin-16-19/FIN-16-19-AZURE-READINESS.md). No se ha creado infraestructura, publicado imágenes ni hecho commit/push.
+
+## FIN-04 — ratificación de política y cierre técnico, 15/11/2026
+
+Decisión expresa del propietario en «TFG — FIN-04: Ratificación de política de publicación y cierre documental»: se ratifica la excepción aprobada en FIN-CONSOLIDATE. `main` es la rama principal de publicación; únicamente `codex/pg01-07-consolidation` dispone de autorización excepcional para GHCR. No se extiende a otras ramas ni autoriza despliegues Azure/AKS. Esta decisión sustituye el requisito original de exclusividad en main; no reescribe las evidencias históricas.
+
+Estado vigente: **FIN-04 técnicamente completada y pendiente de aceptación documental definitiva**. Se conservan las evidencias CI/GHCR, pruebas sin omisiones, build/runtime por digest y Terraform del [informe FIN-04](../fin-04/FIN-04-IMPLEMENTATION-REPORT.md). La inspección estática del workflow confirma publicación únicamente en push a las dos ramas exactas, tras siete controles satisfactorios; PR y ejecuciones manuales no publican. No se ejecutan nuevamente builds, pruebas ni publicaciones, y no se modifica el workflow.
+
+Siguiente actividad del plan: FIN-05 conserva su aceptación real AKS pendiente en FIN-18; su preparación local ya existe y no debe repetirse. La preparación FIN-16/17 debe resolver accesos, estado remoto, cuotas/capacidad y presupuesto antes de cualquier ejecución Azure expresamente autorizada. No se modifica el estado de esas tareas ni se inicia otra iteración.

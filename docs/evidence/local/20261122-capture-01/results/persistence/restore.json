@@ -1,0 +1,44 @@
+{
+  "result": "FIN-02B PASS",
+  "run": "99e454ae57ea",
+  "source": "wordle-fin02b-99e454ae57ea-source",
+  "target": "wordle-fin02b-99e454ae57ea-target",
+  "database": "fin02b_99e454ae57ea",
+  "postgres": "16.15 (Debian 16.15-1.pgdg13+2)",
+  "backup_format": "custom",
+  "backup_options": [
+    "--format=custom",
+    "--no-owner",
+    "--no-acl"
+  ],
+  "backup_bytes": 7098,
+  "backup_sha256": "1007ea3c4941754cb470de0c0fe223454b196009011e4cf8dc28f15721c2cd29",
+  "source_data_sha256": "6d3e00b87366427c25e49fe91ea078cd0f4f0cbdc3149567f4b904df8e349890",
+  "restored_data_sha256": "6d3e00b87366427c25e49fe91ea078cd0f4f0cbdc3149567f4b904df8e349890",
+  "schema_match": true,
+  "source_unchanged": true,
+  "role_non_superuser": true,
+  "counts": {
+    "palabras": 5,
+    "partidas": 3,
+    "intentos": 8,
+    "estadisticas": 1
+  },
+  "sequence": {
+    "last_value": 5,
+    "is_called": true
+  },
+  "http_checks": [
+    "health",
+    "three restored games",
+    "restored stats",
+    "ranking",
+    "invalid guess 400/no write",
+    "restored active game victory",
+    "stats mean 1.5",
+    "new game UUID"
+  ],
+  "backend_port": 50561,
+  "postgres_port": 50540,
+  "cleanup": "PASS: own backend, two containers, network and temporary dump removed"
+}

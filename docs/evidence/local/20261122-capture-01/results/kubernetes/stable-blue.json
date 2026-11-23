@@ -1,0 +1,640 @@
+{
+  "wordle-demo": {
+    "pods": [
+      {
+        "name": "backend-blue-7fc8d4f76c-chsdg",
+        "kind": "Pod",
+        "ready": [
+          true
+        ],
+        "phase": "Running",
+        "selector": null,
+        "type": null,
+        "replicas": null,
+        "images": [
+          {
+            "name": "backend",
+            "image": "wordle-fin0507-backend:local",
+            "imageID": "sha256:03192b2f5ddb2ee767803622e25835ccc0521ffc5485306b7947b4e307bf8022"
+          }
+        ]
+      },
+      {
+        "name": "frontend-blue-66758dd95f-29pf5",
+        "kind": "Pod",
+        "ready": [
+          true,
+          true
+        ],
+        "phase": "Running",
+        "selector": null,
+        "type": null,
+        "replicas": null,
+        "images": [
+          {
+            "name": "frontend",
+            "image": "wordle-fin0507-frontend:local",
+            "imageID": "sha256:d66e39b7b3b3dfe1728ba0eb705c0344c47bfe18a7fe93818e393c18f59773c5"
+          },
+          {
+            "name": "log-agent",
+            "image": "otel/opentelemetry-collector-contrib:0.165.0",
+            "imageID": "sha256:1080afcdde7624998314ebd6cc707c401436f00dfbd778eb9d0466f7a2501c40"
+          }
+        ]
+      },
+      {
+        "name": "ingress-65bcb4457-9hkq5",
+        "kind": "Pod",
+        "ready": [
+          true
+        ],
+        "phase": "Running",
+        "selector": null,
+        "type": null,
+        "replicas": null,
+        "images": [
+          {
+            "name": "ingress",
+            "image": "traefik:v3.7.17",
+            "imageID": "sha256:d848e658dbc9653fc3fbe2fc5ffce860a508a62cf6351027a9336e9a3bcb2e21"
+          }
+        ]
+      },
+      {
+        "name": "postgres-0",
+        "kind": "Pod",
+        "ready": [
+          true
+        ],
+        "phase": "Running",
+        "selector": null,
+        "type": null,
+        "replicas": null,
+        "images": [
+          {
+            "name": "postgres",
+            "image": "postgres:16.15",
+            "imageID": "sha256:ba07bdb15f0f2ac1ba7a88891da731cae65ac36d663fdb7de8f698ea47e0e381"
+          }
+        ]
+      }
+    ],
+    "services": [
+      {
+        "name": "backend-blue",
+        "kind": "Service",
+        "ready": [],
+        "phase": null,
+        "selector": {
+          "app": "wordle-backend",
+          "wordle.slot": "blue"
+        },
+        "type": "ClusterIP",
+        "replicas": null,
+        "images": []
+      },
+      {
+        "name": "backend-green",
+        "kind": "Service",
+        "ready": [],
+        "phase": null,
+        "selector": {
+          "app": "wordle-backend",
+          "wordle.slot": "green"
+        },
+        "type": "ClusterIP",
+        "replicas": null,
+        "images": []
+      },
+      {
+        "name": "frontend",
+        "kind": "Service",
+        "ready": [],
+        "phase": null,
+        "selector": {
+          "app": "wordle-frontend",
+          "wordle.slot": "blue"
+        },
+        "type": "ClusterIP",
+        "replicas": null,
+        "images": []
+      },
+      {
+        "name": "frontend-blue",
+        "kind": "Service",
+        "ready": [],
+        "phase": null,
+        "selector": {
+          "app": "wordle-frontend",
+          "wordle.slot": "blue"
+        },
+        "type": "ClusterIP",
+        "replicas": null,
+        "images": []
+      },
+      {
+        "name": "frontend-green",
+        "kind": "Service",
+        "ready": [],
+        "phase": null,
+        "selector": {
+          "app": "wordle-frontend",
+          "wordle.slot": "green"
+        },
+        "type": "ClusterIP",
+        "replicas": null,
+        "images": []
+      },
+      {
+        "name": "ingress",
+        "kind": "Service",
+        "ready": [],
+        "phase": null,
+        "selector": {
+          "app": "wordle-ingress"
+        },
+        "type": "ClusterIP",
+        "replicas": null,
+        "images": []
+      },
+      {
+        "name": "postgres",
+        "kind": "Service",
+        "ready": [],
+        "phase": null,
+        "selector": {
+          "app": "wordle-postgres"
+        },
+        "type": "ClusterIP",
+        "replicas": null,
+        "images": []
+      }
+    ],
+    "ingresses": [
+      {
+        "name": "wordle",
+        "kind": "Ingress",
+        "ready": [],
+        "phase": null,
+        "selector": null,
+        "type": null,
+        "replicas": null,
+        "images": []
+      }
+    ],
+    "deployments": [
+      {
+        "name": "backend-blue",
+        "kind": "Deployment",
+        "ready": [],
+        "phase": null,
+        "selector": {
+          "matchLabels": {
+            "app": "wordle-backend",
+            "wordle.slot": "blue"
+          }
+        },
+        "type": null,
+        "replicas": 1,
+        "images": []
+      },
+      {
+        "name": "backend-green",
+        "kind": "Deployment",
+        "ready": [],
+        "phase": null,
+        "selector": {
+          "matchLabels": {
+            "app": "wordle-backend",
+            "wordle.slot": "green"
+          }
+        },
+        "type": null,
+        "replicas": 0,
+        "images": []
+      },
+      {
+        "name": "frontend-blue",
+        "kind": "Deployment",
+        "ready": [],
+        "phase": null,
+        "selector": {
+          "matchLabels": {
+            "app": "wordle-frontend",
+            "wordle.slot": "blue"
+          }
+        },
+        "type": null,
+        "replicas": 1,
+        "images": []
+      },
+      {
+        "name": "frontend-green",
+        "kind": "Deployment",
+        "ready": [],
+        "phase": null,
+        "selector": {
+          "matchLabels": {
+            "app": "wordle-frontend",
+            "wordle.slot": "green"
+          }
+        },
+        "type": null,
+        "replicas": 0,
+        "images": []
+      },
+      {
+        "name": "ingress",
+        "kind": "Deployment",
+        "ready": [],
+        "phase": null,
+        "selector": {
+          "matchLabels": {
+            "app": "wordle-ingress"
+          }
+        },
+        "type": null,
+        "replicas": 1,
+        "images": []
+      }
+    ],
+    "statefulsets": [
+      {
+        "name": "postgres",
+        "kind": "StatefulSet",
+        "ready": [],
+        "phase": null,
+        "selector": {
+          "matchLabels": {
+            "app": "wordle-postgres"
+          }
+        },
+        "type": null,
+        "replicas": 1,
+        "images": []
+      }
+    ],
+    "pvc": [
+      {
+        "name": "data-postgres-0",
+        "kind": "PersistentVolumeClaim",
+        "ready": [],
+        "phase": "Bound",
+        "selector": null,
+        "type": null,
+        "replicas": null,
+        "images": []
+      }
+    ]
+  },
+  "wordle-observability": {
+    "pods": [
+      {
+        "name": "alertmanager-64db7ccc99-qzglc",
+        "kind": "Pod",
+        "ready": [
+          true
+        ],
+        "phase": "Running",
+        "selector": null,
+        "type": null,
+        "replicas": null,
+        "images": [
+          {
+            "name": "alertmanager",
+            "image": "prom/alertmanager:v0.35.0",
+            "imageID": "sha256:0f7fe4e2351f9f07c89ddc48be52c7bfd24577c5df6fccc0a59bcb2178a75a01"
+          }
+        ]
+      },
+      {
+        "name": "collector-6797df9cd4-mmg9z",
+        "kind": "Pod",
+        "ready": [
+          true
+        ],
+        "phase": "Running",
+        "selector": null,
+        "type": null,
+        "replicas": null,
+        "images": [
+          {
+            "name": "collector",
+            "image": "otel/opentelemetry-collector-contrib:0.165.0",
+            "imageID": "sha256:1080afcdde7624998314ebd6cc707c401436f00dfbd778eb9d0466f7a2501c40"
+          }
+        ]
+      },
+      {
+        "name": "grafana-869cc9d7f7-gg8fp",
+        "kind": "Pod",
+        "ready": [
+          true
+        ],
+        "phase": "Running",
+        "selector": null,
+        "type": null,
+        "replicas": null,
+        "images": [
+          {
+            "name": "grafana",
+            "image": "grafana/grafana:13.3.0",
+            "imageID": "sha256:6afa1ab7f6e662c739a45a1d458598d7eb6ab70fc7c0ab45af64864e1503d4b6"
+          }
+        ]
+      },
+      {
+        "name": "loki-78f97cb474-vd8qx",
+        "kind": "Pod",
+        "ready": [
+          true
+        ],
+        "phase": "Running",
+        "selector": null,
+        "type": null,
+        "replicas": null,
+        "images": [
+          {
+            "name": "loki",
+            "image": "grafana/loki:3.6.20",
+            "imageID": "sha256:27aa13d6e69207a0936744ae8cd40a437a3ae3c848f7c6a962d5cfeddcb9a4fe"
+          }
+        ]
+      },
+      {
+        "name": "node-exporter-dl57k",
+        "kind": "Pod",
+        "ready": [
+          true
+        ],
+        "phase": "Running",
+        "selector": null,
+        "type": null,
+        "replicas": null,
+        "images": [
+          {
+            "name": "node-exporter",
+            "image": "prom/node-exporter:v1.12.1",
+            "imageID": "sha256:9bbbca8f5cb8e9bd1b835e8ec086b6df6d9a458d2d10ef1c97ea4a9a3ae7e54b"
+          }
+        ]
+      },
+      {
+        "name": "notifications-7549c9cb5f-pnj8x",
+        "kind": "Pod",
+        "ready": [
+          true
+        ],
+        "phase": "Running",
+        "selector": null,
+        "type": null,
+        "replicas": null,
+        "images": [
+          {
+            "name": "notifications",
+            "image": "wordle-fin0507-backend:local",
+            "imageID": "sha256:03192b2f5ddb2ee767803622e25835ccc0521ffc5485306b7947b4e307bf8022"
+          }
+        ]
+      },
+      {
+        "name": "prometheus-7677dffdd9-m6xrf",
+        "kind": "Pod",
+        "ready": [
+          true
+        ],
+        "phase": "Running",
+        "selector": null,
+        "type": null,
+        "replicas": null,
+        "images": [
+          {
+            "name": "prometheus",
+            "image": "prom/prometheus:v3.16.0",
+            "imageID": "sha256:9bd9cbec4bd4f33bb6ccedf8c25a5132f8e7b2fb158c9a223a54485e4332e962"
+          }
+        ]
+      },
+      {
+        "name": "tempo-54d99587cb-jlc6z",
+        "kind": "Pod",
+        "ready": [
+          true
+        ],
+        "phase": "Running",
+        "selector": null,
+        "type": null,
+        "replicas": null,
+        "images": [
+          {
+            "name": "tempo",
+            "image": "grafana/tempo:2.10.10",
+            "imageID": "sha256:7b8eb5c4235854c6103f21b10db306c73d580bdd71bf65626d87cd3e2339eaab"
+          }
+        ]
+      }
+    ],
+    "services": [
+      {
+        "name": "alertmanager",
+        "kind": "Service",
+        "ready": [],
+        "phase": null,
+        "selector": {
+          "app": "alertmanager"
+        },
+        "type": "ClusterIP",
+        "replicas": null,
+        "images": []
+      },
+      {
+        "name": "collector",
+        "kind": "Service",
+        "ready": [],
+        "phase": null,
+        "selector": {
+          "app": "collector"
+        },
+        "type": "ClusterIP",
+        "replicas": null,
+        "images": []
+      },
+      {
+        "name": "grafana",
+        "kind": "Service",
+        "ready": [],
+        "phase": null,
+        "selector": {
+          "app": "grafana"
+        },
+        "type": "ClusterIP",
+        "replicas": null,
+        "images": []
+      },
+      {
+        "name": "loki",
+        "kind": "Service",
+        "ready": [],
+        "phase": null,
+        "selector": {
+          "app": "loki"
+        },
+        "type": "ClusterIP",
+        "replicas": null,
+        "images": []
+      },
+      {
+        "name": "node-exporter",
+        "kind": "Service",
+        "ready": [],
+        "phase": null,
+        "selector": {
+          "app": "node-exporter"
+        },
+        "type": "ClusterIP",
+        "replicas": null,
+        "images": []
+      },
+      {
+        "name": "notifications",
+        "kind": "Service",
+        "ready": [],
+        "phase": null,
+        "selector": {
+          "app": "notifications"
+        },
+        "type": "ClusterIP",
+        "replicas": null,
+        "images": []
+      },
+      {
+        "name": "prometheus",
+        "kind": "Service",
+        "ready": [],
+        "phase": null,
+        "selector": {
+          "app": "prometheus"
+        },
+        "type": "ClusterIP",
+        "replicas": null,
+        "images": []
+      },
+      {
+        "name": "tempo",
+        "kind": "Service",
+        "ready": [],
+        "phase": null,
+        "selector": {
+          "app": "tempo"
+        },
+        "type": "ClusterIP",
+        "replicas": null,
+        "images": []
+      }
+    ],
+    "ingresses": [],
+    "deployments": [
+      {
+        "name": "alertmanager",
+        "kind": "Deployment",
+        "ready": [],
+        "phase": null,
+        "selector": {
+          "matchLabels": {
+            "app": "alertmanager"
+          }
+        },
+        "type": null,
+        "replicas": 1,
+        "images": []
+      },
+      {
+        "name": "collector",
+        "kind": "Deployment",
+        "ready": [],
+        "phase": null,
+        "selector": {
+          "matchLabels": {
+            "app": "collector"
+          }
+        },
+        "type": null,
+        "replicas": 1,
+        "images": []
+      },
+      {
+        "name": "grafana",
+        "kind": "Deployment",
+        "ready": [],
+        "phase": null,
+        "selector": {
+          "matchLabels": {
+            "app": "grafana"
+          }
+        },
+        "type": null,
+        "replicas": 1,
+        "images": []
+      },
+      {
+        "name": "loki",
+        "kind": "Deployment",
+        "ready": [],
+        "phase": null,
+        "selector": {
+          "matchLabels": {
+            "app": "loki"
+          }
+        },
+        "type": null,
+        "replicas": 1,
+        "images": []
+      },
+      {
+        "name": "notifications",
+        "kind": "Deployment",
+        "ready": [],
+        "phase": null,
+        "selector": {
+          "matchLabels": {
+            "app": "notifications"
+          }
+        },
+        "type": null,
+        "replicas": 1,
+        "images": []
+      },
+      {
+        "name": "prometheus",
+        "kind": "Deployment",
+        "ready": [],
+        "phase": null,
+        "selector": {
+          "matchLabels": {
+            "app": "prometheus"
+          }
+        },
+        "type": null,
+        "replicas": 1,
+        "images": []
+      },
+      {
+        "name": "tempo",
+        "kind": "Deployment",
+        "ready": [],
+        "phase": null,
+        "selector": {
+          "matchLabels": {
+            "app": "tempo"
+          }
+        },
+        "type": null,
+        "replicas": 1,
+        "images": []
+      }
+    ],
+    "statefulsets": [],
+    "pvc": []
+  }
+}

@@ -1,0 +1,1915 @@
+{
+  "run_id": "20261122-capture-07",
+  "utc": "2026-11-22T12:32:57.922513+00:00",
+  "environment": "kind-local; NOT AKS",
+  "branch": "codex/pg01-07-consolidation",
+  "head": "4d56cf265cc5f0af8c72c64f2a93373660e8f122",
+  "integrated_result": "PASS",
+  "screenshots": [
+    {
+      "ev": "EV-04",
+      "requirements": [
+        "A10",
+        "A11",
+        "A12",
+        "A15"
+      ],
+      "scenario": "promoted-green",
+      "utc": "2026-11-22T12:28:34.659Z",
+      "environment": "kind-local",
+      "persistence": "PostgreSQL 16 real",
+      "expected": "Real frontend through Traefik; release green",
+      "observed": "Verified before screenshot",
+      "status": "PASS",
+      "path": "screenshots/wordle/promoted-green.png",
+      "sha256": "ed1f8fd059e0f0bc2139c506b63213bb5f86f7b3f57f5403d63506641298b9e5",
+      "width": 1440,
+      "height": 1000,
+      "format": "PNG",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": false,
+      "run_id": "20261122-capture-07",
+      "branch": "codex/pg01-07-consolidation",
+      "head": "4d56cf265cc5f0af8c72c64f2a93373660e8f122",
+      "working_tree": "Includes uncommitted capture hooks; not reproduced by HEAD alone",
+      "executor": "scripts/evidence/run_local.py",
+      "original_results": [
+        {
+          "path": "results/integrated/events.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/events.json",
+          "sha256": "ce1759b29c47d0211faa1feeec8c72ef400e5877ac39e1d31106ff1d3549932b",
+          "original_sha256": "ce1759b29c47d0211faa1feeec8c72ef400e5877ac39e1d31106ff1d3549932b",
+          "sanitized_derivative": false
+        },
+        {
+          "path": "results/integrated/observability.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/observability.json",
+          "sha256": "a69c73b174352023b0df3948090347c1b3eabbce5f13d85dcc1f1220f9f0781d",
+          "original_sha256": "a69c73b174352023b0df3948090347c1b3eabbce5f13d85dcc1f1220f9f0781d",
+          "sanitized_derivative": false
+        },
+        {
+          "path": "results/integrated/summary.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/summary.json",
+          "sha256": "9592274d454fcce3cab0a207c9a23561344a0cd1cb5521a52733a54da36b5c39",
+          "original_sha256": "9592274d454fcce3cab0a207c9a23561344a0cd1cb5521a52733a54da36b5c39",
+          "sanitized_derivative": false
+        },
+        {
+          "path": "results/integrated/traffic.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/traffic.json",
+          "sha256": "658c72161940ac67f49aac6f2510f8a70dff7f573c309d68d8aed35b3277bc8a",
+          "original_sha256": "658c72161940ac67f49aac6f2510f8a70dff7f573c309d68d8aed35b3277bc8a",
+          "sanitized_derivative": false
+        }
+      ],
+      "automated_status": "PASS",
+      "visual_review": {
+        "status": "PASS",
+        "reason": "Opened and inspected: legible real UI, expected state/data, no credentials visible"
+      }
+    },
+    {
+      "ev": "EV-04",
+      "requirements": [
+        "A10",
+        "A11",
+        "A12",
+        "A15"
+      ],
+      "scenario": "rollback-green",
+      "utc": "2026-11-22T12:29:20.955Z",
+      "environment": "kind-local",
+      "persistence": "PostgreSQL 16 real",
+      "expected": "Real frontend through Traefik; release green",
+      "observed": "Verified before screenshot",
+      "status": "PASS",
+      "path": "screenshots/wordle/rollback-green.png",
+      "sha256": "ed1f8fd059e0f0bc2139c506b63213bb5f86f7b3f57f5403d63506641298b9e5",
+      "width": 1440,
+      "height": 1000,
+      "format": "PNG",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": false,
+      "run_id": "20261122-capture-07",
+      "branch": "codex/pg01-07-consolidation",
+      "head": "4d56cf265cc5f0af8c72c64f2a93373660e8f122",
+      "working_tree": "Includes uncommitted capture hooks; not reproduced by HEAD alone",
+      "executor": "scripts/evidence/run_local.py",
+      "original_results": [
+        {
+          "path": "results/integrated/events.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/events.json",
+          "sha256": "ce1759b29c47d0211faa1feeec8c72ef400e5877ac39e1d31106ff1d3549932b",
+          "original_sha256": "ce1759b29c47d0211faa1feeec8c72ef400e5877ac39e1d31106ff1d3549932b",
+          "sanitized_derivative": false
+        },
+        {
+          "path": "results/integrated/observability.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/observability.json",
+          "sha256": "a69c73b174352023b0df3948090347c1b3eabbce5f13d85dcc1f1220f9f0781d",
+          "original_sha256": "a69c73b174352023b0df3948090347c1b3eabbce5f13d85dcc1f1220f9f0781d",
+          "sanitized_derivative": false
+        },
+        {
+          "path": "results/integrated/summary.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/summary.json",
+          "sha256": "9592274d454fcce3cab0a207c9a23561344a0cd1cb5521a52733a54da36b5c39",
+          "original_sha256": "9592274d454fcce3cab0a207c9a23561344a0cd1cb5521a52733a54da36b5c39",
+          "sanitized_derivative": false
+        },
+        {
+          "path": "results/integrated/traffic.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/traffic.json",
+          "sha256": "658c72161940ac67f49aac6f2510f8a70dff7f573c309d68d8aed35b3277bc8a",
+          "original_sha256": "658c72161940ac67f49aac6f2510f8a70dff7f573c309d68d8aed35b3277bc8a",
+          "sanitized_derivative": false
+        }
+      ],
+      "automated_status": "PASS",
+      "visual_review": {
+        "status": "PASS",
+        "reason": "Opened and inspected: legible real UI, expected state/data, no credentials visible"
+      }
+    },
+    {
+      "ev": "EV-04",
+      "requirements": [
+        "A10",
+        "A11",
+        "A12",
+        "A15"
+      ],
+      "scenario": "signals",
+      "utc": "2026-11-22T12:29:26.419Z",
+      "environment": "kind-local",
+      "persistence": "PostgreSQL 16 real",
+      "expected": "Real frontend through Traefik; release green",
+      "observed": "Verified before screenshot",
+      "status": "PASS",
+      "path": "screenshots/wordle/signals.png",
+      "sha256": "ed1f8fd059e0f0bc2139c506b63213bb5f86f7b3f57f5403d63506641298b9e5",
+      "width": 1440,
+      "height": 1000,
+      "format": "PNG",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": false,
+      "run_id": "20261122-capture-07",
+      "branch": "codex/pg01-07-consolidation",
+      "head": "4d56cf265cc5f0af8c72c64f2a93373660e8f122",
+      "working_tree": "Includes uncommitted capture hooks; not reproduced by HEAD alone",
+      "executor": "scripts/evidence/run_local.py",
+      "original_results": [
+        {
+          "path": "results/integrated/events.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/events.json",
+          "sha256": "ce1759b29c47d0211faa1feeec8c72ef400e5877ac39e1d31106ff1d3549932b",
+          "original_sha256": "ce1759b29c47d0211faa1feeec8c72ef400e5877ac39e1d31106ff1d3549932b",
+          "sanitized_derivative": false
+        },
+        {
+          "path": "results/integrated/observability.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/observability.json",
+          "sha256": "a69c73b174352023b0df3948090347c1b3eabbce5f13d85dcc1f1220f9f0781d",
+          "original_sha256": "a69c73b174352023b0df3948090347c1b3eabbce5f13d85dcc1f1220f9f0781d",
+          "sanitized_derivative": false
+        },
+        {
+          "path": "results/integrated/summary.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/summary.json",
+          "sha256": "9592274d454fcce3cab0a207c9a23561344a0cd1cb5521a52733a54da36b5c39",
+          "original_sha256": "9592274d454fcce3cab0a207c9a23561344a0cd1cb5521a52733a54da36b5c39",
+          "sanitized_derivative": false
+        },
+        {
+          "path": "results/integrated/traffic.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/traffic.json",
+          "sha256": "658c72161940ac67f49aac6f2510f8a70dff7f573c309d68d8aed35b3277bc8a",
+          "original_sha256": "658c72161940ac67f49aac6f2510f8a70dff7f573c309d68d8aed35b3277bc8a",
+          "sanitized_derivative": false
+        }
+      ],
+      "automated_status": "PASS",
+      "visual_review": {
+        "status": "PASS",
+        "reason": "Opened and inspected: legible real UI, expected state/data, no credentials visible"
+      }
+    },
+    {
+      "ev": "EV-10",
+      "requirements": [
+        "A24",
+        "A30",
+        "A48"
+      ],
+      "scenario": "wordle-dashboard",
+      "utc": "2026-11-22T12:29:30.938Z",
+      "environment": "kind-local",
+      "persistence": "PostgreSQL 16 real",
+      "expected": "Provisioned dashboard with queries verified by real validator",
+      "observed": "Verified before screenshot",
+      "status": "PASS",
+      "path": "screenshots/grafana/wordle-dashboard.png",
+      "sha256": "61d4072ceca86f650a26dde9f72f2736ce4b5801068373737900923abde51b26",
+      "width": 1440,
+      "height": 1000,
+      "format": "PNG",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": true,
+      "run_id": "20261122-capture-07",
+      "branch": "codex/pg01-07-consolidation",
+      "head": "4d56cf265cc5f0af8c72c64f2a93373660e8f122",
+      "working_tree": "Includes uncommitted capture hooks; not reproduced by HEAD alone",
+      "executor": "scripts/evidence/run_local.py",
+      "original_results": [
+        {
+          "path": "results/integrated/events.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/events.json",
+          "sha256": "ce1759b29c47d0211faa1feeec8c72ef400e5877ac39e1d31106ff1d3549932b",
+          "original_sha256": "ce1759b29c47d0211faa1feeec8c72ef400e5877ac39e1d31106ff1d3549932b",
+          "sanitized_derivative": false
+        },
+        {
+          "path": "results/integrated/observability.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/observability.json",
+          "sha256": "a69c73b174352023b0df3948090347c1b3eabbce5f13d85dcc1f1220f9f0781d",
+          "original_sha256": "a69c73b174352023b0df3948090347c1b3eabbce5f13d85dcc1f1220f9f0781d",
+          "sanitized_derivative": false
+        },
+        {
+          "path": "results/integrated/summary.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/summary.json",
+          "sha256": "9592274d454fcce3cab0a207c9a23561344a0cd1cb5521a52733a54da36b5c39",
+          "original_sha256": "9592274d454fcce3cab0a207c9a23561344a0cd1cb5521a52733a54da36b5c39",
+          "sanitized_derivative": false
+        },
+        {
+          "path": "results/integrated/traffic.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/traffic.json",
+          "sha256": "658c72161940ac67f49aac6f2510f8a70dff7f573c309d68d8aed35b3277bc8a",
+          "original_sha256": "658c72161940ac67f49aac6f2510f8a70dff7f573c309d68d8aed35b3277bc8a",
+          "sanitized_derivative": false
+        }
+      ],
+      "automated_status": "PASS",
+      "visual_review": {
+        "status": "PASS",
+        "reason": "Opened and inspected: legible real UI, expected state/data, no credentials visible"
+      }
+    },
+    {
+      "ev": "EV-10",
+      "requirements": [
+        "A24",
+        "A30",
+        "A48"
+      ],
+      "scenario": "wordle-dashboard-lower",
+      "utc": "2026-11-22T12:29:31.383Z",
+      "environment": "kind-local",
+      "persistence": "PostgreSQL 16 real",
+      "expected": "Lower panels of the same real provisioned dashboard",
+      "observed": "Verified before screenshot",
+      "status": "PASS",
+      "path": "screenshots/grafana/wordle-dashboard-lower.png",
+      "sha256": "37fcbf41f0adafa97c6f490f919aadee67a73dfc668b401cbf780959ca061b1a",
+      "width": 1440,
+      "height": 1000,
+      "format": "PNG",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": true,
+      "run_id": "20261122-capture-07",
+      "branch": "codex/pg01-07-consolidation",
+      "head": "4d56cf265cc5f0af8c72c64f2a93373660e8f122",
+      "working_tree": "Includes uncommitted capture hooks; not reproduced by HEAD alone",
+      "executor": "scripts/evidence/run_local.py",
+      "original_results": [
+        {
+          "path": "results/integrated/events.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/events.json",
+          "sha256": "ce1759b29c47d0211faa1feeec8c72ef400e5877ac39e1d31106ff1d3549932b",
+          "original_sha256": "ce1759b29c47d0211faa1feeec8c72ef400e5877ac39e1d31106ff1d3549932b",
+          "sanitized_derivative": false
+        },
+        {
+          "path": "results/integrated/observability.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/observability.json",
+          "sha256": "a69c73b174352023b0df3948090347c1b3eabbce5f13d85dcc1f1220f9f0781d",
+          "original_sha256": "a69c73b174352023b0df3948090347c1b3eabbce5f13d85dcc1f1220f9f0781d",
+          "sanitized_derivative": false
+        },
+        {
+          "path": "results/integrated/summary.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/summary.json",
+          "sha256": "9592274d454fcce3cab0a207c9a23561344a0cd1cb5521a52733a54da36b5c39",
+          "original_sha256": "9592274d454fcce3cab0a207c9a23561344a0cd1cb5521a52733a54da36b5c39",
+          "sanitized_derivative": false
+        },
+        {
+          "path": "results/integrated/traffic.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/traffic.json",
+          "sha256": "658c72161940ac67f49aac6f2510f8a70dff7f573c309d68d8aed35b3277bc8a",
+          "original_sha256": "658c72161940ac67f49aac6f2510f8a70dff7f573c309d68d8aed35b3277bc8a",
+          "sanitized_derivative": false
+        }
+      ],
+      "automated_status": "PASS",
+      "visual_review": {
+        "status": "PASS",
+        "reason": "Opened and inspected: legible real UI, expected state/data, no credentials visible"
+      }
+    },
+    {
+      "ev": "EV-09",
+      "requirements": [
+        "A23",
+        "A26",
+        "A27"
+      ],
+      "scenario": "targets-up",
+      "utc": "2026-11-22T12:29:32.171Z",
+      "environment": "kind-local",
+      "persistence": "PostgreSQL 16 real",
+      "expected": "Real target API verified all UP",
+      "observed": "Verified before screenshot",
+      "status": "PASS",
+      "path": "screenshots/prometheus/targets-up.png",
+      "sha256": "2fac43892129663de776621e15e9b636224c5f38ddfcba6573420dee1ccf438b",
+      "width": 1440,
+      "height": 1000,
+      "format": "PNG",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": false,
+      "run_id": "20261122-capture-07",
+      "branch": "codex/pg01-07-consolidation",
+      "head": "4d56cf265cc5f0af8c72c64f2a93373660e8f122",
+      "working_tree": "Includes uncommitted capture hooks; not reproduced by HEAD alone",
+      "executor": "scripts/evidence/run_local.py",
+      "original_results": [
+        {
+          "path": "results/integrated/events.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/events.json",
+          "sha256": "ce1759b29c47d0211faa1feeec8c72ef400e5877ac39e1d31106ff1d3549932b",
+          "original_sha256": "ce1759b29c47d0211faa1feeec8c72ef400e5877ac39e1d31106ff1d3549932b",
+          "sanitized_derivative": false
+        },
+        {
+          "path": "results/integrated/observability.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/observability.json",
+          "sha256": "a69c73b174352023b0df3948090347c1b3eabbce5f13d85dcc1f1220f9f0781d",
+          "original_sha256": "a69c73b174352023b0df3948090347c1b3eabbce5f13d85dcc1f1220f9f0781d",
+          "sanitized_derivative": false
+        },
+        {
+          "path": "results/integrated/summary.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/summary.json",
+          "sha256": "9592274d454fcce3cab0a207c9a23561344a0cd1cb5521a52733a54da36b5c39",
+          "original_sha256": "9592274d454fcce3cab0a207c9a23561344a0cd1cb5521a52733a54da36b5c39",
+          "sanitized_derivative": false
+        },
+        {
+          "path": "results/integrated/traffic.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/traffic.json",
+          "sha256": "658c72161940ac67f49aac6f2510f8a70dff7f573c309d68d8aed35b3277bc8a",
+          "original_sha256": "658c72161940ac67f49aac6f2510f8a70dff7f573c309d68d8aed35b3277bc8a",
+          "sanitized_derivative": false
+        }
+      ],
+      "automated_status": "PASS",
+      "visual_review": {
+        "status": "PASS",
+        "reason": "Opened and inspected: legible real UI, expected state/data, no credentials visible"
+      }
+    },
+    {
+      "ev": "EV-09",
+      "requirements": [
+        "A23",
+        "A26",
+        "A27"
+      ],
+      "scenario": "application-metrics",
+      "utc": "2026-11-22T12:29:32.702Z",
+      "environment": "kind-local",
+      "persistence": "PostgreSQL 16 real",
+      "expected": "Real metric query wordle_http_requests_total",
+      "observed": "Verified before screenshot",
+      "status": "PASS",
+      "path": "screenshots/prometheus/application-metrics.png",
+      "sha256": "af42c767d8c96887e6df12c7978e9fd307bf486fffb6dae98492b860b6cbdd4f",
+      "width": 1440,
+      "height": 1000,
+      "format": "PNG",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": false,
+      "run_id": "20261122-capture-07",
+      "branch": "codex/pg01-07-consolidation",
+      "head": "4d56cf265cc5f0af8c72c64f2a93373660e8f122",
+      "working_tree": "Includes uncommitted capture hooks; not reproduced by HEAD alone",
+      "executor": "scripts/evidence/run_local.py",
+      "original_results": [
+        {
+          "path": "results/integrated/events.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/events.json",
+          "sha256": "ce1759b29c47d0211faa1feeec8c72ef400e5877ac39e1d31106ff1d3549932b",
+          "original_sha256": "ce1759b29c47d0211faa1feeec8c72ef400e5877ac39e1d31106ff1d3549932b",
+          "sanitized_derivative": false
+        },
+        {
+          "path": "results/integrated/observability.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/observability.json",
+          "sha256": "a69c73b174352023b0df3948090347c1b3eabbce5f13d85dcc1f1220f9f0781d",
+          "original_sha256": "a69c73b174352023b0df3948090347c1b3eabbce5f13d85dcc1f1220f9f0781d",
+          "sanitized_derivative": false
+        },
+        {
+          "path": "results/integrated/summary.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/summary.json",
+          "sha256": "9592274d454fcce3cab0a207c9a23561344a0cd1cb5521a52733a54da36b5c39",
+          "original_sha256": "9592274d454fcce3cab0a207c9a23561344a0cd1cb5521a52733a54da36b5c39",
+          "sanitized_derivative": false
+        },
+        {
+          "path": "results/integrated/traffic.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/traffic.json",
+          "sha256": "658c72161940ac67f49aac6f2510f8a70dff7f573c309d68d8aed35b3277bc8a",
+          "original_sha256": "658c72161940ac67f49aac6f2510f8a70dff7f573c309d68d8aed35b3277bc8a",
+          "sanitized_derivative": false
+        }
+      ],
+      "automated_status": "PASS",
+      "visual_review": {
+        "status": "PASS",
+        "reason": "Opened and inspected: legible real UI, expected state/data, no credentials visible"
+      }
+    },
+    {
+      "ev": "EV-09",
+      "requirements": [
+        "A23",
+        "A26",
+        "A27"
+      ],
+      "scenario": "containers-metrics",
+      "utc": "2026-11-22T12:29:33.242Z",
+      "environment": "kind-local",
+      "persistence": "PostgreSQL 16 real",
+      "expected": "Real metric query container_memory_working_set_bytes{namespace=\"wordle-demo\",container!=\"\"}",
+      "observed": "Verified before screenshot",
+      "status": "PASS",
+      "path": "screenshots/prometheus/containers-metrics.png",
+      "sha256": "d0cf5632559012669f5380fde03be8f1c9d55e0343077742c3068a3df018767c",
+      "width": 1440,
+      "height": 1000,
+      "format": "PNG",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": false,
+      "run_id": "20261122-capture-07",
+      "branch": "codex/pg01-07-consolidation",
+      "head": "4d56cf265cc5f0af8c72c64f2a93373660e8f122",
+      "working_tree": "Includes uncommitted capture hooks; not reproduced by HEAD alone",
+      "executor": "scripts/evidence/run_local.py",
+      "original_results": [
+        {
+          "path": "results/integrated/events.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/events.json",
+          "sha256": "ce1759b29c47d0211faa1feeec8c72ef400e5877ac39e1d31106ff1d3549932b",
+          "original_sha256": "ce1759b29c47d0211faa1feeec8c72ef400e5877ac39e1d31106ff1d3549932b",
+          "sanitized_derivative": false
+        },
+        {
+          "path": "results/integrated/observability.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/observability.json",
+          "sha256": "a69c73b174352023b0df3948090347c1b3eabbce5f13d85dcc1f1220f9f0781d",
+          "original_sha256": "a69c73b174352023b0df3948090347c1b3eabbce5f13d85dcc1f1220f9f0781d",
+          "sanitized_derivative": false
+        },
+        {
+          "path": "results/integrated/summary.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/summary.json",
+          "sha256": "9592274d454fcce3cab0a207c9a23561344a0cd1cb5521a52733a54da36b5c39",
+          "original_sha256": "9592274d454fcce3cab0a207c9a23561344a0cd1cb5521a52733a54da36b5c39",
+          "sanitized_derivative": false
+        },
+        {
+          "path": "results/integrated/traffic.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/traffic.json",
+          "sha256": "658c72161940ac67f49aac6f2510f8a70dff7f573c309d68d8aed35b3277bc8a",
+          "original_sha256": "658c72161940ac67f49aac6f2510f8a70dff7f573c309d68d8aed35b3277bc8a",
+          "sanitized_derivative": false
+        }
+      ],
+      "automated_status": "PASS",
+      "visual_review": {
+        "status": "PASS",
+        "reason": "Opened and inspected: legible real UI, expected state/data, no credentials visible"
+      }
+    },
+    {
+      "ev": "EV-09",
+      "requirements": [
+        "A23",
+        "A26",
+        "A27"
+      ],
+      "scenario": "nodes-metrics",
+      "utc": "2026-11-22T12:29:33.693Z",
+      "environment": "kind-local",
+      "persistence": "PostgreSQL 16 real",
+      "expected": "Real metric query node_memory_MemTotal_bytes",
+      "observed": "Verified before screenshot",
+      "status": "PASS",
+      "path": "screenshots/prometheus/nodes-metrics.png",
+      "sha256": "631021619903a970e9ab7dff9aefd3f3603d94dad0150a642817e791dc6b3e03",
+      "width": 1440,
+      "height": 1000,
+      "format": "PNG",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": false,
+      "run_id": "20261122-capture-07",
+      "branch": "codex/pg01-07-consolidation",
+      "head": "4d56cf265cc5f0af8c72c64f2a93373660e8f122",
+      "working_tree": "Includes uncommitted capture hooks; not reproduced by HEAD alone",
+      "executor": "scripts/evidence/run_local.py",
+      "original_results": [
+        {
+          "path": "results/integrated/events.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/events.json",
+          "sha256": "ce1759b29c47d0211faa1feeec8c72ef400e5877ac39e1d31106ff1d3549932b",
+          "original_sha256": "ce1759b29c47d0211faa1feeec8c72ef400e5877ac39e1d31106ff1d3549932b",
+          "sanitized_derivative": false
+        },
+        {
+          "path": "results/integrated/observability.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/observability.json",
+          "sha256": "a69c73b174352023b0df3948090347c1b3eabbce5f13d85dcc1f1220f9f0781d",
+          "original_sha256": "a69c73b174352023b0df3948090347c1b3eabbce5f13d85dcc1f1220f9f0781d",
+          "sanitized_derivative": false
+        },
+        {
+          "path": "results/integrated/summary.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/summary.json",
+          "sha256": "9592274d454fcce3cab0a207c9a23561344a0cd1cb5521a52733a54da36b5c39",
+          "original_sha256": "9592274d454fcce3cab0a207c9a23561344a0cd1cb5521a52733a54da36b5c39",
+          "sanitized_derivative": false
+        },
+        {
+          "path": "results/integrated/traffic.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/traffic.json",
+          "sha256": "658c72161940ac67f49aac6f2510f8a70dff7f573c309d68d8aed35b3277bc8a",
+          "original_sha256": "658c72161940ac67f49aac6f2510f8a70dff7f573c309d68d8aed35b3277bc8a",
+          "sanitized_derivative": false
+        }
+      ],
+      "automated_status": "PASS",
+      "visual_review": {
+        "status": "PASS",
+        "reason": "Opened and inspected: legible real UI, expected state/data, no credentials visible"
+      }
+    },
+    {
+      "ev": "EV-11",
+      "requirements": [
+        "A25",
+        "A30"
+      ],
+      "scenario": "backend-logs",
+      "utc": "2026-11-22T12:29:36.079Z",
+      "environment": "kind-local",
+      "persistence": "PostgreSQL 16 real",
+      "expected": "Real LogQL {service_name=\"wordle-backend\"}",
+      "observed": "Verified before screenshot",
+      "status": "PASS",
+      "path": "screenshots/loki/backend-logs.png",
+      "sha256": "2fbc3cedbaf13374e19ec5d2ca02a2a666135b9f6cbd8999d1283c41d79e6479",
+      "width": 1440,
+      "height": 1000,
+      "format": "PNG",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": false,
+      "run_id": "20261122-capture-07",
+      "branch": "codex/pg01-07-consolidation",
+      "head": "4d56cf265cc5f0af8c72c64f2a93373660e8f122",
+      "working_tree": "Includes uncommitted capture hooks; not reproduced by HEAD alone",
+      "executor": "scripts/evidence/run_local.py",
+      "original_results": [
+        {
+          "path": "results/integrated/events.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/events.json",
+          "sha256": "ce1759b29c47d0211faa1feeec8c72ef400e5877ac39e1d31106ff1d3549932b",
+          "original_sha256": "ce1759b29c47d0211faa1feeec8c72ef400e5877ac39e1d31106ff1d3549932b",
+          "sanitized_derivative": false
+        },
+        {
+          "path": "results/integrated/observability.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/observability.json",
+          "sha256": "a69c73b174352023b0df3948090347c1b3eabbce5f13d85dcc1f1220f9f0781d",
+          "original_sha256": "a69c73b174352023b0df3948090347c1b3eabbce5f13d85dcc1f1220f9f0781d",
+          "sanitized_derivative": false
+        },
+        {
+          "path": "results/integrated/summary.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/summary.json",
+          "sha256": "9592274d454fcce3cab0a207c9a23561344a0cd1cb5521a52733a54da36b5c39",
+          "original_sha256": "9592274d454fcce3cab0a207c9a23561344a0cd1cb5521a52733a54da36b5c39",
+          "sanitized_derivative": false
+        },
+        {
+          "path": "results/integrated/traffic.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/traffic.json",
+          "sha256": "658c72161940ac67f49aac6f2510f8a70dff7f573c309d68d8aed35b3277bc8a",
+          "original_sha256": "658c72161940ac67f49aac6f2510f8a70dff7f573c309d68d8aed35b3277bc8a",
+          "sanitized_derivative": false
+        }
+      ],
+      "automated_status": "PASS",
+      "visual_review": {
+        "status": "PASS",
+        "reason": "Opened and inspected: legible real UI, expected state/data, no credentials visible"
+      }
+    },
+    {
+      "ev": "EV-11",
+      "requirements": [
+        "A25",
+        "A30"
+      ],
+      "scenario": "frontend-logs",
+      "utc": "2026-11-22T12:29:37.961Z",
+      "environment": "kind-local",
+      "persistence": "PostgreSQL 16 real",
+      "expected": "Real LogQL {service_name=\"wordle-frontend\"}",
+      "observed": "Verified before screenshot",
+      "status": "PASS",
+      "path": "screenshots/loki/frontend-logs.png",
+      "sha256": "8b6f7c0d7b4d00bde1c12a444928b238ba6be44171da5e2e400a6e1a4cb25aae",
+      "width": 1440,
+      "height": 1000,
+      "format": "PNG",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": false,
+      "run_id": "20261122-capture-07",
+      "branch": "codex/pg01-07-consolidation",
+      "head": "4d56cf265cc5f0af8c72c64f2a93373660e8f122",
+      "working_tree": "Includes uncommitted capture hooks; not reproduced by HEAD alone",
+      "executor": "scripts/evidence/run_local.py",
+      "original_results": [
+        {
+          "path": "results/integrated/events.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/events.json",
+          "sha256": "ce1759b29c47d0211faa1feeec8c72ef400e5877ac39e1d31106ff1d3549932b",
+          "original_sha256": "ce1759b29c47d0211faa1feeec8c72ef400e5877ac39e1d31106ff1d3549932b",
+          "sanitized_derivative": false
+        },
+        {
+          "path": "results/integrated/observability.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/observability.json",
+          "sha256": "a69c73b174352023b0df3948090347c1b3eabbce5f13d85dcc1f1220f9f0781d",
+          "original_sha256": "a69c73b174352023b0df3948090347c1b3eabbce5f13d85dcc1f1220f9f0781d",
+          "sanitized_derivative": false
+        },
+        {
+          "path": "results/integrated/summary.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/summary.json",
+          "sha256": "9592274d454fcce3cab0a207c9a23561344a0cd1cb5521a52733a54da36b5c39",
+          "original_sha256": "9592274d454fcce3cab0a207c9a23561344a0cd1cb5521a52733a54da36b5c39",
+          "sanitized_derivative": false
+        },
+        {
+          "path": "results/integrated/traffic.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/traffic.json",
+          "sha256": "658c72161940ac67f49aac6f2510f8a70dff7f573c309d68d8aed35b3277bc8a",
+          "original_sha256": "658c72161940ac67f49aac6f2510f8a70dff7f573c309d68d8aed35b3277bc8a",
+          "sanitized_derivative": false
+        }
+      ],
+      "automated_status": "PASS",
+      "visual_review": {
+        "status": "PASS",
+        "reason": "Opened and inspected: legible real UI, expected state/data, no credentials visible"
+      }
+    },
+    {
+      "ev": "EV-11",
+      "requirements": [
+        "A25",
+        "A30"
+      ],
+      "scenario": "deployment-logs",
+      "utc": "2026-11-22T12:29:40.027Z",
+      "environment": "kind-local",
+      "persistence": "PostgreSQL 16 real",
+      "expected": "Real LogQL {service_name=\"wordle-deploy\"}",
+      "observed": "Verified before screenshot",
+      "status": "PASS",
+      "path": "screenshots/loki/deployment-logs.png",
+      "sha256": "8423882647a73edb8637e8f4d0b1b1f93bbe033c4800a3fe314f75035a35ab94",
+      "width": 1440,
+      "height": 1000,
+      "format": "PNG",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": false,
+      "run_id": "20261122-capture-07",
+      "branch": "codex/pg01-07-consolidation",
+      "head": "4d56cf265cc5f0af8c72c64f2a93373660e8f122",
+      "working_tree": "Includes uncommitted capture hooks; not reproduced by HEAD alone",
+      "executor": "scripts/evidence/run_local.py",
+      "original_results": [
+        {
+          "path": "results/integrated/events.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/events.json",
+          "sha256": "ce1759b29c47d0211faa1feeec8c72ef400e5877ac39e1d31106ff1d3549932b",
+          "original_sha256": "ce1759b29c47d0211faa1feeec8c72ef400e5877ac39e1d31106ff1d3549932b",
+          "sanitized_derivative": false
+        },
+        {
+          "path": "results/integrated/observability.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/observability.json",
+          "sha256": "a69c73b174352023b0df3948090347c1b3eabbce5f13d85dcc1f1220f9f0781d",
+          "original_sha256": "a69c73b174352023b0df3948090347c1b3eabbce5f13d85dcc1f1220f9f0781d",
+          "sanitized_derivative": false
+        },
+        {
+          "path": "results/integrated/summary.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/summary.json",
+          "sha256": "9592274d454fcce3cab0a207c9a23561344a0cd1cb5521a52733a54da36b5c39",
+          "original_sha256": "9592274d454fcce3cab0a207c9a23561344a0cd1cb5521a52733a54da36b5c39",
+          "sanitized_derivative": false
+        },
+        {
+          "path": "results/integrated/traffic.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/traffic.json",
+          "sha256": "658c72161940ac67f49aac6f2510f8a70dff7f573c309d68d8aed35b3277bc8a",
+          "original_sha256": "658c72161940ac67f49aac6f2510f8a70dff7f573c309d68d8aed35b3277bc8a",
+          "sanitized_derivative": false
+        }
+      ],
+      "automated_status": "PASS",
+      "visual_review": {
+        "status": "PASS",
+        "reason": "Opened and inspected: legible real UI, expected state/data, no credentials visible"
+      }
+    },
+    {
+      "ev": "EV-08",
+      "requirements": [
+        "A22",
+        "A30",
+        "A48"
+      ],
+      "scenario": "real-attempt-trace",
+      "utc": "2026-11-22T12:29:41.984Z",
+      "environment": "kind-local",
+      "persistence": "PostgreSQL 16 real",
+      "expected": "Real trace 774b7e792f0d0607076a3907713cfbac",
+      "observed": "Verified before screenshot",
+      "status": "PASS",
+      "path": "screenshots/tempo/real-attempt-trace.png",
+      "sha256": "9acf4bf2b531cbde923b28b587e5c24b12b0451ec627ddaf7c59f63c8b556d00",
+      "width": 1440,
+      "height": 1000,
+      "format": "PNG",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": false,
+      "run_id": "20261122-capture-07",
+      "branch": "codex/pg01-07-consolidation",
+      "head": "4d56cf265cc5f0af8c72c64f2a93373660e8f122",
+      "working_tree": "Includes uncommitted capture hooks; not reproduced by HEAD alone",
+      "executor": "scripts/evidence/run_local.py",
+      "original_results": [
+        {
+          "path": "results/integrated/events.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/events.json",
+          "sha256": "ce1759b29c47d0211faa1feeec8c72ef400e5877ac39e1d31106ff1d3549932b",
+          "original_sha256": "ce1759b29c47d0211faa1feeec8c72ef400e5877ac39e1d31106ff1d3549932b",
+          "sanitized_derivative": false
+        },
+        {
+          "path": "results/integrated/observability.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/observability.json",
+          "sha256": "a69c73b174352023b0df3948090347c1b3eabbce5f13d85dcc1f1220f9f0781d",
+          "original_sha256": "a69c73b174352023b0df3948090347c1b3eabbce5f13d85dcc1f1220f9f0781d",
+          "sanitized_derivative": false
+        },
+        {
+          "path": "results/integrated/summary.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/summary.json",
+          "sha256": "9592274d454fcce3cab0a207c9a23561344a0cd1cb5521a52733a54da36b5c39",
+          "original_sha256": "9592274d454fcce3cab0a207c9a23561344a0cd1cb5521a52733a54da36b5c39",
+          "sanitized_derivative": false
+        },
+        {
+          "path": "results/integrated/traffic.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/traffic.json",
+          "sha256": "658c72161940ac67f49aac6f2510f8a70dff7f573c309d68d8aed35b3277bc8a",
+          "original_sha256": "658c72161940ac67f49aac6f2510f8a70dff7f573c309d68d8aed35b3277bc8a",
+          "sanitized_derivative": false
+        }
+      ],
+      "automated_status": "PASS",
+      "visual_review": {
+        "status": "PASS",
+        "reason": "Opened and inspected: legible real UI, expected state/data, no credentials visible"
+      }
+    },
+    {
+      "ev": "EV-04",
+      "requirements": [
+        "A10",
+        "A11",
+        "A12",
+        "A15"
+      ],
+      "scenario": "stable-blue",
+      "utc": "2026-11-22T12:28:15.144Z",
+      "environment": "kind-local",
+      "persistence": "PostgreSQL 16 real",
+      "expected": "Real frontend through Traefik; release blue",
+      "observed": "Verified before screenshot",
+      "status": "PASS",
+      "path": "screenshots/wordle/stable-blue.png",
+      "sha256": "ed1f8fd059e0f0bc2139c506b63213bb5f86f7b3f57f5403d63506641298b9e5",
+      "width": 1440,
+      "height": 1000,
+      "format": "PNG",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": false,
+      "run_id": "20261122-capture-07",
+      "branch": "codex/pg01-07-consolidation",
+      "head": "4d56cf265cc5f0af8c72c64f2a93373660e8f122",
+      "working_tree": "Includes uncommitted capture hooks; not reproduced by HEAD alone",
+      "executor": "scripts/evidence/run_local.py",
+      "original_results": [
+        {
+          "path": "results/integrated/events.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/events.json",
+          "sha256": "ce1759b29c47d0211faa1feeec8c72ef400e5877ac39e1d31106ff1d3549932b",
+          "original_sha256": "ce1759b29c47d0211faa1feeec8c72ef400e5877ac39e1d31106ff1d3549932b",
+          "sanitized_derivative": false
+        },
+        {
+          "path": "results/integrated/observability.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/observability.json",
+          "sha256": "a69c73b174352023b0df3948090347c1b3eabbce5f13d85dcc1f1220f9f0781d",
+          "original_sha256": "a69c73b174352023b0df3948090347c1b3eabbce5f13d85dcc1f1220f9f0781d",
+          "sanitized_derivative": false
+        },
+        {
+          "path": "results/integrated/summary.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/summary.json",
+          "sha256": "9592274d454fcce3cab0a207c9a23561344a0cd1cb5521a52733a54da36b5c39",
+          "original_sha256": "9592274d454fcce3cab0a207c9a23561344a0cd1cb5521a52733a54da36b5c39",
+          "sanitized_derivative": false
+        },
+        {
+          "path": "results/integrated/traffic.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/traffic.json",
+          "sha256": "658c72161940ac67f49aac6f2510f8a70dff7f573c309d68d8aed35b3277bc8a",
+          "original_sha256": "658c72161940ac67f49aac6f2510f8a70dff7f573c309d68d8aed35b3277bc8a",
+          "sanitized_derivative": false
+        }
+      ],
+      "automated_status": "PASS",
+      "visual_review": {
+        "status": "PASS",
+        "reason": "Opened and inspected: legible real UI, expected state/data, no credentials visible"
+      }
+    },
+    {
+      "ev": "EV-01",
+      "requirements": [
+        "A01",
+        "A50"
+      ],
+      "scenario": "initial-desktop",
+      "utc": "2026-11-22T12:28:15.231Z",
+      "environment": "kind-local",
+      "persistence": "PostgreSQL 16 real",
+      "expected": "Initial screen",
+      "observed": "Verified before screenshot",
+      "status": "PASS",
+      "path": "screenshots/wordle/initial-desktop.png",
+      "sha256": "ed1f8fd059e0f0bc2139c506b63213bb5f86f7b3f57f5403d63506641298b9e5",
+      "width": 1440,
+      "height": 1000,
+      "format": "PNG",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": false,
+      "run_id": "20261122-capture-07",
+      "branch": "codex/pg01-07-consolidation",
+      "head": "4d56cf265cc5f0af8c72c64f2a93373660e8f122",
+      "working_tree": "Includes uncommitted capture hooks; not reproduced by HEAD alone",
+      "executor": "scripts/evidence/run_local.py",
+      "original_results": [
+        {
+          "path": "results/integrated/events.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/events.json",
+          "sha256": "ce1759b29c47d0211faa1feeec8c72ef400e5877ac39e1d31106ff1d3549932b",
+          "original_sha256": "ce1759b29c47d0211faa1feeec8c72ef400e5877ac39e1d31106ff1d3549932b",
+          "sanitized_derivative": false
+        },
+        {
+          "path": "results/integrated/observability.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/observability.json",
+          "sha256": "a69c73b174352023b0df3948090347c1b3eabbce5f13d85dcc1f1220f9f0781d",
+          "original_sha256": "a69c73b174352023b0df3948090347c1b3eabbce5f13d85dcc1f1220f9f0781d",
+          "sanitized_derivative": false
+        },
+        {
+          "path": "results/integrated/summary.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/summary.json",
+          "sha256": "9592274d454fcce3cab0a207c9a23561344a0cd1cb5521a52733a54da36b5c39",
+          "original_sha256": "9592274d454fcce3cab0a207c9a23561344a0cd1cb5521a52733a54da36b5c39",
+          "sanitized_derivative": false
+        },
+        {
+          "path": "results/integrated/traffic.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/traffic.json",
+          "sha256": "658c72161940ac67f49aac6f2510f8a70dff7f573c309d68d8aed35b3277bc8a",
+          "original_sha256": "658c72161940ac67f49aac6f2510f8a70dff7f573c309d68d8aed35b3277bc8a",
+          "sanitized_derivative": false
+        }
+      ],
+      "automated_status": "PASS",
+      "visual_review": {
+        "status": "PASS",
+        "reason": "Opened and inspected: legible real UI, expected state/data, no credentials visible"
+      }
+    },
+    {
+      "ev": "EV-01",
+      "requirements": [
+        "A01",
+        "A50"
+      ],
+      "scenario": "in-progress-desktop",
+      "utc": "2026-11-22T12:28:15.749Z",
+      "environment": "kind-local",
+      "persistence": "PostgreSQL 16 real",
+      "expected": "Active game SQL en_curso|0",
+      "observed": "Verified before screenshot",
+      "status": "PASS",
+      "path": "screenshots/wordle/in-progress-desktop.png",
+      "sha256": "3b129c7df8ff5c203ebf9d7bb0c3adb8356f6562539f2e7ecfe71559f73dd3e2",
+      "width": 1440,
+      "height": 1000,
+      "format": "PNG",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": false,
+      "run_id": "20261122-capture-07",
+      "branch": "codex/pg01-07-consolidation",
+      "head": "4d56cf265cc5f0af8c72c64f2a93373660e8f122",
+      "working_tree": "Includes uncommitted capture hooks; not reproduced by HEAD alone",
+      "executor": "scripts/evidence/run_local.py",
+      "original_results": [
+        {
+          "path": "results/integrated/events.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/events.json",
+          "sha256": "ce1759b29c47d0211faa1feeec8c72ef400e5877ac39e1d31106ff1d3549932b",
+          "original_sha256": "ce1759b29c47d0211faa1feeec8c72ef400e5877ac39e1d31106ff1d3549932b",
+          "sanitized_derivative": false
+        },
+        {
+          "path": "results/integrated/observability.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/observability.json",
+          "sha256": "a69c73b174352023b0df3948090347c1b3eabbce5f13d85dcc1f1220f9f0781d",
+          "original_sha256": "a69c73b174352023b0df3948090347c1b3eabbce5f13d85dcc1f1220f9f0781d",
+          "sanitized_derivative": false
+        },
+        {
+          "path": "results/integrated/summary.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/summary.json",
+          "sha256": "9592274d454fcce3cab0a207c9a23561344a0cd1cb5521a52733a54da36b5c39",
+          "original_sha256": "9592274d454fcce3cab0a207c9a23561344a0cd1cb5521a52733a54da36b5c39",
+          "sanitized_derivative": false
+        },
+        {
+          "path": "results/integrated/traffic.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/traffic.json",
+          "sha256": "658c72161940ac67f49aac6f2510f8a70dff7f573c309d68d8aed35b3277bc8a",
+          "original_sha256": "658c72161940ac67f49aac6f2510f8a70dff7f573c309d68d8aed35b3277bc8a",
+          "sanitized_derivative": false
+        }
+      ],
+      "automated_status": "PASS",
+      "visual_review": {
+        "status": "PASS",
+        "reason": "Opened and inspected: legible real UI, expected state/data, no credentials visible"
+      }
+    },
+    {
+      "ev": "EV-01",
+      "requirements": [
+        "A01",
+        "A50"
+      ],
+      "scenario": "invalid-word-no-attempt",
+      "utc": "2026-11-22T12:28:16.494Z",
+      "environment": "kind-local",
+      "persistence": "PostgreSQL 16 real",
+      "expected": "HTTP400; SQL state unchanged",
+      "observed": "Verified before screenshot",
+      "status": "PASS",
+      "path": "screenshots/wordle/invalid-word-no-attempt.png",
+      "sha256": "d701f7c5ae99ad066ad3d23b65627db4f4e7f06e4140ea33f4b7f27f38c16939",
+      "width": 1440,
+      "height": 1000,
+      "format": "PNG",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": false,
+      "run_id": "20261122-capture-07",
+      "branch": "codex/pg01-07-consolidation",
+      "head": "4d56cf265cc5f0af8c72c64f2a93373660e8f122",
+      "working_tree": "Includes uncommitted capture hooks; not reproduced by HEAD alone",
+      "executor": "scripts/evidence/run_local.py",
+      "original_results": [
+        {
+          "path": "results/integrated/events.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/events.json",
+          "sha256": "ce1759b29c47d0211faa1feeec8c72ef400e5877ac39e1d31106ff1d3549932b",
+          "original_sha256": "ce1759b29c47d0211faa1feeec8c72ef400e5877ac39e1d31106ff1d3549932b",
+          "sanitized_derivative": false
+        },
+        {
+          "path": "results/integrated/observability.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/observability.json",
+          "sha256": "a69c73b174352023b0df3948090347c1b3eabbce5f13d85dcc1f1220f9f0781d",
+          "original_sha256": "a69c73b174352023b0df3948090347c1b3eabbce5f13d85dcc1f1220f9f0781d",
+          "sanitized_derivative": false
+        },
+        {
+          "path": "results/integrated/summary.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/summary.json",
+          "sha256": "9592274d454fcce3cab0a207c9a23561344a0cd1cb5521a52733a54da36b5c39",
+          "original_sha256": "9592274d454fcce3cab0a207c9a23561344a0cd1cb5521a52733a54da36b5c39",
+          "sanitized_derivative": false
+        },
+        {
+          "path": "results/integrated/traffic.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/traffic.json",
+          "sha256": "658c72161940ac67f49aac6f2510f8a70dff7f573c309d68d8aed35b3277bc8a",
+          "original_sha256": "658c72161940ac67f49aac6f2510f8a70dff7f573c309d68d8aed35b3277bc8a",
+          "sanitized_derivative": false
+        }
+      ],
+      "automated_status": "PASS",
+      "visual_review": {
+        "status": "PASS",
+        "reason": "Opened and inspected: legible real UI, expected state/data, no credentials visible"
+      }
+    },
+    {
+      "ev": "EV-01",
+      "requirements": [
+        "A01",
+        "A50"
+      ],
+      "scenario": "victory-desktop",
+      "utc": "2026-11-22T12:28:17.299Z",
+      "environment": "kind-local",
+      "persistence": "PostgreSQL 16 real",
+      "expected": "HTTP200, SQL victory, five correct cells",
+      "observed": "Verified before screenshot",
+      "status": "PASS",
+      "path": "screenshots/wordle/victory-desktop.png",
+      "sha256": "00dfd3f77274b31252bb843dd39ff850aaa038c950038d41a720ce970d5f20ad",
+      "width": 1440,
+      "height": 1000,
+      "format": "PNG",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": false,
+      "run_id": "20261122-capture-07",
+      "branch": "codex/pg01-07-consolidation",
+      "head": "4d56cf265cc5f0af8c72c64f2a93373660e8f122",
+      "working_tree": "Includes uncommitted capture hooks; not reproduced by HEAD alone",
+      "executor": "scripts/evidence/run_local.py",
+      "original_results": [
+        {
+          "path": "results/integrated/events.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/events.json",
+          "sha256": "ce1759b29c47d0211faa1feeec8c72ef400e5877ac39e1d31106ff1d3549932b",
+          "original_sha256": "ce1759b29c47d0211faa1feeec8c72ef400e5877ac39e1d31106ff1d3549932b",
+          "sanitized_derivative": false
+        },
+        {
+          "path": "results/integrated/observability.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/observability.json",
+          "sha256": "a69c73b174352023b0df3948090347c1b3eabbce5f13d85dcc1f1220f9f0781d",
+          "original_sha256": "a69c73b174352023b0df3948090347c1b3eabbce5f13d85dcc1f1220f9f0781d",
+          "sanitized_derivative": false
+        },
+        {
+          "path": "results/integrated/summary.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/summary.json",
+          "sha256": "9592274d454fcce3cab0a207c9a23561344a0cd1cb5521a52733a54da36b5c39",
+          "original_sha256": "9592274d454fcce3cab0a207c9a23561344a0cd1cb5521a52733a54da36b5c39",
+          "sanitized_derivative": false
+        },
+        {
+          "path": "results/integrated/traffic.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/traffic.json",
+          "sha256": "658c72161940ac67f49aac6f2510f8a70dff7f573c309d68d8aed35b3277bc8a",
+          "original_sha256": "658c72161940ac67f49aac6f2510f8a70dff7f573c309d68d8aed35b3277bc8a",
+          "sanitized_derivative": false
+        }
+      ],
+      "automated_status": "PASS",
+      "visual_review": {
+        "status": "PASS",
+        "reason": "Opened and inspected: legible real UI, expected state/data, no credentials visible"
+      }
+    },
+    {
+      "ev": "EV-14",
+      "requirements": [
+        "A01",
+        "A50",
+        "A51"
+      ],
+      "scenario": "persisted-victory",
+      "utc": "2026-11-22T12:28:21.881Z",
+      "environment": "kind-local",
+      "persistence": "PostgreSQL 16 real",
+      "expected": "Same SQL dataset and HTTP victory after PostgreSQL pod replacement",
+      "observed": "Verified before screenshot",
+      "status": "PASS",
+      "path": "screenshots/wordle/persisted-victory.png",
+      "sha256": "00dfd3f77274b31252bb843dd39ff850aaa038c950038d41a720ce970d5f20ad",
+      "width": 1440,
+      "height": 1000,
+      "format": "PNG",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": false,
+      "run_id": "20261122-capture-07",
+      "branch": "codex/pg01-07-consolidation",
+      "head": "4d56cf265cc5f0af8c72c64f2a93373660e8f122",
+      "working_tree": "Includes uncommitted capture hooks; not reproduced by HEAD alone",
+      "executor": "scripts/evidence/run_local.py",
+      "original_results": [
+        {
+          "path": "results/integrated/events.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/events.json",
+          "sha256": "ce1759b29c47d0211faa1feeec8c72ef400e5877ac39e1d31106ff1d3549932b",
+          "original_sha256": "ce1759b29c47d0211faa1feeec8c72ef400e5877ac39e1d31106ff1d3549932b",
+          "sanitized_derivative": false
+        },
+        {
+          "path": "results/integrated/observability.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/observability.json",
+          "sha256": "a69c73b174352023b0df3948090347c1b3eabbce5f13d85dcc1f1220f9f0781d",
+          "original_sha256": "a69c73b174352023b0df3948090347c1b3eabbce5f13d85dcc1f1220f9f0781d",
+          "sanitized_derivative": false
+        },
+        {
+          "path": "results/integrated/summary.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/summary.json",
+          "sha256": "9592274d454fcce3cab0a207c9a23561344a0cd1cb5521a52733a54da36b5c39",
+          "original_sha256": "9592274d454fcce3cab0a207c9a23561344a0cd1cb5521a52733a54da36b5c39",
+          "sanitized_derivative": false
+        },
+        {
+          "path": "results/integrated/traffic.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/traffic.json",
+          "sha256": "658c72161940ac67f49aac6f2510f8a70dff7f573c309d68d8aed35b3277bc8a",
+          "original_sha256": "658c72161940ac67f49aac6f2510f8a70dff7f573c309d68d8aed35b3277bc8a",
+          "sanitized_derivative": false
+        }
+      ],
+      "automated_status": "PASS",
+      "visual_review": {
+        "status": "PASS",
+        "reason": "Opened and inspected: legible real UI, expected state/data, no credentials visible"
+      }
+    },
+    {
+      "ev": "EV-01",
+      "requirements": [
+        "A01",
+        "A50"
+      ],
+      "scenario": "restart-mobile",
+      "utc": "2026-11-22T12:28:22.018Z",
+      "environment": "kind-local",
+      "persistence": "PostgreSQL 16 real",
+      "expected": "New game SQL en_curso|0",
+      "observed": "Verified before screenshot",
+      "status": "PASS",
+      "path": "screenshots/wordle/restart-mobile.png",
+      "sha256": "daba0018865a4a6f6626b9fd909761573d37e0383888362192b208eb025a533e",
+      "width": 390,
+      "height": 844,
+      "format": "PNG",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "fullPage": false,
+      "run_id": "20261122-capture-07",
+      "branch": "codex/pg01-07-consolidation",
+      "head": "4d56cf265cc5f0af8c72c64f2a93373660e8f122",
+      "working_tree": "Includes uncommitted capture hooks; not reproduced by HEAD alone",
+      "executor": "scripts/evidence/run_local.py",
+      "original_results": [
+        {
+          "path": "results/integrated/events.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/events.json",
+          "sha256": "ce1759b29c47d0211faa1feeec8c72ef400e5877ac39e1d31106ff1d3549932b",
+          "original_sha256": "ce1759b29c47d0211faa1feeec8c72ef400e5877ac39e1d31106ff1d3549932b",
+          "sanitized_derivative": false
+        },
+        {
+          "path": "results/integrated/observability.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/observability.json",
+          "sha256": "a69c73b174352023b0df3948090347c1b3eabbce5f13d85dcc1f1220f9f0781d",
+          "original_sha256": "a69c73b174352023b0df3948090347c1b3eabbce5f13d85dcc1f1220f9f0781d",
+          "sanitized_derivative": false
+        },
+        {
+          "path": "results/integrated/summary.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/summary.json",
+          "sha256": "9592274d454fcce3cab0a207c9a23561344a0cd1cb5521a52733a54da36b5c39",
+          "original_sha256": "9592274d454fcce3cab0a207c9a23561344a0cd1cb5521a52733a54da36b5c39",
+          "sanitized_derivative": false
+        },
+        {
+          "path": "results/integrated/traffic.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/traffic.json",
+          "sha256": "658c72161940ac67f49aac6f2510f8a70dff7f573c309d68d8aed35b3277bc8a",
+          "original_sha256": "658c72161940ac67f49aac6f2510f8a70dff7f573c309d68d8aed35b3277bc8a",
+          "sanitized_derivative": false
+        }
+      ],
+      "automated_status": "PASS",
+      "visual_review": {
+        "status": "PASS",
+        "reason": "Opened and inspected: legible real UI, expected state/data, no credentials visible"
+      }
+    },
+    {
+      "ev": "EV-01",
+      "requirements": [
+        "A01",
+        "A50"
+      ],
+      "scenario": "loss-mobile-six-attempts",
+      "utc": "2026-11-22T12:28:24.317Z",
+      "environment": "kind-local",
+      "persistence": "PostgreSQL 16 real",
+      "expected": "Six real attempts, SQL perdida|6, solution only at end",
+      "observed": "Verified before screenshot",
+      "status": "PASS",
+      "path": "screenshots/wordle/loss-mobile-six-attempts.png",
+      "sha256": "9fd59ac4f8612f5c5eddba979c664bdd0e3396b6911f68d5addf812af4661766",
+      "width": 390,
+      "height": 844,
+      "format": "PNG",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "fullPage": false,
+      "run_id": "20261122-capture-07",
+      "branch": "codex/pg01-07-consolidation",
+      "head": "4d56cf265cc5f0af8c72c64f2a93373660e8f122",
+      "working_tree": "Includes uncommitted capture hooks; not reproduced by HEAD alone",
+      "executor": "scripts/evidence/run_local.py",
+      "original_results": [
+        {
+          "path": "results/integrated/events.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/events.json",
+          "sha256": "ce1759b29c47d0211faa1feeec8c72ef400e5877ac39e1d31106ff1d3549932b",
+          "original_sha256": "ce1759b29c47d0211faa1feeec8c72ef400e5877ac39e1d31106ff1d3549932b",
+          "sanitized_derivative": false
+        },
+        {
+          "path": "results/integrated/observability.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/observability.json",
+          "sha256": "a69c73b174352023b0df3948090347c1b3eabbce5f13d85dcc1f1220f9f0781d",
+          "original_sha256": "a69c73b174352023b0df3948090347c1b3eabbce5f13d85dcc1f1220f9f0781d",
+          "sanitized_derivative": false
+        },
+        {
+          "path": "results/integrated/summary.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/summary.json",
+          "sha256": "9592274d454fcce3cab0a207c9a23561344a0cd1cb5521a52733a54da36b5c39",
+          "original_sha256": "9592274d454fcce3cab0a207c9a23561344a0cd1cb5521a52733a54da36b5c39",
+          "sanitized_derivative": false
+        },
+        {
+          "path": "results/integrated/traffic.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/traffic.json",
+          "sha256": "658c72161940ac67f49aac6f2510f8a70dff7f573c309d68d8aed35b3277bc8a",
+          "original_sha256": "658c72161940ac67f49aac6f2510f8a70dff7f573c309d68d8aed35b3277bc8a",
+          "sanitized_derivative": false
+        }
+      ],
+      "automated_status": "PASS",
+      "visual_review": {
+        "status": "PASS",
+        "reason": "Opened and inspected: legible real UI, expected state/data, no credentials visible"
+      }
+    },
+    {
+      "ev": "EV-01",
+      "requirements": [
+        "A01",
+        "A50"
+      ],
+      "scenario": "initial-new-game-mobile",
+      "utc": "2026-11-22T12:28:24.437Z",
+      "environment": "kind-local",
+      "persistence": "PostgreSQL 16 real",
+      "expected": "Restart to active new game",
+      "observed": "Verified before screenshot",
+      "status": "PASS",
+      "path": "screenshots/wordle/initial-new-game-mobile.png",
+      "sha256": "daba0018865a4a6f6626b9fd909761573d37e0383888362192b208eb025a533e",
+      "width": 390,
+      "height": 844,
+      "format": "PNG",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "fullPage": false,
+      "run_id": "20261122-capture-07",
+      "branch": "codex/pg01-07-consolidation",
+      "head": "4d56cf265cc5f0af8c72c64f2a93373660e8f122",
+      "working_tree": "Includes uncommitted capture hooks; not reproduced by HEAD alone",
+      "executor": "scripts/evidence/run_local.py",
+      "original_results": [
+        {
+          "path": "results/integrated/events.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/events.json",
+          "sha256": "ce1759b29c47d0211faa1feeec8c72ef400e5877ac39e1d31106ff1d3549932b",
+          "original_sha256": "ce1759b29c47d0211faa1feeec8c72ef400e5877ac39e1d31106ff1d3549932b",
+          "sanitized_derivative": false
+        },
+        {
+          "path": "results/integrated/observability.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/observability.json",
+          "sha256": "a69c73b174352023b0df3948090347c1b3eabbce5f13d85dcc1f1220f9f0781d",
+          "original_sha256": "a69c73b174352023b0df3948090347c1b3eabbce5f13d85dcc1f1220f9f0781d",
+          "sanitized_derivative": false
+        },
+        {
+          "path": "results/integrated/summary.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/summary.json",
+          "sha256": "9592274d454fcce3cab0a207c9a23561344a0cd1cb5521a52733a54da36b5c39",
+          "original_sha256": "9592274d454fcce3cab0a207c9a23561344a0cd1cb5521a52733a54da36b5c39",
+          "sanitized_derivative": false
+        },
+        {
+          "path": "results/integrated/traffic.json",
+          "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/traffic.json",
+          "sha256": "658c72161940ac67f49aac6f2510f8a70dff7f573c309d68d8aed35b3277bc8a",
+          "original_sha256": "658c72161940ac67f49aac6f2510f8a70dff7f573c309d68d8aed35b3277bc8a",
+          "sanitized_derivative": false
+        }
+      ],
+      "automated_status": "PASS",
+      "visual_review": {
+        "status": "PASS",
+        "reason": "Opened and inspected: legible real UI, expected state/data, no credentials visible"
+      }
+    }
+  ],
+  "originals": [
+    {
+      "path": "results/integrated/events.json",
+      "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/events.json",
+      "sha256": "ce1759b29c47d0211faa1feeec8c72ef400e5877ac39e1d31106ff1d3549932b",
+      "original_sha256": "ce1759b29c47d0211faa1feeec8c72ef400e5877ac39e1d31106ff1d3549932b",
+      "sanitized_derivative": false
+    },
+    {
+      "path": "results/integrated/observability.json",
+      "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/observability.json",
+      "sha256": "a69c73b174352023b0df3948090347c1b3eabbce5f13d85dcc1f1220f9f0781d",
+      "original_sha256": "a69c73b174352023b0df3948090347c1b3eabbce5f13d85dcc1f1220f9f0781d",
+      "sanitized_derivative": false
+    },
+    {
+      "path": "results/integrated/summary.json",
+      "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/summary.json",
+      "sha256": "9592274d454fcce3cab0a207c9a23561344a0cd1cb5521a52733a54da36b5c39",
+      "original_sha256": "9592274d454fcce3cab0a207c9a23561344a0cd1cb5521a52733a54da36b5c39",
+      "sanitized_derivative": false
+    },
+    {
+      "path": "results/integrated/traffic.json",
+      "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/traffic.json",
+      "sha256": "658c72161940ac67f49aac6f2510f8a70dff7f573c309d68d8aed35b3277bc8a",
+      "original_sha256": "658c72161940ac67f49aac6f2510f8a70dff7f573c309d68d8aed35b3277bc8a",
+      "sanitized_derivative": false
+    }
+  ],
+  "requirements": {
+    "EV-01": [
+      "A01",
+      "A50",
+      "A55"
+    ],
+    "EV-04": [
+      "A10",
+      "A11",
+      "A12",
+      "A15"
+    ],
+    "EV-06": [
+      "A20",
+      "A47"
+    ],
+    "EV-07": [
+      "A21",
+      "A31"
+    ],
+    "EV-08": [
+      "A22",
+      "A30",
+      "A48"
+    ],
+    "EV-09": [
+      "A23",
+      "A26",
+      "A27"
+    ],
+    "EV-10": [
+      "A24",
+      "A30"
+    ],
+    "EV-11": [
+      "A25",
+      "A30"
+    ],
+    "EV-12": [
+      "A28",
+      "A29",
+      "A30"
+    ],
+    "EV-14": [
+      "A01",
+      "A50",
+      "A51"
+    ]
+  },
+  "historical": null,
+  "limitations": [
+    "No Azure operations",
+    "Same application binary, Blue/Green configuration releases",
+    "Runtime local image metadata is recorded separately when available; no historical registry digest assigned",
+    "Signals are ephemeral; JSON exported before cluster cleanup by existing runner",
+    "Browser screenshots require human visual review"
+  ],
+  "technical_evidence": [
+    {
+      "path": "results/integrated/events.json",
+      "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/events.json",
+      "sha256": "ce1759b29c47d0211faa1feeec8c72ef400e5877ac39e1d31106ff1d3549932b",
+      "original_sha256": "ce1759b29c47d0211faa1feeec8c72ef400e5877ac39e1d31106ff1d3549932b",
+      "sanitized_derivative": false,
+      "ev": [
+        "EV-04",
+        "EV-06",
+        "EV-07"
+      ],
+      "requirements": [
+        "A10",
+        "A11",
+        "A12",
+        "A15",
+        "A20",
+        "A21",
+        "A31",
+        "A47"
+      ],
+      "run_id": "20261122-capture-07",
+      "environment": "kind-local",
+      "persistence": "PostgreSQL 16 real",
+      "expected": "Existing real SQL/HTTP/observability assertions pass",
+      "observed": "PASS",
+      "status": "PASS",
+      "executor": "k8s/observability/run_observability.py",
+      "limitation": "Original private JSON retained; sanitized derivative identified where necessary"
+    },
+    {
+      "path": "results/integrated/observability.json",
+      "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/observability.json",
+      "sha256": "a69c73b174352023b0df3948090347c1b3eabbce5f13d85dcc1f1220f9f0781d",
+      "original_sha256": "a69c73b174352023b0df3948090347c1b3eabbce5f13d85dcc1f1220f9f0781d",
+      "sanitized_derivative": false,
+      "ev": [
+        "EV-08",
+        "EV-09",
+        "EV-10",
+        "EV-11",
+        "EV-12"
+      ],
+      "requirements": [
+        "A22",
+        "A23",
+        "A24",
+        "A25",
+        "A26",
+        "A27",
+        "A28",
+        "A29",
+        "A30",
+        "A48"
+      ],
+      "run_id": "20261122-capture-07",
+      "environment": "kind-local",
+      "persistence": "PostgreSQL 16 real",
+      "expected": "Existing real SQL/HTTP/observability assertions pass",
+      "observed": "PASS",
+      "status": "PASS",
+      "executor": "k8s/observability/run_observability.py",
+      "limitation": "Original private JSON retained; sanitized derivative identified where necessary"
+    },
+    {
+      "path": "results/integrated/summary.json",
+      "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/summary.json",
+      "sha256": "9592274d454fcce3cab0a207c9a23561344a0cd1cb5521a52733a54da36b5c39",
+      "original_sha256": "9592274d454fcce3cab0a207c9a23561344a0cd1cb5521a52733a54da36b5c39",
+      "sanitized_derivative": false,
+      "ev": [
+        "EV-06",
+        "EV-07",
+        "EV-14"
+      ],
+      "requirements": [
+        "A01",
+        "A20",
+        "A21",
+        "A31",
+        "A47",
+        "A50",
+        "A51"
+      ],
+      "run_id": "20261122-capture-07",
+      "environment": "kind-local",
+      "persistence": "PostgreSQL 16 real",
+      "expected": "Existing real SQL/HTTP/observability assertions pass",
+      "observed": "PASS",
+      "status": "PASS",
+      "executor": "k8s/observability/run_observability.py",
+      "limitation": "Original private JSON retained; sanitized derivative identified where necessary"
+    },
+    {
+      "path": "results/integrated/traffic.json",
+      "source": "%LOCALAPPDATA%/WordleTFG/evidence/20261122-capture-07/integrated/traffic.json",
+      "sha256": "658c72161940ac67f49aac6f2510f8a70dff7f573c309d68d8aed35b3277bc8a",
+      "original_sha256": "658c72161940ac67f49aac6f2510f8a70dff7f573c309d68d8aed35b3277bc8a",
+      "sanitized_derivative": false,
+      "ev": [
+        "EV-06",
+        "EV-07"
+      ],
+      "requirements": [
+        "A20",
+        "A21",
+        "A31",
+        "A47"
+      ],
+      "run_id": "20261122-capture-07",
+      "environment": "kind-local",
+      "persistence": "PostgreSQL 16 real",
+      "expected": "Existing real SQL/HTTP/observability assertions pass",
+      "observed": "PASS",
+      "status": "PASS",
+      "executor": "k8s/observability/run_observability.py",
+      "limitation": "Original private JSON retained; sanitized derivative identified where necessary"
+    }
+  ],
+  "visual_review": {
+    "utc": "2026-11-22T12:30:27.115771+00:00",
+    "method": "Human inspection of all 22 full-resolution browser screenshots; loaded Wordle, Grafana, Prometheus, Loki and Tempo views. Real queries checked independently by executor.",
+    "images": {
+      "screenshots/grafana/wordle-dashboard-lower.png": {
+        "status": "PASS",
+        "reason": "Opened and inspected: legible real UI, expected state/data, no credentials visible"
+      },
+      "screenshots/grafana/wordle-dashboard.png": {
+        "status": "PASS",
+        "reason": "Opened and inspected: legible real UI, expected state/data, no credentials visible"
+      },
+      "screenshots/loki/backend-logs.png": {
+        "status": "PASS",
+        "reason": "Opened and inspected: legible real UI, expected state/data, no credentials visible"
+      },
+      "screenshots/loki/deployment-logs.png": {
+        "status": "PASS",
+        "reason": "Opened and inspected: legible real UI, expected state/data, no credentials visible"
+      },
+      "screenshots/loki/frontend-logs.png": {
+        "status": "PASS",
+        "reason": "Opened and inspected: legible real UI, expected state/data, no credentials visible"
+      },
+      "screenshots/prometheus/application-metrics.png": {
+        "status": "PASS",
+        "reason": "Opened and inspected: legible real UI, expected state/data, no credentials visible"
+      },
+      "screenshots/prometheus/containers-metrics.png": {
+        "status": "PASS",
+        "reason": "Opened and inspected: legible real UI, expected state/data, no credentials visible"
+      },
+      "screenshots/prometheus/nodes-metrics.png": {
+        "status": "PASS",
+        "reason": "Opened and inspected: legible real UI, expected state/data, no credentials visible"
+      },
+      "screenshots/prometheus/targets-up.png": {
+        "status": "PASS",
+        "reason": "Opened and inspected: legible real UI, expected state/data, no credentials visible"
+      },
+      "screenshots/tempo/real-attempt-trace.png": {
+        "status": "PASS",
+        "reason": "Opened and inspected: legible real UI, expected state/data, no credentials visible"
+      },
+      "screenshots/wordle/in-progress-desktop.png": {
+        "status": "PASS",
+        "reason": "Opened and inspected: legible real UI, expected state/data, no credentials visible"
+      },
+      "screenshots/wordle/initial-desktop.png": {
+        "status": "PASS",
+        "reason": "Opened and inspected: legible real UI, expected state/data, no credentials visible"
+      },
+      "screenshots/wordle/initial-new-game-mobile.png": {
+        "status": "PASS",
+        "reason": "Opened and inspected: legible real UI, expected state/data, no credentials visible"
+      },
+      "screenshots/wordle/invalid-word-no-attempt.png": {
+        "status": "PASS",
+        "reason": "Opened and inspected: legible real UI, expected state/data, no credentials visible"
+      },
+      "screenshots/wordle/loss-mobile-six-attempts.png": {
+        "status": "PASS",
+        "reason": "Opened and inspected: legible real UI, expected state/data, no credentials visible"
+      },
+      "screenshots/wordle/persisted-victory.png": {
+        "status": "PASS",
+        "reason": "Opened and inspected: legible real UI, expected state/data, no credentials visible"
+      },
+      "screenshots/wordle/promoted-green.png": {
+        "status": "PASS",
+        "reason": "Opened and inspected: legible real UI, expected state/data, no credentials visible"
+      },
+      "screenshots/wordle/restart-mobile.png": {
+        "status": "PASS",
+        "reason": "Opened and inspected: legible real UI, expected state/data, no credentials visible"
+      },
+      "screenshots/wordle/rollback-green.png": {
+        "status": "PASS",
+        "reason": "Opened and inspected: legible real UI, expected state/data, no credentials visible"
+      },
+      "screenshots/wordle/signals.png": {
+        "status": "PASS",
+        "reason": "Opened and inspected: legible real UI, expected state/data, no credentials visible"
+      },
+      "screenshots/wordle/stable-blue.png": {
+        "status": "PASS",
+        "reason": "Opened and inspected: legible real UI, expected state/data, no credentials visible"
+      },
+      "screenshots/wordle/victory-desktop.png": {
+        "status": "PASS",
+        "reason": "Opened and inspected: legible real UI, expected state/data, no credentials visible"
+      }
+    }
+  },
+  "dossier_result": "PASS",
+  "supporting_files": [
+    {
+      "path": "results/capture/promoted-green.json",
+      "sha256": "9b8afb3ecea2e5d8755ef88b4f344647dcab2707884f309641247a7bd7f2d6cd",
+      "ev": [
+        "EV-01",
+        "EV-04",
+        "EV-06",
+        "EV-07"
+      ],
+      "requirements": [
+        "A01",
+        "A10",
+        "A11",
+        "A12",
+        "A15",
+        "A20",
+        "A21",
+        "A31",
+        "A47",
+        "A50",
+        "A55"
+      ]
+    },
+    {
+      "path": "results/capture/rollback-green.json",
+      "sha256": "4c45569c29dc957564f24c87125b131f54f4cd8ef68b3771ba8fe4cca243b18d",
+      "ev": [
+        "EV-01",
+        "EV-04",
+        "EV-06",
+        "EV-07"
+      ],
+      "requirements": [
+        "A01",
+        "A10",
+        "A11",
+        "A12",
+        "A15",
+        "A20",
+        "A21",
+        "A31",
+        "A47",
+        "A50",
+        "A55"
+      ]
+    },
+    {
+      "path": "results/capture/signals.json",
+      "sha256": "b1d3d950b035de2563f6089bbe939e5e7455819b391ccc2f07b3ed85a0355e93",
+      "ev": [
+        "EV-01",
+        "EV-04",
+        "EV-06",
+        "EV-07"
+      ],
+      "requirements": [
+        "A01",
+        "A10",
+        "A11",
+        "A12",
+        "A15",
+        "A20",
+        "A21",
+        "A31",
+        "A47",
+        "A50",
+        "A55"
+      ]
+    },
+    {
+      "path": "results/capture/stable-blue.json",
+      "sha256": "eb2a3b7ed5f8bf53a3994583da14bc15a65b5a08e36db3ce3266fe5307a93fe7",
+      "ev": [
+        "EV-01",
+        "EV-04",
+        "EV-06",
+        "EV-07"
+      ],
+      "requirements": [
+        "A01",
+        "A10",
+        "A11",
+        "A12",
+        "A15",
+        "A20",
+        "A21",
+        "A31",
+        "A47",
+        "A50",
+        "A55"
+      ]
+    },
+    {
+      "path": "results/historical/provenance-reference.json",
+      "sha256": "eacd0e1998e6a0383ab0f74aded68f81a86f9202f1b007b8219e17325dcaa537",
+      "ev": [],
+      "requirements": []
+    },
+    {
+      "path": "results/kubernetes/rollback-green.json",
+      "sha256": "092614451b45278496723c8fcb3bb51b992847c54a5dc92f73ee39c25732da59",
+      "ev": [
+        "EV-04"
+      ],
+      "requirements": [
+        "A10",
+        "A11",
+        "A12",
+        "A15"
+      ]
+    },
+    {
+      "path": "results/kubernetes/stable-blue.json",
+      "sha256": "144b20ad648c57b19b6ccdfbd9f45954a71cd762f893b51b53a656ed0d2a891a",
+      "ev": [
+        "EV-04"
+      ],
+      "requirements": [
+        "A10",
+        "A11",
+        "A12",
+        "A15"
+      ]
+    },
+    {
+      "path": "results/persistence/restore-reference.json",
+      "sha256": "61a218b5b51a9b4c8d1d7b5ccb06ef8bc475dc0d2b79b8b9e128a5005060a04f",
+      "ev": [
+        "EV-14"
+      ],
+      "requirements": [
+        "A01",
+        "A50",
+        "A51"
+      ]
+    },
+    {
+      "path": "results/safety/cleanup.json",
+      "sha256": "f1b38a7609a8b0ac6658d7b5881a4e1e6557bfbc0687c4fdadb39103e93d9a0a",
+      "ev": [],
+      "requirements": []
+    },
+    {
+      "path": "results/safety/git-integrity.json",
+      "sha256": "04cfa54587975f16f7c26d609bb61726d99833eabcd2818f237baec534b1a0c2",
+      "ev": [],
+      "requirements": []
+    },
+    {
+      "path": "results/tooling/smoke-reference.json",
+      "sha256": "873c9abcab61d5d542058c9a27eff6177a67f69a71454aa9085acf0d128ad6da",
+      "ev": [],
+      "requirements": []
+    },
+    {
+      "path": "results/validation/png-integrity.json",
+      "sha256": "7b141fb61576bd3524a961ebbb83a57f472a88450bc8fb81a847a76311b222a7",
+      "ev": [],
+      "requirements": []
+    },
+    {
+      "path": "results/validation/telemetry-tests.json",
+      "sha256": "7ca951c24d1f3f8c35f5bf1abffdbf22cf15cdb40dbab3a1fde01654f42301b4",
+      "ev": [],
+      "requirements": []
+    }
+  ],
+  "source_hash_scope": "Source files at finalization; diagnostic attempts can predate subsequent fixes. Not a historical source snapshot.",
+  "source_files_sha256": {
+    "scripts/evidence/finalize.py": "e2c908746ce0b54c75de58f18046ae57b819b7d564a5278a87706749f88ce10b",
+    "scripts/evidence/hook.py": "5c5021813b904ad6748788bd276a1185ed3b422927d5f66db24b3f735f3b786c",
+    "scripts/evidence/run_local.py": "e633541d36044ffd5809438a1e78b105bfc2fed21d81c40e66463ec2abfacf62",
+    "scripts/evidence/run_persistence.py": "120173fc1140c6d62dd50ae30a2764cb8fe1dcc79e0a0363ae02f7ca798eba5e",
+    "scripts/evidence/capture.cjs": "89606a95ab31df30a0054acbc5987b6eea0dbf9ccbc8912e66eff8b62e33623b",
+    "k8s/observability/run_observability.py": "009b10c418f0ae2fe9b3cd065e0c8655f1231a050ab8d916f73c9c4f62dd91cd",
+    "k8s/observability/validation.py": "ea5f06d2010555335eea53f182e35b6ad3f9c2893c13a1fa9c3cbdae1f8ee470"
+  },
+  "capture_failures": []
+}

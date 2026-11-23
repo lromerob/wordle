@@ -1,0 +1,22 @@
+{
+  "result": "FAIL",
+  "traffic_by_phase": {},
+  "failure_windows_by_path": {
+    "frontend": {
+      "windows": [],
+      "unrecovered_since": null
+    },
+    "health": {
+      "windows": [],
+      "unrecovered_since": null
+    },
+    "game": {
+      "windows": [],
+      "unrecovered_since": null
+    }
+  },
+  "observed_failure_windows_seconds": [],
+  "sample_interval_seconds": 0.25,
+  "requests": 0,
+  "failed_requests": 0
+}

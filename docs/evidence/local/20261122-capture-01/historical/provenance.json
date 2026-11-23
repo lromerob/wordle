@@ -1,0 +1,71 @@
+[
+  {
+    "scenario": "pg05-ui-win",
+    "ev": "EV-01",
+    "requirements": [
+      "A01",
+      "A50"
+    ],
+    "status": "HISTORICAL",
+    "source_sha256": "2df520e3aed5321e97e9175e5551ed0ca0e6d1b92fc72bfb76ce682f07aec99c",
+    "original": "pg05-ui-win-original.jpg",
+    "derived": "pg05-ui-win-derived.png",
+    "derived_sha256": "539774c3283014aedffa4b9c9e6ff131db36cb3cec2de358d28d84ff9218187c",
+    "dimensions": [
+      304,
+      992
+    ],
+    "source_format": "JPEG",
+    "derived_format": "PNG",
+    "capture_utc": null,
+    "environment": "Compose PG-05",
+    "reference": "docs/analysis/pg-05/PG-05-TEST-RESULTS.md",
+    "limitation": "Original date not inferred from directory; PNG is a derivative, not a new execution"
+  },
+  {
+    "scenario": "pg05-ui-loss",
+    "ev": "EV-01",
+    "requirements": [
+      "A01",
+      "A50"
+    ],
+    "status": "HISTORICAL",
+    "source_sha256": "4a410f57b13ac6f661ec3444edba24aca286cd3efa10d59b4ae70032b5debf67",
+    "original": "pg05-ui-loss-original.jpg",
+    "derived": "pg05-ui-loss-derived.png",
+    "derived_sha256": "468e3841769386a459dc6e7c267975b641d44ddd8e05cdbd54935ed5d33631dd",
+    "dimensions": [
+      304,
+      992
+    ],
+    "source_format": "JPEG",
+    "derived_format": "PNG",
+    "capture_utc": null,
+    "environment": "Compose PG-05",
+    "reference": "docs/analysis/pg-05/PG-05-TEST-RESULTS.md",
+    "limitation": "Original date not inferred from directory; PNG is a derivative, not a new execution"
+  },
+  {
+    "scenario": "pg06-ui-win",
+    "ev": "EV-01",
+    "requirements": [
+      "A01",
+      "A50"
+    ],
+    "status": "HISTORICAL",
+    "source_sha256": "547183420295984d2c579fcbbefba8a2739e200f7021d80172d19b359a36afed",
+    "original": "pg06-ui-win-original.jpg",
+    "derived": "pg06-ui-win-derived.png",
+    "derived_sha256": "5a33402c2d8699cdd9a0a4bfb1816bee74facdf0d8557970c0c2c1692981a2ad",
+    "dimensions": [
+      1264,
+      1086
+    ],
+    "source_format": "JPEG",
+    "derived_format": "PNG",
+    "capture_utc": null,
+    "environment": "kind PG-06",
+    "reference": "docs/analysis/pg-06/PG-06-TEST-RESULTS.md",
+    "limitation": "Original date not inferred from directory; PNG is a derivative, not a new execution"
+  }
+]

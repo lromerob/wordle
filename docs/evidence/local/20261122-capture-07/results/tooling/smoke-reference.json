@@ -1,0 +1,8 @@
+{
+  "reference_base": "docs/evidence/local",
+  "path": "20261122-capture-01/results/tooling/edge-smoke.json",
+  "sha256": "55a0eec6914a1dba9be77ca4f854238f0a75f2f8f592179b3295806d8edda596",
+  "ev": [],
+  "requirements": [],
+  "limitation": "Separate execution; retain original date/environment and results; not relabelled as this run"
+}

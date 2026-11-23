@@ -1,0 +1,8 @@
+{
+  "command": "python -B -m unittest discover -s k8s/observability -p test_telemetry.py -v",
+  "exit": 0,
+  "tests": 4,
+  "skipped": 0,
+  "result": "PASS",
+  "output": "test_error_exports_all_three_real_otlp_shapes (test_telemetry.TelemetryTests.test_error_exports_all_three_real_otlp_shapes) ... ok\ntest_error_response_contract_preserved (test_telemetry.TelemetryTests.test_error_response_contract_preserved) ... ok\ntest_no_input_values_in_telemetry (test_telemetry.TelemetryTests.test_no_input_values_in_telemetry) ... ok\ntest_response_contract_and_trace_header (test_telemetry.TelemetryTests.test_response_contract_and_trace_header) ... ok\n\n----------------------------------------------------------------------\nRan 4 tests in 0.011s\n\nOK\n"
+}

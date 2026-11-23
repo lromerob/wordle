@@ -1,0 +1,247 @@
+{
+  "utc": "2026-11-22T12:28:24.787Z",
+  "stage": "stable-blue",
+  "checks": [
+    {
+      "name": "Ingress health",
+      "status": 200,
+      "release": "blue"
+    },
+    {
+      "name": "PostgreSQL pod replacement preserves SQL snapshot",
+      "status": "PASS",
+      "sha256": "254ca43a6a040715e75019cab5a754fb443f0b7cadfe9682234074d9199fedab"
+    },
+    {
+      "name": "UI functional flow",
+      "status": "PASS",
+      "physicalKeyboard": true,
+      "virtualKeyboard": true,
+      "invalidNoWrite": true,
+      "victory": true,
+      "lossSix": true,
+      "restart": true
+    }
+  ],
+  "screenshots": [
+    {
+      "ev": "EV-04",
+      "requirements": [
+        "A10",
+        "A11",
+        "A12",
+        "A15"
+      ],
+      "scenario": "stable-blue",
+      "utc": "2026-11-22T12:28:15.144Z",
+      "environment": "kind-local",
+      "persistence": "PostgreSQL 16 real",
+      "expected": "Real frontend through Traefik; release blue",
+      "observed": "Verified before screenshot",
+      "status": "PASS",
+      "path": "screenshots/wordle/stable-blue.png",
+      "sha256": "ed1f8fd059e0f0bc2139c506b63213bb5f86f7b3f57f5403d63506641298b9e5",
+      "width": 1440,
+      "height": 1000,
+      "format": "PNG",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": false
+    },
+    {
+      "ev": "EV-01",
+      "requirements": [
+        "A01",
+        "A50"
+      ],
+      "scenario": "initial-desktop",
+      "utc": "2026-11-22T12:28:15.231Z",
+      "environment": "kind-local",
+      "persistence": "PostgreSQL 16 real",
+      "expected": "Initial screen",
+      "observed": "Verified before screenshot",
+      "status": "PASS",
+      "path": "screenshots/wordle/initial-desktop.png",
+      "sha256": "ed1f8fd059e0f0bc2139c506b63213bb5f86f7b3f57f5403d63506641298b9e5",
+      "width": 1440,
+      "height": 1000,
+      "format": "PNG",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": false
+    },
+    {
+      "ev": "EV-01",
+      "requirements": [
+        "A01",
+        "A50"
+      ],
+      "scenario": "in-progress-desktop",
+      "utc": "2026-11-22T12:28:15.749Z",
+      "environment": "kind-local",
+      "persistence": "PostgreSQL 16 real",
+      "expected": "Active game SQL en_curso|0",
+      "observed": "Verified before screenshot",
+      "status": "PASS",
+      "path": "screenshots/wordle/in-progress-desktop.png",
+      "sha256": "3b129c7df8ff5c203ebf9d7bb0c3adb8356f6562539f2e7ecfe71559f73dd3e2",
+      "width": 1440,
+      "height": 1000,
+      "format": "PNG",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": false
+    },
+    {
+      "ev": "EV-01",
+      "requirements": [
+        "A01",
+        "A50"
+      ],
+      "scenario": "invalid-word-no-attempt",
+      "utc": "2026-11-22T12:28:16.494Z",
+      "environment": "kind-local",
+      "persistence": "PostgreSQL 16 real",
+      "expected": "HTTP400; SQL state unchanged",
+      "observed": "Verified before screenshot",
+      "status": "PASS",
+      "path": "screenshots/wordle/invalid-word-no-attempt.png",
+      "sha256": "d701f7c5ae99ad066ad3d23b65627db4f4e7f06e4140ea33f4b7f27f38c16939",
+      "width": 1440,
+      "height": 1000,
+      "format": "PNG",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": false
+    },
+    {
+      "ev": "EV-01",
+      "requirements": [
+        "A01",
+        "A50"
+      ],
+      "scenario": "victory-desktop",
+      "utc": "2026-11-22T12:28:17.299Z",
+      "environment": "kind-local",
+      "persistence": "PostgreSQL 16 real",
+      "expected": "HTTP200, SQL victory, five correct cells",
+      "observed": "Verified before screenshot",
+      "status": "PASS",
+      "path": "screenshots/wordle/victory-desktop.png",
+      "sha256": "00dfd3f77274b31252bb843dd39ff850aaa038c950038d41a720ce970d5f20ad",
+      "width": 1440,
+      "height": 1000,
+      "format": "PNG",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": false
+    },
+    {
+      "ev": "EV-14",
+      "requirements": [
+        "A01",
+        "A50",
+        "A51"
+      ],
+      "scenario": "persisted-victory",
+      "utc": "2026-11-22T12:28:21.881Z",
+      "environment": "kind-local",
+      "persistence": "PostgreSQL 16 real",
+      "expected": "Same SQL dataset and HTTP victory after PostgreSQL pod replacement",
+      "observed": "Verified before screenshot",
+      "status": "PASS",
+      "path": "screenshots/wordle/persisted-victory.png",
+      "sha256": "00dfd3f77274b31252bb843dd39ff850aaa038c950038d41a720ce970d5f20ad",
+      "width": 1440,
+      "height": 1000,
+      "format": "PNG",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": false
+    },
+    {
+      "ev": "EV-01",
+      "requirements": [
+        "A01",
+        "A50"
+      ],
+      "scenario": "restart-mobile",
+      "utc": "2026-11-22T12:28:22.018Z",
+      "environment": "kind-local",
+      "persistence": "PostgreSQL 16 real",
+      "expected": "New game SQL en_curso|0",
+      "observed": "Verified before screenshot",
+      "status": "PASS",
+      "path": "screenshots/wordle/restart-mobile.png",
+      "sha256": "daba0018865a4a6f6626b9fd909761573d37e0383888362192b208eb025a533e",
+      "width": 390,
+      "height": 844,
+      "format": "PNG",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "fullPage": false
+    },
+    {
+      "ev": "EV-01",
+      "requirements": [
+        "A01",
+        "A50"
+      ],
+      "scenario": "loss-mobile-six-attempts",
+      "utc": "2026-11-22T12:28:24.317Z",
+      "environment": "kind-local",
+      "persistence": "PostgreSQL 16 real",
+      "expected": "Six real attempts, SQL perdida|6, solution only at end",
+      "observed": "Verified before screenshot",
+      "status": "PASS",
+      "path": "screenshots/wordle/loss-mobile-six-attempts.png",
+      "sha256": "9fd59ac4f8612f5c5eddba979c664bdd0e3396b6911f68d5addf812af4661766",
+      "width": 390,
+      "height": 844,
+      "format": "PNG",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "fullPage": false
+    },
+    {
+      "ev": "EV-01",
+      "requirements": [
+        "A01",
+        "A50"
+      ],
+      "scenario": "initial-new-game-mobile",
+      "utc": "2026-11-22T12:28:24.437Z",
+      "environment": "kind-local",
+      "persistence": "PostgreSQL 16 real",
+      "expected": "Restart to active new game",
+      "observed": "Verified before screenshot",
+      "status": "PASS",
+      "path": "screenshots/wordle/initial-new-game-mobile.png",
+      "sha256": "daba0018865a4a6f6626b9fd909761573d37e0383888362192b208eb025a533e",
+      "width": 390,
+      "height": 844,
+      "format": "PNG",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "fullPage": false
+    }
+  ]
+}

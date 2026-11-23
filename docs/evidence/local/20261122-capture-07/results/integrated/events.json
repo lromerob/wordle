@@ -1,0 +1,305 @@
+[
+  {
+    "elapsed": 0.469,
+    "utc": "2026-11-22T12:24:12.729426+00:00",
+    "event": "cluster_create",
+    "name": "wordle-fin1015-53676067",
+    "version": "1.35.0"
+  },
+  {
+    "elapsed": 40.407,
+    "utc": "2026-11-22T12:24:52.664609+00:00",
+    "event": "cluster_ready"
+  },
+  {
+    "elapsed": 80.047,
+    "utc": "2026-11-22T12:25:32.302962+00:00",
+    "event": "image_archive_ready"
+  },
+  {
+    "elapsed": 172.047,
+    "utc": "2026-11-22T12:27:04.308895+00:00",
+    "event": "images_imported"
+  },
+  {
+    "elapsed": 239.219,
+    "utc": "2026-11-22T12:28:11.469308+00:00",
+    "event": "stable_blue_verified",
+    "postgres": "16.15",
+    "pvc_bound": true
+  },
+  {
+    "elapsed": 252.563,
+    "utc": "2026-11-22T12:28:24.823601+00:00",
+    "event": "capture_pass",
+    "stage": "stable-blue"
+  },
+  {
+    "elapsed": 252.594,
+    "utc": "2026-11-22T12:28:24.853807+00:00",
+    "event": "phase",
+    "phase": "prepare-green"
+  },
+  {
+    "elapsed": 258.282,
+    "utc": "2026-11-22T12:28:30.540817+00:00",
+    "event": "deployment_gate",
+    "name": "backend-green",
+    "generation": 2,
+    "image": "wordle-fin0507-backend:local"
+  },
+  {
+    "elapsed": 258.61,
+    "utc": "2026-11-22T12:28:30.868470+00:00",
+    "event": "deployment_gate",
+    "name": "frontend-green",
+    "generation": 2,
+    "image": "wordle-fin0507-frontend:local"
+  },
+  {
+    "elapsed": 259.125,
+    "utc": "2026-11-22T12:28:31.379279+00:00",
+    "event": "candidate_accepted",
+    "slot": "green"
+  },
+  {
+    "elapsed": 259.157,
+    "utc": "2026-11-22T12:28:31.408985+00:00",
+    "event": "phase",
+    "phase": "promotion-green"
+  },
+  {
+    "elapsed": 259.469,
+    "utc": "2026-11-22T12:28:31.726954+00:00",
+    "event": "selector_switched",
+    "previous": "blue",
+    "active": "green"
+  },
+  {
+    "elapsed": 259.594,
+    "utc": "2026-11-22T12:28:31.850386+00:00",
+    "event": "promoted_http_observed",
+    "active": "green"
+  },
+  {
+    "elapsed": 259.735,
+    "utc": "2026-11-22T12:28:31.986394+00:00",
+    "event": "phase",
+    "phase": "steady-green"
+  },
+  {
+    "elapsed": 259.782,
+    "utc": "2026-11-22T12:28:32.031506+00:00",
+    "event": "promotion_succeeded",
+    "previous": "blue",
+    "active": "green"
+  },
+  {
+    "elapsed": 260.25,
+    "utc": "2026-11-22T12:28:32.511600+00:00",
+    "event": "scenario_A_pass",
+    "active": "green",
+    "persisted_victory": true
+  },
+  {
+    "elapsed": 262.844,
+    "utc": "2026-11-22T12:28:35.103483+00:00",
+    "event": "capture_pass",
+    "stage": "promoted-green"
+  },
+  {
+    "elapsed": 264.047,
+    "utc": "2026-11-22T12:28:36.301896+00:00",
+    "event": "phase",
+    "phase": "reject-blue"
+  },
+  {
+    "elapsed": 264.547,
+    "utc": "2026-11-22T12:28:36.803859+00:00",
+    "event": "deployment_gate",
+    "name": "backend-blue",
+    "generation": 1,
+    "image": "wordle-fin0507-backend:local"
+  },
+  {
+    "elapsed": 289.969,
+    "utc": "2026-11-22T12:29:02.217844+00:00",
+    "event": "candidate_rejected_before_promotion",
+    "candidate": "blue",
+    "stable": "green",
+    "reason": "Candidate gate failed: RuntimeError",
+    "selector_unchanged": true
+  },
+  {
+    "elapsed": 290.188,
+    "utc": "2026-11-22T12:29:02.449144+00:00",
+    "event": "scenario_B_pre_promotion_pass",
+    "active": "green",
+    "rollback": false
+  },
+  {
+    "elapsed": 290.25,
+    "utc": "2026-11-22T12:29:02.508149+00:00",
+    "event": "phase",
+    "phase": "restore-blue-candidate"
+  },
+  {
+    "elapsed": 290.672,
+    "utc": "2026-11-22T12:29:02.922862+00:00",
+    "event": "phase",
+    "phase": "promotion-blue"
+  },
+  {
+    "elapsed": 291.485,
+    "utc": "2026-11-22T12:29:03.746793+00:00",
+    "event": "deployment_gate",
+    "name": "backend-blue",
+    "generation": 1,
+    "image": "wordle-fin0507-backend:local"
+  },
+  {
+    "elapsed": 291.922,
+    "utc": "2026-11-22T12:29:04.182971+00:00",
+    "event": "deployment_gate",
+    "name": "frontend-blue",
+    "generation": 3,
+    "image": "wordle-fin0507-frontend:local"
+  },
+  {
+    "elapsed": 292.454,
+    "utc": "2026-11-22T12:29:04.711462+00:00",
+    "event": "candidate_accepted",
+    "slot": "blue"
+  },
+  {
+    "elapsed": 292.5,
+    "utc": "2026-11-22T12:29:04.755216+00:00",
+    "event": "phase",
+    "phase": "promotion-blue"
+  },
+  {
+    "elapsed": 292.922,
+    "utc": "2026-11-22T12:29:05.177126+00:00",
+    "event": "selector_switched",
+    "previous": "green",
+    "active": "blue"
+  },
+  {
+    "elapsed": 293.141,
+    "utc": "2026-11-22T12:29:05.394940+00:00",
+    "event": "promoted_http_observed",
+    "active": "blue"
+  },
+  {
+    "elapsed": 293.172,
+    "utc": "2026-11-22T12:29:05.433799+00:00",
+    "event": "phase",
+    "phase": "fault-blue"
+  },
+  {
+    "elapsed": 297.11,
+    "utc": "2026-11-22T12:29:09.368194+00:00",
+    "event": "controlled_functional_fault_observed",
+    "status": 503,
+    "release": "blue",
+    "health_still_ready": true
+  },
+  {
+    "elapsed": 301.204,
+    "utc": "2026-11-22T12:29:13.455171+00:00",
+    "event": "phase",
+    "phase": "rollback-green"
+  },
+  {
+    "elapsed": 301.235,
+    "utc": "2026-11-22T12:29:13.481717+00:00",
+    "event": "post_promotion_failure",
+    "candidate": "blue",
+    "reason": "timed out"
+  },
+  {
+    "elapsed": 301.532,
+    "utc": "2026-11-22T12:29:13.791330+00:00",
+    "event": "selector_switched",
+    "previous": "blue",
+    "active": "green"
+  },
+  {
+    "elapsed": 302.032,
+    "utc": "2026-11-22T12:29:14.279509+00:00",
+    "event": "automatic_rollback_verified",
+    "failed": "blue",
+    "active": "green",
+    "reason": "timed out",
+    "database_rollback": false
+  },
+  {
+    "elapsed": 302.204,
+    "utc": "2026-11-22T12:29:14.460918+00:00",
+    "event": "phase",
+    "phase": "steady-green"
+  },
+  {
+    "elapsed": 303.938,
+    "utc": "2026-11-22T12:29:16.197773+00:00",
+    "event": "traffic_fault_samples",
+    "failures": 9
+  },
+  {
+    "elapsed": 304.969,
+    "utc": "2026-11-22T12:29:17.230169+00:00",
+    "event": "scenario_B_post_promotion_pass",
+    "active": "green",
+    "database_unchanged": true
+  },
+  {
+    "elapsed": 309.36,
+    "utc": "2026-11-22T12:29:21.616792+00:00",
+    "event": "capture_pass",
+    "stage": "rollback-green"
+  },
+  {
+    "elapsed": 309.391,
+    "utc": "2026-11-22T12:29:21.646525+00:00",
+    "event": "phase",
+    "phase": "observability-alerts"
+  },
+  {
+    "elapsed": 312.5,
+    "utc": "2026-11-22T12:29:24.755300+00:00",
+    "event": "signals_verified",
+    "trace_id": "774b7e792f0d0607076a3907713cfbac",
+    "targets_up": 6,
+    "dashboard_panels": 8
+  },
+  {
+    "elapsed": 330.125,
+    "utc": "2026-11-22T12:29:42.372451+00:00",
+    "event": "capture_pass",
+    "stage": "signals"
+  },
+  {
+    "elapsed": 379.375,
+    "utc": "2026-11-22T12:30:31.631624+00:00",
+    "event": "notifications_firing_delivered",
+    "names": [
+      "WordleCriticalLog",
+      "WordleUnavailable"
+    ]
+  },
+  {
+    "elapsed": 413.516,
+    "utc": "2026-11-22T12:31:05.773669+00:00",
+    "event": "observability_integrated_pass",
+    "alerts_resolved": true,
+    "database_unchanged": true,
+    "no_oom": true
+  },
+  {
+    "elapsed": 417.11,
+    "utc": "2026-11-22T12:31:09.362079+00:00",
+    "event": "cleanup_pass",
+    "owned_cluster_removed": true,
+    "prior_clusters_preserved": true
+  }
+]

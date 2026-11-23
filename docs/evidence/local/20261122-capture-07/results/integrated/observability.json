@@ -1,0 +1,1523 @@
+{
+  "targets": {
+    "collector:collector:8889": "up",
+    "kubelet-cadvisor:wordle-fin1015-53676067-control-plane": "up",
+    "node-exporter:10.244.0.10:9100": "up",
+    "prometheus:localhost:9090": "up",
+    "wordle:backend-blue.wordle-demo:8000": "up",
+    "wordle:backend-green.wordle-demo:8000": "up"
+  },
+  "http_metric_series": 9,
+  "duration_series": 9,
+  "http_metrics": [
+    {
+      "metric": {
+        "__name__": "wordle_http_requests_total",
+        "exported_job": "wordle-backend",
+        "http_request_method": "GET",
+        "http_response_status_code": "200",
+        "http_route": "/health",
+        "instance": "collector:8889",
+        "job": "collector",
+        "otel_scope_name": "wordle-demo-asgi",
+        "release": "blue",
+        "service_name": "wordle-backend",
+        "service_version": "blue"
+      },
+      "value": [
+        1795350564.129,
+        "64"
+      ]
+    },
+    {
+      "metric": {
+        "__name__": "wordle_http_requests_total",
+        "exported_job": "wordle-backend",
+        "http_request_method": "GET",
+        "http_response_status_code": "200",
+        "http_route": "/game/{partida_id}",
+        "instance": "collector:8889",
+        "job": "collector",
+        "otel_scope_name": "wordle-demo-asgi",
+        "release": "blue",
+        "service_name": "wordle-backend",
+        "service_version": "blue"
+      },
+      "value": [
+        1795350564.129,
+        "34"
+      ]
+    },
+    {
+      "metric": {
+        "__name__": "wordle_http_requests_total",
+        "exported_job": "wordle-backend",
+        "http_request_method": "POST",
+        "http_response_status_code": "200",
+        "http_route": "/game/nueva",
+        "instance": "collector:8889",
+        "job": "collector",
+        "otel_scope_name": "wordle-demo-asgi",
+        "release": "blue",
+        "service_name": "wordle-backend",
+        "service_version": "blue"
+      },
+      "value": [
+        1795350564.129,
+        "4"
+      ]
+    },
+    {
+      "metric": {
+        "__name__": "wordle_http_requests_total",
+        "exported_job": "wordle-backend",
+        "http_request_method": "POST",
+        "http_response_status_code": "200",
+        "http_route": "/game/intento",
+        "instance": "collector:8889",
+        "job": "collector",
+        "otel_scope_name": "wordle-demo-asgi",
+        "release": "blue",
+        "service_name": "wordle-backend",
+        "service_version": "blue"
+      },
+      "value": [
+        1795350564.129,
+        "7"
+      ]
+    },
+    {
+      "metric": {
+        "__name__": "wordle_http_requests_total",
+        "exported_job": "wordle-backend",
+        "http_request_method": "POST",
+        "http_response_status_code": "400",
+        "http_route": "/game/intento",
+        "instance": "collector:8889",
+        "job": "collector",
+        "otel_scope_name": "wordle-demo-asgi",
+        "release": "blue",
+        "service_name": "wordle-backend",
+        "service_version": "blue"
+      },
+      "value": [
+        1795350564.129,
+        "1"
+      ]
+    },
+    {
+      "metric": {
+        "__name__": "wordle_http_requests_total",
+        "exported_job": "wordle-backend",
+        "http_request_method": "GET",
+        "http_response_status_code": "200",
+        "http_route": "/game/{partida_id}",
+        "instance": "collector:8889",
+        "job": "collector",
+        "otel_scope_name": "wordle-demo-asgi",
+        "release": "green",
+        "service_name": "wordle-backend",
+        "service_version": "green"
+      },
+      "value": [
+        1795350564.129,
+        "109"
+      ]
+    },
+    {
+      "metric": {
+        "__name__": "wordle_http_requests_total",
+        "exported_job": "wordle-backend",
+        "http_request_method": "GET",
+        "http_response_status_code": "200",
+        "http_route": "/health",
+        "instance": "collector:8889",
+        "job": "collector",
+        "otel_scope_name": "wordle-demo-asgi",
+        "release": "green",
+        "service_name": "wordle-backend",
+        "service_version": "green"
+      },
+      "value": [
+        1795350564.129,
+        "123"
+      ]
+    },
+    {
+      "metric": {
+        "__name__": "wordle_http_requests_total",
+        "exported_job": "wordle-backend",
+        "http_request_method": "POST",
+        "http_response_status_code": "200",
+        "http_route": "/game/intento",
+        "instance": "collector:8889",
+        "job": "collector",
+        "otel_scope_name": "wordle-demo-asgi",
+        "release": "green",
+        "service_name": "wordle-backend",
+        "service_version": "green"
+      },
+      "value": [
+        1795350564.129,
+        "1"
+      ]
+    },
+    {
+      "metric": {
+        "__name__": "wordle_http_requests_total",
+        "exported_job": "wordle-backend",
+        "http_request_method": "GET",
+        "http_response_status_code": "404",
+        "http_route": "unmatched",
+        "instance": "collector:8889",
+        "job": "collector",
+        "otel_scope_name": "wordle-demo-asgi",
+        "release": "blue",
+        "service_name": "wordle-backend",
+        "service_version": "blue"
+      },
+      "value": [
+        1795350564.129,
+        "7"
+      ]
+    }
+  ],
+  "duration_metrics": [
+    {
+      "metric": {
+        "__name__": "wordle_http_duration_seconds",
+        "exported_job": "wordle-backend",
+        "http_request_method": "GET",
+        "http_response_status_code": "200",
+        "http_route": "/health",
+        "instance": "collector:8889",
+        "job": "collector",
+        "otel_scope_name": "wordle-demo-asgi",
+        "release": "blue",
+        "service_name": "wordle-backend",
+        "service_version": "blue"
+      },
+      "value": [
+        1795350564.168,
+        "0.00069015"
+      ]
+    },
+    {
+      "metric": {
+        "__name__": "wordle_http_duration_seconds",
+        "exported_job": "wordle-backend",
+        "http_request_method": "GET",
+        "http_response_status_code": "200",
+        "http_route": "/game/{partida_id}",
+        "instance": "collector:8889",
+        "job": "collector",
+        "otel_scope_name": "wordle-demo-asgi",
+        "release": "blue",
+        "service_name": "wordle-backend",
+        "service_version": "blue"
+      },
+      "value": [
+        1795350564.168,
+        "0.001851429"
+      ]
+    },
+    {
+      "metric": {
+        "__name__": "wordle_http_duration_seconds",
+        "exported_job": "wordle-backend",
+        "http_request_method": "POST",
+        "http_response_status_code": "200",
+        "http_route": "/game/nueva",
+        "instance": "collector:8889",
+        "job": "collector",
+        "otel_scope_name": "wordle-demo-asgi",
+        "release": "blue",
+        "service_name": "wordle-backend",
+        "service_version": "blue"
+      },
+      "value": [
+        1795350564.168,
+        "0.011034173"
+      ]
+    },
+    {
+      "metric": {
+        "__name__": "wordle_http_duration_seconds",
+        "exported_job": "wordle-backend",
+        "http_request_method": "POST",
+        "http_response_status_code": "200",
+        "http_route": "/game/intento",
+        "instance": "collector:8889",
+        "job": "collector",
+        "otel_scope_name": "wordle-demo-asgi",
+        "release": "blue",
+        "service_name": "wordle-backend",
+        "service_version": "blue"
+      },
+      "value": [
+        1795350564.168,
+        "0.032293454"
+      ]
+    },
+    {
+      "metric": {
+        "__name__": "wordle_http_duration_seconds",
+        "exported_job": "wordle-backend",
+        "http_request_method": "POST",
+        "http_response_status_code": "400",
+        "http_route": "/game/intento",
+        "instance": "collector:8889",
+        "job": "collector",
+        "otel_scope_name": "wordle-demo-asgi",
+        "release": "blue",
+        "service_name": "wordle-backend",
+        "service_version": "blue"
+      },
+      "value": [
+        1795350564.168,
+        "0.002375958"
+      ]
+    },
+    {
+      "metric": {
+        "__name__": "wordle_http_duration_seconds",
+        "exported_job": "wordle-backend",
+        "http_request_method": "GET",
+        "http_response_status_code": "200",
+        "http_route": "/game/{partida_id}",
+        "instance": "collector:8889",
+        "job": "collector",
+        "otel_scope_name": "wordle-demo-asgi",
+        "release": "green",
+        "service_name": "wordle-backend",
+        "service_version": "green"
+      },
+      "value": [
+        1795350564.168,
+        "0.001113761"
+      ]
+    },
+    {
+      "metric": {
+        "__name__": "wordle_http_duration_seconds",
+        "exported_job": "wordle-backend",
+        "http_request_method": "GET",
+        "http_response_status_code": "200",
+        "http_route": "/health",
+        "instance": "collector:8889",
+        "job": "collector",
+        "otel_scope_name": "wordle-demo-asgi",
+        "release": "green",
+        "service_name": "wordle-backend",
+        "service_version": "green"
+      },
+      "value": [
+        1795350564.168,
+        "0.00026146"
+      ]
+    },
+    {
+      "metric": {
+        "__name__": "wordle_http_duration_seconds",
+        "exported_job": "wordle-backend",
+        "http_request_method": "POST",
+        "http_response_status_code": "200",
+        "http_route": "/game/intento",
+        "instance": "collector:8889",
+        "job": "collector",
+        "otel_scope_name": "wordle-demo-asgi",
+        "release": "green",
+        "service_name": "wordle-backend",
+        "service_version": "green"
+      },
+      "value": [
+        1795350564.168,
+        "0.015166077"
+      ]
+    },
+    {
+      "metric": {
+        "__name__": "wordle_http_duration_seconds",
+        "exported_job": "wordle-backend",
+        "http_request_method": "GET",
+        "http_response_status_code": "404",
+        "http_route": "unmatched",
+        "instance": "collector:8889",
+        "job": "collector",
+        "otel_scope_name": "wordle-demo-asgi",
+        "release": "blue",
+        "service_name": "wordle-backend",
+        "service_version": "blue"
+      },
+      "value": [
+        1795350564.168,
+        "0.000732277"
+      ]
+    }
+  ],
+  "node_metric": [
+    {
+      "metric": {
+        "__name__": "node_memory_MemTotal_bytes",
+        "instance": "10.244.0.10:9100",
+        "job": "node-exporter"
+      },
+      "value": [
+        1795350564.195,
+        "16465432576"
+      ]
+    }
+  ],
+  "wordle_container_metrics": [
+    {
+      "metric": {
+        "__name__": "container_memory_working_set_bytes",
+        "container": "backend",
+        "id": "/kubelet.slice/kubelet-kubepods.slice/kubelet-kubepods-burstable.slice/kubelet-kubepods-burstable-pod340203c4_b9f5_42fc_a4d9_cb0116181093.slice/cri-containerd-e2125207a3164878e4ee6bd0f2a74c46affa09c47d0e07c55c63a60863b6ea0c.scope",
+        "image": "docker.io/library/wordle-fin0507-backend:local",
+        "instance": "wordle-fin1015-53676067-control-plane",
+        "job": "kubelet-cadvisor",
+        "name": "e2125207a3164878e4ee6bd0f2a74c46affa09c47d0e07c55c63a60863b6ea0c",
+        "namespace": "wordle-demo",
+        "node": "wordle-fin1015-53676067-control-plane",
+        "pod": "backend-blue-7fc8d4f76c-7tzrp"
+      },
+      "value": [
+        1795350564.241,
+        "49807360"
+      ]
+    },
+    {
+      "metric": {
+        "__name__": "container_memory_working_set_bytes",
+        "container": "frontend",
+        "id": "/kubelet.slice/kubelet-kubepods.slice/kubelet-kubepods-burstable.slice/kubelet-kubepods-burstable-pod23c27338_1baa_4e81_aad2_682de7105432.slice/cri-containerd-0bb66aaea599a2b1de136f0b8b3e0d056d642465edc0f46817ab6aff3506cd12.scope",
+        "image": "docker.io/library/wordle-fin0507-frontend:local",
+        "instance": "wordle-fin1015-53676067-control-plane",
+        "job": "kubelet-cadvisor",
+        "name": "0bb66aaea599a2b1de136f0b8b3e0d056d642465edc0f46817ab6aff3506cd12",
+        "namespace": "wordle-demo",
+        "node": "wordle-fin1015-53676067-control-plane",
+        "pod": "frontend-blue-66758dd95f-jzmts"
+      },
+      "value": [
+        1795350564.241,
+        "18337792"
+      ]
+    },
+    {
+      "metric": {
+        "__name__": "container_memory_working_set_bytes",
+        "container": "ingress",
+        "id": "/kubelet.slice/kubelet-kubepods.slice/kubelet-kubepods-burstable.slice/kubelet-kubepods-burstable-pode9d657d2_27e5_4544_9e1e_7c84351ef1fc.slice/cri-containerd-b88dbd83125b1d6368f24c70f48ba699da7cd8bd62f6d7b21ec59aa60c3af632.scope",
+        "image": "docker.io/library/traefik:v3.7.17",
+        "instance": "wordle-fin1015-53676067-control-plane",
+        "job": "kubelet-cadvisor",
+        "name": "b88dbd83125b1d6368f24c70f48ba699da7cd8bd62f6d7b21ec59aa60c3af632",
+        "namespace": "wordle-demo",
+        "node": "wordle-fin1015-53676067-control-plane",
+        "pod": "ingress-65bcb4457-lf78f"
+      },
+      "value": [
+        1795350564.241,
+        "22388736"
+      ]
+    },
+    {
+      "metric": {
+        "__name__": "container_memory_working_set_bytes",
+        "container": "log-agent",
+        "id": "/kubelet.slice/kubelet-kubepods.slice/kubelet-kubepods-burstable.slice/kubelet-kubepods-burstable-pod23c27338_1baa_4e81_aad2_682de7105432.slice/cri-containerd-84bbe9ff6cdbb7ddc38ea291115dd9ed9dde0d1026e831220deae0a973c5bdeb.scope",
+        "image": "docker.io/otel/opentelemetry-collector-contrib:0.165.0",
+        "instance": "wordle-fin1015-53676067-control-plane",
+        "job": "kubelet-cadvisor",
+        "name": "84bbe9ff6cdbb7ddc38ea291115dd9ed9dde0d1026e831220deae0a973c5bdeb",
+        "namespace": "wordle-demo",
+        "node": "wordle-fin1015-53676067-control-plane",
+        "pod": "frontend-blue-66758dd95f-jzmts"
+      },
+      "value": [
+        1795350564.241,
+        "46104576"
+      ]
+    },
+    {
+      "metric": {
+        "__name__": "container_memory_working_set_bytes",
+        "container": "postgres",
+        "id": "/kubelet.slice/kubelet-kubepods.slice/kubelet-kubepods-burstable.slice/kubelet-kubepods-burstable-poda98f25bf_ca13_4730_9860_245fb63b016d.slice/cri-containerd-431a279a38e0bcd0160c96c496d3eec91eb3ed516c430a3c3327220a389c6c9f.scope",
+        "image": "docker.io/library/postgres:16.15",
+        "instance": "wordle-fin1015-53676067-control-plane",
+        "job": "kubelet-cadvisor",
+        "name": "431a279a38e0bcd0160c96c496d3eec91eb3ed516c430a3c3327220a389c6c9f",
+        "namespace": "wordle-demo",
+        "node": "wordle-fin1015-53676067-control-plane",
+        "pod": "postgres-0"
+      },
+      "value": [
+        1795350564.241,
+        "36728832"
+      ]
+    },
+    {
+      "metric": {
+        "__name__": "container_memory_working_set_bytes",
+        "container": "postgres",
+        "id": "/kubelet.slice/kubelet-kubepods.slice/kubelet-kubepods-burstable.slice/kubelet-kubepods-burstable-poda9b4189b_7f9a_4ec0_b8bf_5bf8b24d4382.slice/cri-containerd-7313c1496b974fc2794960f1a1ffa50e0955cde6e66b1b7394ad83bb422f0a97.scope",
+        "image": "docker.io/library/postgres:16.15",
+        "instance": "wordle-fin1015-53676067-control-plane",
+        "job": "kubelet-cadvisor",
+        "name": "7313c1496b974fc2794960f1a1ffa50e0955cde6e66b1b7394ad83bb422f0a97",
+        "namespace": "wordle-demo",
+        "node": "wordle-fin1015-53676067-control-plane",
+        "pod": "postgres-0"
+      },
+      "value": [
+        1795350564.241,
+        "27197440"
+      ]
+    },
+    {
+      "metric": {
+        "__name__": "container_memory_working_set_bytes",
+        "container": "backend",
+        "id": "/kubelet.slice/kubelet-kubepods.slice/kubelet-kubepods-burstable.slice/kubelet-kubepods-burstable-pod44838a30_8e72_4439_9818_398b9782f9b0.slice/cri-containerd-a74982a29f5f0706c41a5f91a35ce0976302e70ea79e809440472e9a113b4a3c.scope",
+        "image": "docker.io/library/wordle-fin0507-backend:local",
+        "instance": "wordle-fin1015-53676067-control-plane",
+        "job": "kubelet-cadvisor",
+        "name": "a74982a29f5f0706c41a5f91a35ce0976302e70ea79e809440472e9a113b4a3c",
+        "namespace": "wordle-demo",
+        "node": "wordle-fin1015-53676067-control-plane",
+        "pod": "backend-green-6ddb495bdc-466hq"
+      },
+      "value": [
+        1795350564.241,
+        "48529408"
+      ]
+    },
+    {
+      "metric": {
+        "__name__": "container_memory_working_set_bytes",
+        "container": "frontend",
+        "id": "/kubelet.slice/kubelet-kubepods.slice/kubelet-kubepods-burstable.slice/kubelet-kubepods-burstable-pod9430230e_bc53_4877_9d05_04b3fa59c616.slice/cri-containerd-a281c54cc833ed405ed2d8c487068696ac929dc41f4028b40d9c90cb3f40f482.scope",
+        "image": "docker.io/library/wordle-fin0507-frontend:local",
+        "instance": "wordle-fin1015-53676067-control-plane",
+        "job": "kubelet-cadvisor",
+        "name": "a281c54cc833ed405ed2d8c487068696ac929dc41f4028b40d9c90cb3f40f482",
+        "namespace": "wordle-demo",
+        "node": "wordle-fin1015-53676067-control-plane",
+        "pod": "frontend-green-584769b97f-gwbv5"
+      },
+      "value": [
+        1795350564.241,
+        "17838080"
+      ]
+    },
+    {
+      "metric": {
+        "__name__": "container_memory_working_set_bytes",
+        "container": "log-agent",
+        "id": "/kubelet.slice/kubelet-kubepods.slice/kubelet-kubepods-burstable.slice/kubelet-kubepods-burstable-pod9430230e_bc53_4877_9d05_04b3fa59c616.slice/cri-containerd-35d8617b67a5f1c232092aba69f11dfe53d5c8edf1a8d068a0c647be9ac2b596.scope",
+        "image": "docker.io/otel/opentelemetry-collector-contrib:0.165.0",
+        "instance": "wordle-fin1015-53676067-control-plane",
+        "job": "kubelet-cadvisor",
+        "name": "35d8617b67a5f1c232092aba69f11dfe53d5c8edf1a8d068a0c647be9ac2b596",
+        "namespace": "wordle-demo",
+        "node": "wordle-fin1015-53676067-control-plane",
+        "pod": "frontend-green-584769b97f-gwbv5"
+      },
+      "value": [
+        1795350564.241,
+        "43192320"
+      ]
+    },
+    {
+      "metric": {
+        "__name__": "container_memory_working_set_bytes",
+        "container": "frontend",
+        "id": "/kubelet.slice/kubelet-kubepods.slice/kubelet-kubepods-burstable.slice/kubelet-kubepods-burstable-pod812bb93a_a6ef_4752_af65_1432a810ef65.slice/cri-containerd-92d5e59a638dab8bd6c06ca7549c118e3cd2e688fd34a9f632cd7f94e9a2f7fc.scope",
+        "image": "docker.io/library/wordle-fin0507-frontend:local",
+        "instance": "wordle-fin1015-53676067-control-plane",
+        "job": "kubelet-cadvisor",
+        "name": "92d5e59a638dab8bd6c06ca7549c118e3cd2e688fd34a9f632cd7f94e9a2f7fc",
+        "namespace": "wordle-demo",
+        "node": "wordle-fin1015-53676067-control-plane",
+        "pod": "frontend-blue-6c7f44c88-6n8s8"
+      },
+      "value": [
+        1795350564.241,
+        "16961536"
+      ]
+    },
+    {
+      "metric": {
+        "__name__": "container_memory_working_set_bytes",
+        "container": "log-agent",
+        "id": "/kubelet.slice/kubelet-kubepods.slice/kubelet-kubepods-burstable.slice/kubelet-kubepods-burstable-pod812bb93a_a6ef_4752_af65_1432a810ef65.slice/cri-containerd-03b9afb7715da8121b101be549d7f617fe20f1f97d5f35ac8b5ea5faaddfc079.scope",
+        "image": "docker.io/otel/opentelemetry-collector-contrib:0.165.0",
+        "instance": "wordle-fin1015-53676067-control-plane",
+        "job": "kubelet-cadvisor",
+        "name": "03b9afb7715da8121b101be549d7f617fe20f1f97d5f35ac8b5ea5faaddfc079",
+        "namespace": "wordle-demo",
+        "node": "wordle-fin1015-53676067-control-plane",
+        "pod": "frontend-blue-6c7f44c88-6n8s8"
+      },
+      "value": [
+        1795350564.241,
+        "41467904"
+      ]
+    },
+    {
+      "metric": {
+        "__name__": "container_memory_working_set_bytes",
+        "container": "frontend",
+        "id": "/kubelet.slice/kubelet-kubepods.slice/kubelet-kubepods-burstable.slice/kubelet-kubepods-burstable-podd24332f3_101b_4b58_8ff7_8ef0733de75f.slice/cri-containerd-fd03db2837a5356af22b5542dfbb9db55966a08e363ba98d47f98768007c2355.scope",
+        "image": "docker.io/library/wordle-fin0507-frontend:local",
+        "instance": "wordle-fin1015-53676067-control-plane",
+        "job": "kubelet-cadvisor",
+        "name": "fd03db2837a5356af22b5542dfbb9db55966a08e363ba98d47f98768007c2355",
+        "namespace": "wordle-demo",
+        "node": "wordle-fin1015-53676067-control-plane",
+        "pod": "frontend-blue-5d4d94c754-957sj"
+      },
+      "value": [
+        1795350564.241,
+        "4071424"
+      ]
+    },
+    {
+      "metric": {
+        "__name__": "container_memory_working_set_bytes",
+        "container": "log-agent",
+        "id": "/kubelet.slice/kubelet-kubepods.slice/kubelet-kubepods-burstable.slice/kubelet-kubepods-burstable-podd24332f3_101b_4b58_8ff7_8ef0733de75f.slice/cri-containerd-6b48ec6b46f1f750f71b90cb73b24fc9d4f7e5b5389c1b9c431cb27e288ff423.scope",
+        "image": "docker.io/otel/opentelemetry-collector-contrib:0.165.0",
+        "instance": "wordle-fin1015-53676067-control-plane",
+        "job": "kubelet-cadvisor",
+        "name": "6b48ec6b46f1f750f71b90cb73b24fc9d4f7e5b5389c1b9c431cb27e288ff423",
+        "namespace": "wordle-demo",
+        "node": "wordle-fin1015-53676067-control-plane",
+        "pod": "frontend-blue-5d4d94c754-957sj"
+      },
+      "value": [
+        1795350564.241,
+        "3997696"
+      ]
+    }
+  ],
+  "wordle_container_series": 13,
+  "attempt_trace": {
+    "batches": [
+      {
+        "resource": {
+          "attributes": [
+            {
+              "key": "service.version",
+              "value": {
+                "stringValue": "blue"
+              }
+            },
+            {
+              "key": "service.name",
+              "value": {
+                "stringValue": "wordle-backend"
+              }
+            }
+          ]
+        },
+        "scopeSpans": [
+          {
+            "scope": {
+              "name": "wordle-demo-asgi"
+            },
+            "spans": [
+              {
+                "traceId": "d0t+eS8NBgcHajkHcTz7rA==",
+                "spanId": "MroIJawpHYU=",
+                "name": "POST /game/intento",
+                "kind": "SPAN_KIND_SERVER",
+                "startTimeUnixNano": "1795350502933885291",
+                "endTimeUnixNano": "1795350502941773261",
+                "attributes": [
+                  {
+                    "key": "http.response.status_code",
+                    "value": {
+                      "intValue": "200"
+                    }
+                  },
+                  {
+                    "key": "release",
+                    "value": {
+                      "stringValue": "blue"
+                    }
+                  },
+                  {
+                    "key": "http.request.method",
+                    "value": {
+                      "stringValue": "POST"
+                    }
+                  },
+                  {
+                    "key": "http.route",
+                    "value": {
+                      "stringValue": "/game/intento"
+                    }
+                  }
+                ],
+                "status": {
+                  "code": "STATUS_CODE_OK"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "deployment_events": [
+    {
+      "elapsed": 309.391,
+      "utc": "2026-11-22T12:29:21.646525+00:00",
+      "event": "phase",
+      "phase": "observability-alerts"
+    },
+    {
+      "elapsed": 309.36,
+      "utc": "2026-11-22T12:29:21.616792+00:00",
+      "event": "capture_pass",
+      "stage": "rollback-green"
+    },
+    {
+      "elapsed": 304.969,
+      "utc": "2026-11-22T12:29:17.230169+00:00",
+      "event": "scenario_B_post_promotion_pass",
+      "active": "green",
+      "database_unchanged": true
+    },
+    {
+      "elapsed": 303.938,
+      "utc": "2026-11-22T12:29:16.197773+00:00",
+      "event": "traffic_fault_samples",
+      "failures": 9
+    },
+    {
+      "elapsed": 302.204,
+      "utc": "2026-11-22T12:29:14.460918+00:00",
+      "event": "phase",
+      "phase": "steady-green"
+    },
+    {
+      "elapsed": 302.032,
+      "utc": "2026-11-22T12:29:14.279509+00:00",
+      "event": "automatic_rollback_verified",
+      "failed": "blue",
+      "active": "green",
+      "reason": "timed out",
+      "database_rollback": false
+    },
+    {
+      "elapsed": 301.532,
+      "utc": "2026-11-22T12:29:13.791330+00:00",
+      "event": "selector_switched",
+      "previous": "blue",
+      "active": "green"
+    },
+    {
+      "elapsed": 301.235,
+      "utc": "2026-11-22T12:29:13.481717+00:00",
+      "event": "post_promotion_failure",
+      "candidate": "blue",
+      "reason": "timed out"
+    },
+    {
+      "elapsed": 301.204,
+      "utc": "2026-11-22T12:29:13.455171+00:00",
+      "event": "phase",
+      "phase": "rollback-green"
+    },
+    {
+      "elapsed": 297.11,
+      "utc": "2026-11-22T12:29:09.368194+00:00",
+      "event": "controlled_functional_fault_observed",
+      "status": 503,
+      "release": "blue",
+      "health_still_ready": true
+    },
+    {
+      "elapsed": 293.172,
+      "utc": "2026-11-22T12:29:05.433799+00:00",
+      "event": "phase",
+      "phase": "fault-blue"
+    },
+    {
+      "elapsed": 293.141,
+      "utc": "2026-11-22T12:29:05.394940+00:00",
+      "event": "promoted_http_observed",
+      "active": "blue"
+    },
+    {
+      "elapsed": 292.922,
+      "utc": "2026-11-22T12:29:05.177126+00:00",
+      "event": "selector_switched",
+      "previous": "green",
+      "active": "blue"
+    },
+    {
+      "elapsed": 292.5,
+      "utc": "2026-11-22T12:29:04.755216+00:00",
+      "event": "phase",
+      "phase": "promotion-blue"
+    },
+    {
+      "elapsed": 292.454,
+      "utc": "2026-11-22T12:29:04.711462+00:00",
+      "event": "candidate_accepted",
+      "slot": "blue"
+    },
+    {
+      "elapsed": 291.922,
+      "utc": "2026-11-22T12:29:04.182971+00:00",
+      "event": "deployment_gate",
+      "name": "frontend-blue",
+      "generation": 3,
+      "image": "wordle-fin0507-frontend:local"
+    },
+    {
+      "elapsed": 291.485,
+      "utc": "2026-11-22T12:29:03.746793+00:00",
+      "event": "deployment_gate",
+      "name": "backend-blue",
+      "generation": 1,
+      "image": "wordle-fin0507-backend:local"
+    },
+    {
+      "elapsed": 290.672,
+      "utc": "2026-11-22T12:29:02.922862+00:00",
+      "event": "phase",
+      "phase": "promotion-blue"
+    },
+    {
+      "elapsed": 290.25,
+      "utc": "2026-11-22T12:29:02.508149+00:00",
+      "event": "phase",
+      "phase": "restore-blue-candidate"
+    },
+    {
+      "elapsed": 290.188,
+      "utc": "2026-11-22T12:29:02.449144+00:00",
+      "event": "scenario_B_pre_promotion_pass",
+      "active": "green",
+      "rollback": false
+    },
+    {
+      "elapsed": 289.969,
+      "utc": "2026-11-22T12:29:02.217844+00:00",
+      "event": "candidate_rejected_before_promotion",
+      "candidate": "blue",
+      "stable": "green",
+      "reason": "Candidate gate failed: RuntimeError",
+      "selector_unchanged": true
+    },
+    {
+      "elapsed": 264.547,
+      "utc": "2026-11-22T12:28:36.803859+00:00",
+      "event": "deployment_gate",
+      "name": "backend-blue",
+      "generation": 1,
+      "image": "wordle-fin0507-backend:local"
+    },
+    {
+      "elapsed": 264.047,
+      "utc": "2026-11-22T12:28:36.301896+00:00",
+      "event": "phase",
+      "phase": "reject-blue"
+    },
+    {
+      "elapsed": 262.844,
+      "utc": "2026-11-22T12:28:35.103483+00:00",
+      "event": "capture_pass",
+      "stage": "promoted-green"
+    },
+    {
+      "elapsed": 260.25,
+      "utc": "2026-11-22T12:28:32.511600+00:00",
+      "event": "scenario_A_pass",
+      "active": "green",
+      "persisted_victory": true
+    },
+    {
+      "elapsed": 259.782,
+      "utc": "2026-11-22T12:28:32.031506+00:00",
+      "event": "promotion_succeeded",
+      "previous": "blue",
+      "active": "green"
+    },
+    {
+      "elapsed": 259.735,
+      "utc": "2026-11-22T12:28:31.986394+00:00",
+      "event": "phase",
+      "phase": "steady-green"
+    },
+    {
+      "elapsed": 259.594,
+      "utc": "2026-11-22T12:28:31.850386+00:00",
+      "event": "promoted_http_observed",
+      "active": "green"
+    },
+    {
+      "elapsed": 259.469,
+      "utc": "2026-11-22T12:28:31.726954+00:00",
+      "event": "selector_switched",
+      "previous": "blue",
+      "active": "green"
+    },
+    {
+      "elapsed": 259.157,
+      "utc": "2026-11-22T12:28:31.408985+00:00",
+      "event": "phase",
+      "phase": "promotion-green"
+    },
+    {
+      "elapsed": 259.125,
+      "utc": "2026-11-22T12:28:31.379279+00:00",
+      "event": "candidate_accepted",
+      "slot": "green"
+    },
+    {
+      "elapsed": 258.61,
+      "utc": "2026-11-22T12:28:30.868470+00:00",
+      "event": "deployment_gate",
+      "name": "frontend-green",
+      "generation": 2,
+      "image": "wordle-fin0507-frontend:local"
+    },
+    {
+      "elapsed": 258.282,
+      "utc": "2026-11-22T12:28:30.540817+00:00",
+      "event": "deployment_gate",
+      "name": "backend-green",
+      "generation": 2,
+      "image": "wordle-fin0507-backend:local"
+    },
+    {
+      "elapsed": 252.594,
+      "utc": "2026-11-22T12:28:24.853807+00:00",
+      "event": "phase",
+      "phase": "prepare-green"
+    },
+    {
+      "elapsed": 252.563,
+      "utc": "2026-11-22T12:28:24.823601+00:00",
+      "event": "capture_pass",
+      "stage": "stable-blue"
+    },
+    {
+      "elapsed": 239.219,
+      "utc": "2026-11-22T12:28:11.469308+00:00",
+      "event": "stable_blue_verified",
+      "postgres": "16.15",
+      "pvc_bound": true
+    }
+  ],
+  "operational_samples": [
+    {
+      "level": "INFO",
+      "service": "wordle-backend",
+      "route": "/game/intento",
+      "method": "POST",
+      "status": 200,
+      "trace_id": "774b7e792f0d0607076a3907713cfbac",
+      "release": "blue"
+    },
+    {
+      "level": "INFO",
+      "service": "wordle-backend",
+      "route": "/game/intento",
+      "method": "POST",
+      "status": 200,
+      "trace_id": "28304d8c75aa0cbaec9283fa1447879e",
+      "release": "blue"
+    },
+    {
+      "level": "INFO",
+      "service": "wordle-backend",
+      "route": "/game/intento",
+      "method": "POST",
+      "status": 200,
+      "trace_id": "c62bbfc0b3404b98cccf39a7b39e417a",
+      "release": "blue"
+    },
+    {
+      "level": "ERROR",
+      "service": "wordle-frontend",
+      "release": "blue",
+      "route": "game",
+      "method": "GET",
+      "status": 503,
+      "trace_id": ""
+    },
+    {
+      "level": "ERROR",
+      "service": "wordle-frontend",
+      "release": "blue",
+      "route": "game",
+      "method": "GET",
+      "status": 503,
+      "trace_id": ""
+    },
+    {
+      "level": "ERROR",
+      "service": "wordle-frontend",
+      "release": "blue",
+      "route": "game",
+      "method": "GET",
+      "status": 503,
+      "trace_id": ""
+    },
+    {
+      "level": "ERROR",
+      "service": "wordle-frontend",
+      "release": "blue",
+      "route": "game",
+      "method": "GET",
+      "status": 503,
+      "trace_id": ""
+    },
+    {
+      "level": "ERROR",
+      "service": "wordle-frontend",
+      "release": "blue",
+      "route": "game",
+      "method": "GET",
+      "status": 503,
+      "trace_id": ""
+    }
+  ],
+  "attempt_trace_id": "774b7e792f0d0607076a3907713cfbac",
+  "backend_log_count": 386,
+  "frontend_log_count": 544,
+  "grafana": {
+    "dashboard": "wordle-demo",
+    "panels": 8,
+    "datasources": [
+      "prometheus",
+      "loki",
+      "tempo"
+    ],
+    "queries_with_data": true
+  },
+  "error_trace": {
+    "batches": [
+      {
+        "resource": {
+          "attributes": [
+            {
+              "key": "service.name",
+              "value": {
+                "stringValue": "wordle-backend"
+              }
+            },
+            {
+              "key": "service.version",
+              "value": {
+                "stringValue": "green"
+              }
+            }
+          ]
+        },
+        "scopeSpans": [
+          {
+            "scope": {
+              "name": "wordle-demo-asgi"
+            },
+            "spans": [
+              {
+                "traceId": "x03NQejt3IjRGXrQwixonw==",
+                "spanId": "DB2DzSCJ3oE=",
+                "name": "GET /game/{partida_id}",
+                "kind": "SPAN_KIND_SERVER",
+                "startTimeUnixNano": "1795350611443019248",
+                "endTimeUnixNano": "1795350611493263427",
+                "attributes": [
+                  {
+                    "key": "http.route",
+                    "value": {
+                      "stringValue": "/game/{partida_id}"
+                    }
+                  },
+                  {
+                    "key": "http.request.method",
+                    "value": {
+                      "stringValue": "GET"
+                    }
+                  },
+                  {
+                    "key": "http.response.status_code",
+                    "value": {
+                      "intValue": "500"
+                    }
+                  },
+                  {
+                    "key": "release",
+                    "value": {
+                      "stringValue": "green"
+                    }
+                  }
+                ],
+                "status": {
+                  "code": "STATUS_CODE_ERROR"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "error_trace_id": "c74dcd41e8eddc88d1197ad0c22c689f",
+  "error_http_status": 500,
+  "firing_notifications": [
+    {
+      "time": 1795350622.0728858,
+      "alertname": "WordleCriticalLog",
+      "status": "firing",
+      "startsAt": "2026-11-22T12:30:17.076Z",
+      "endsAt": "0001-01-01T00:00:00Z"
+    },
+    {
+      "time": 1795350629.2775912,
+      "alertname": "WordleUnavailable",
+      "status": "firing",
+      "startsAt": "2026-11-22T12:30:24.283Z",
+      "endsAt": "0001-01-01T00:00:00Z"
+    }
+  ],
+  "resolved_notifications": [
+    {
+      "time": 1795350644.2813742,
+      "alertname": "WordleUnavailable",
+      "status": "resolved",
+      "startsAt": "2026-11-22T12:30:24.283Z",
+      "endsAt": "2026-11-22T12:30:39.283Z"
+    },
+    {
+      "time": 1795350662.0866144,
+      "alertname": "WordleCriticalLog",
+      "status": "resolved",
+      "startsAt": "2026-11-22T12:30:17.076Z",
+      "endsAt": "2026-11-22T12:30:57.076Z"
+    }
+  ],
+  "database_unchanged": true,
+  "memory_working_set": [
+    {
+      "metric": {},
+      "value": [
+        1795350664.98,
+        "1106362368"
+      ]
+    }
+  ],
+  "cpu_cores": [
+    {
+      "metric": {},
+      "value": [
+        1795350665.007,
+        "0.20775091096034962"
+      ]
+    }
+  ],
+  "resources": [
+    {
+      "namespace": "kube-system",
+      "pod": "coredns-7d764666f9-22fxd",
+      "containers": [
+        {
+          "name": "coredns",
+          "limits": {
+            "memory": "170Mi"
+          },
+          "requests": {
+            "cpu": "100m",
+            "memory": "70Mi"
+          }
+        }
+      ]
+    },
+    {
+      "namespace": "kube-system",
+      "pod": "coredns-7d764666f9-xzq74",
+      "containers": [
+        {
+          "name": "coredns",
+          "limits": {
+            "memory": "170Mi"
+          },
+          "requests": {
+            "cpu": "100m",
+            "memory": "70Mi"
+          }
+        }
+      ]
+    },
+    {
+      "namespace": "kube-system",
+      "pod": "etcd-wordle-fin1015-53676067-control-plane",
+      "containers": [
+        {
+          "name": "etcd",
+          "requests": {
+            "cpu": "100m",
+            "memory": "100Mi"
+          }
+        }
+      ]
+    },
+    {
+      "namespace": "kube-system",
+      "pod": "kindnet-d756p",
+      "containers": [
+        {
+          "name": "kindnet-cni",
+          "limits": {
+            "cpu": "100m",
+            "memory": "50Mi"
+          },
+          "requests": {
+            "cpu": "100m",
+            "memory": "50Mi"
+          }
+        }
+      ]
+    },
+    {
+      "namespace": "kube-system",
+      "pod": "kube-apiserver-wordle-fin1015-53676067-control-plane",
+      "containers": [
+        {
+          "name": "kube-apiserver",
+          "requests": {
+            "cpu": "250m"
+          }
+        }
+      ]
+    },
+    {
+      "namespace": "kube-system",
+      "pod": "kube-controller-manager-wordle-fin1015-53676067-control-plane",
+      "containers": [
+        {
+          "name": "kube-controller-manager",
+          "requests": {
+            "cpu": "200m"
+          }
+        }
+      ]
+    },
+    {
+      "namespace": "kube-system",
+      "pod": "kube-proxy-vww44",
+      "containers": [
+        {
+          "name": "kube-proxy"
+        }
+      ]
+    },
+    {
+      "namespace": "kube-system",
+      "pod": "kube-scheduler-wordle-fin1015-53676067-control-plane",
+      "containers": [
+        {
+          "name": "kube-scheduler",
+          "requests": {
+            "cpu": "100m"
+          }
+        }
+      ]
+    },
+    {
+      "namespace": "local-path-storage",
+      "pod": "local-path-provisioner-67b8995b4b-wcwp6",
+      "containers": [
+        {
+          "name": "local-path-provisioner"
+        }
+      ]
+    },
+    {
+      "namespace": "wordle-demo",
+      "pod": "backend-blue-7fc8d4f76c-7tzrp",
+      "containers": [
+        {
+          "name": "backend",
+          "limits": {
+            "cpu": "500m",
+            "memory": "384Mi"
+          },
+          "requests": {
+            "cpu": "100m",
+            "memory": "128Mi"
+          }
+        }
+      ]
+    },
+    {
+      "namespace": "wordle-demo",
+      "pod": "backend-green-6ddb495bdc-466hq",
+      "containers": [
+        {
+          "name": "backend",
+          "limits": {
+            "cpu": "500m",
+            "memory": "384Mi"
+          },
+          "requests": {
+            "cpu": "100m",
+            "memory": "128Mi"
+          }
+        }
+      ]
+    },
+    {
+      "namespace": "wordle-demo",
+      "pod": "frontend-blue-5d4d94c754-957sj",
+      "containers": [
+        {
+          "name": "frontend",
+          "limits": {
+            "cpu": "250m",
+            "memory": "96Mi"
+          },
+          "requests": {
+            "cpu": "50m",
+            "memory": "32Mi"
+          }
+        },
+        {
+          "name": "log-agent",
+          "limits": {
+            "cpu": "150m",
+            "memory": "128Mi"
+          },
+          "requests": {
+            "cpu": "25m",
+            "memory": "48Mi"
+          }
+        }
+      ]
+    },
+    {
+      "namespace": "wordle-demo",
+      "pod": "frontend-green-584769b97f-gwbv5",
+      "containers": [
+        {
+          "name": "frontend",
+          "limits": {
+            "cpu": "250m",
+            "memory": "96Mi"
+          },
+          "requests": {
+            "cpu": "50m",
+            "memory": "32Mi"
+          }
+        },
+        {
+          "name": "log-agent",
+          "limits": {
+            "cpu": "150m",
+            "memory": "128Mi"
+          },
+          "requests": {
+            "cpu": "25m",
+            "memory": "48Mi"
+          }
+        }
+      ]
+    },
+    {
+      "namespace": "wordle-demo",
+      "pod": "ingress-65bcb4457-lf78f",
+      "containers": [
+        {
+          "name": "ingress",
+          "limits": {
+            "cpu": "250m",
+            "memory": "192Mi"
+          },
+          "requests": {
+            "cpu": "50m",
+            "memory": "64Mi"
+          }
+        }
+      ]
+    },
+    {
+      "namespace": "wordle-demo",
+      "pod": "postgres-0",
+      "containers": [
+        {
+          "name": "postgres",
+          "limits": {
+            "cpu": "500m",
+            "memory": "512Mi"
+          },
+          "requests": {
+            "cpu": "100m",
+            "memory": "128Mi"
+          }
+        }
+      ]
+    },
+    {
+      "namespace": "wordle-observability",
+      "pod": "alertmanager-64db7ccc99-cxjg6",
+      "containers": [
+        {
+          "name": "alertmanager",
+          "limits": {
+            "cpu": "500m",
+            "memory": "96Mi"
+          },
+          "requests": {
+            "cpu": "100m",
+            "memory": "96Mi"
+          }
+        }
+      ]
+    },
+    {
+      "namespace": "wordle-observability",
+      "pod": "collector-6797df9cd4-rkqtt",
+      "containers": [
+        {
+          "name": "collector",
+          "limits": {
+            "cpu": "500m",
+            "memory": "192Mi"
+          },
+          "requests": {
+            "cpu": "100m",
+            "memory": "96Mi"
+          }
+        }
+      ]
+    },
+    {
+      "namespace": "wordle-observability",
+      "pod": "grafana-869cc9d7f7-jfz6v",
+      "containers": [
+        {
+          "name": "grafana",
+          "limits": {
+            "cpu": "500m",
+            "memory": "384Mi"
+          },
+          "requests": {
+            "cpu": "100m",
+            "memory": "96Mi"
+          }
+        }
+      ]
+    },
+    {
+      "namespace": "wordle-observability",
+      "pod": "loki-78f97cb474-9sqzp",
+      "containers": [
+        {
+          "name": "loki",
+          "limits": {
+            "cpu": "500m",
+            "memory": "384Mi"
+          },
+          "requests": {
+            "cpu": "100m",
+            "memory": "96Mi"
+          }
+        }
+      ]
+    },
+    {
+      "namespace": "wordle-observability",
+      "pod": "node-exporter-42tk5",
+      "containers": [
+        {
+          "name": "node-exporter",
+          "limits": {
+            "cpu": "500m",
+            "memory": "64Mi"
+          },
+          "requests": {
+            "cpu": "100m",
+            "memory": "32Mi"
+          }
+        }
+      ]
+    },
+    {
+      "namespace": "wordle-observability",
+      "pod": "notifications-7549c9cb5f-h5qrz",
+      "containers": [
+        {
+          "name": "notifications",
+          "limits": {
+            "cpu": "500m",
+            "memory": "64Mi"
+          },
+          "requests": {
+            "cpu": "100m",
+            "memory": "32Mi"
+          }
+        }
+      ]
+    },
+    {
+      "namespace": "wordle-observability",
+      "pod": "prometheus-7677dffdd9-p9qsp",
+      "containers": [
+        {
+          "name": "prometheus",
+          "limits": {
+            "cpu": "500m",
+            "memory": "384Mi"
+          },
+          "requests": {
+            "cpu": "100m",
+            "memory": "96Mi"
+          }
+        }
+      ]
+    },
+    {
+      "namespace": "wordle-observability",
+      "pod": "tempo-54d99587cb-rlrc9",
+      "containers": [
+        {
+          "name": "tempo",
+          "limits": {
+            "cpu": "500m",
+            "memory": "384Mi"
+          },
+          "requests": {
+            "cpu": "100m",
+            "memory": "96Mi"
+          }
+        }
+      ]
+    }
+  ],
+  "node_capacity": [
+    {
+      "name": "wordle-fin1015-53676067-control-plane",
+      "allocatable": {
+        "cpu": "22",
+        "ephemeral-storage": "1055762868Ki",
+        "hugepages-1Gi": "0",
+        "hugepages-2Mi": "0",
+        "memory": "16079524Ki",
+        "pods": "110"
+      }
+    }
+  ],
+  "node_disk_df": "Filesystem         1B-blocks        Used     Available Use% Mounted on\n/dev/sdd       1081101176832 23350853632 1002757967872   3% /var",
+  "database_size_bytes": 7986199,
+  "no_oom_observed": true
+}

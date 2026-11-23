@@ -1,0 +1,9 @@
+{
+  "result": "PASS",
+  "decoded_png": 93,
+  "reference_run_png": 22,
+  "fresh_browser_service_png": 89,
+  "tool_diagnostic_png": 1,
+  "historical_derived_png": 3,
+  "method": "Pillow format verification and full pixel decode; screenshot metadata independently checks SHA-256 and dimensions"
+}

@@ -1,0 +1,8130 @@
+[
+  {
+    "elapsed": 252.594,
+    "phase": "bootstrap",
+    "path": "frontend",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 252.641,
+    "phase": "prepare-green",
+    "path": "health",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 252.672,
+    "phase": "prepare-green",
+    "path": "game",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 252.969,
+    "phase": "prepare-green",
+    "path": "frontend",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 253.0,
+    "phase": "prepare-green",
+    "path": "health",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 253.047,
+    "phase": "prepare-green",
+    "path": "game",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 253.344,
+    "phase": "prepare-green",
+    "path": "frontend",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 253.375,
+    "phase": "prepare-green",
+    "path": "health",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 253.407,
+    "phase": "prepare-green",
+    "path": "game",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 253.688,
+    "phase": "prepare-green",
+    "path": "frontend",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 253.735,
+    "phase": "prepare-green",
+    "path": "health",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 253.766,
+    "phase": "prepare-green",
+    "path": "game",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 254.063,
+    "phase": "prepare-green",
+    "path": "frontend",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 254.094,
+    "phase": "prepare-green",
+    "path": "health",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 254.141,
+    "phase": "prepare-green",
+    "path": "game",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 254.422,
+    "phase": "prepare-green",
+    "path": "frontend",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 254.454,
+    "phase": "prepare-green",
+    "path": "health",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 254.469,
+    "phase": "prepare-green",
+    "path": "game",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 254.766,
+    "phase": "prepare-green",
+    "path": "frontend",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 254.797,
+    "phase": "prepare-green",
+    "path": "health",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 254.829,
+    "phase": "prepare-green",
+    "path": "game",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 255.125,
+    "phase": "prepare-green",
+    "path": "frontend",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 255.157,
+    "phase": "prepare-green",
+    "path": "health",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 255.188,
+    "phase": "prepare-green",
+    "path": "game",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 255.469,
+    "phase": "prepare-green",
+    "path": "frontend",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 255.5,
+    "phase": "prepare-green",
+    "path": "health",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 255.532,
+    "phase": "prepare-green",
+    "path": "game",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 255.813,
+    "phase": "prepare-green",
+    "path": "frontend",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 255.844,
+    "phase": "prepare-green",
+    "path": "health",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 255.875,
+    "phase": "prepare-green",
+    "path": "game",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 256.141,
+    "phase": "prepare-green",
+    "path": "frontend",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 256.188,
+    "phase": "prepare-green",
+    "path": "health",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 256.204,
+    "phase": "prepare-green",
+    "path": "game",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 256.516,
+    "phase": "prepare-green",
+    "path": "frontend",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 256.547,
+    "phase": "prepare-green",
+    "path": "health",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 256.579,
+    "phase": "prepare-green",
+    "path": "game",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 256.875,
+    "phase": "prepare-green",
+    "path": "frontend",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 256.922,
+    "phase": "prepare-green",
+    "path": "health",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 256.954,
+    "phase": "prepare-green",
+    "path": "game",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 257.235,
+    "phase": "prepare-green",
+    "path": "frontend",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 257.266,
+    "phase": "prepare-green",
+    "path": "health",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 257.297,
+    "phase": "prepare-green",
+    "path": "game",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 257.579,
+    "phase": "prepare-green",
+    "path": "frontend",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 257.61,
+    "phase": "prepare-green",
+    "path": "health",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 257.657,
+    "phase": "prepare-green",
+    "path": "game",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 257.954,
+    "phase": "prepare-green",
+    "path": "frontend",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 257.985,
+    "phase": "prepare-green",
+    "path": "health",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 258.016,
+    "phase": "prepare-green",
+    "path": "game",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 258.313,
+    "phase": "prepare-green",
+    "path": "frontend",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 258.344,
+    "phase": "prepare-green",
+    "path": "health",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 258.375,
+    "phase": "prepare-green",
+    "path": "game",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 258.672,
+    "phase": "prepare-green",
+    "path": "frontend",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 258.688,
+    "phase": "prepare-green",
+    "path": "health",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 258.719,
+    "phase": "prepare-green",
+    "path": "game",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 259.016,
+    "phase": "prepare-green",
+    "path": "frontend",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 259.032,
+    "phase": "prepare-green",
+    "path": "health",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 259.079,
+    "phase": "prepare-green",
+    "path": "game",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 259.375,
+    "phase": "promotion-green",
+    "path": "frontend",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 259.407,
+    "phase": "promotion-green",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 259.454,
+    "phase": "promotion-green",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 259.75,
+    "phase": "steady-green",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 259.797,
+    "phase": "steady-green",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 259.844,
+    "phase": "steady-green",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 260.141,
+    "phase": "steady-green",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 260.188,
+    "phase": "steady-green",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 260.235,
+    "phase": "steady-green",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 260.547,
+    "phase": "steady-green",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 260.579,
+    "phase": "steady-green",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 260.61,
+    "phase": "steady-green",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 260.891,
+    "phase": "steady-green",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 260.907,
+    "phase": "steady-green",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 260.938,
+    "phase": "steady-green",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 261.235,
+    "phase": "steady-green",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 261.297,
+    "phase": "steady-green",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 261.438,
+    "phase": "steady-green",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 261.938,
+    "phase": "steady-green",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 262.0,
+    "phase": "steady-green",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 262.063,
+    "phase": "steady-green",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 262.375,
+    "phase": "steady-green",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 262.422,
+    "phase": "steady-green",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 262.485,
+    "phase": "steady-green",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 262.797,
+    "phase": "steady-green",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 262.829,
+    "phase": "steady-green",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 262.875,
+    "phase": "steady-green",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 263.157,
+    "phase": "steady-green",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 263.204,
+    "phase": "steady-green",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 263.219,
+    "phase": "steady-green",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 263.5,
+    "phase": "steady-green",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 263.516,
+    "phase": "steady-green",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 263.547,
+    "phase": "steady-green",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 263.829,
+    "phase": "steady-green",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 263.86,
+    "phase": "steady-green",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 263.875,
+    "phase": "steady-green",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 264.172,
+    "phase": "reject-blue",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 264.204,
+    "phase": "reject-blue",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 264.219,
+    "phase": "reject-blue",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 264.5,
+    "phase": "reject-blue",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 264.532,
+    "phase": "reject-blue",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 264.579,
+    "phase": "reject-blue",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 264.86,
+    "phase": "reject-blue",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 264.875,
+    "phase": "reject-blue",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 264.891,
+    "phase": "reject-blue",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 265.172,
+    "phase": "reject-blue",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 265.188,
+    "phase": "reject-blue",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 265.204,
+    "phase": "reject-blue",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 265.5,
+    "phase": "reject-blue",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 265.516,
+    "phase": "reject-blue",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 265.532,
+    "phase": "reject-blue",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 265.829,
+    "phase": "reject-blue",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 265.86,
+    "phase": "reject-blue",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 265.875,
+    "phase": "reject-blue",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 266.172,
+    "phase": "reject-blue",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 266.188,
+    "phase": "reject-blue",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 266.204,
+    "phase": "reject-blue",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 266.485,
+    "phase": "reject-blue",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 266.5,
+    "phase": "reject-blue",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 266.516,
+    "phase": "reject-blue",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 266.782,
+    "phase": "reject-blue",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 266.829,
+    "phase": "reject-blue",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 266.844,
+    "phase": "reject-blue",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 267.125,
+    "phase": "reject-blue",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 267.157,
+    "phase": "reject-blue",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 267.188,
+    "phase": "reject-blue",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 267.469,
+    "phase": "reject-blue",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 267.485,
+    "phase": "reject-blue",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 267.5,
+    "phase": "reject-blue",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 267.766,
+    "phase": "reject-blue",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 267.782,
+    "phase": "reject-blue",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 267.813,
+    "phase": "reject-blue",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 268.079,
+    "phase": "reject-blue",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 268.094,
+    "phase": "reject-blue",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 268.11,
+    "phase": "reject-blue",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 268.391,
+    "phase": "reject-blue",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 268.407,
+    "phase": "reject-blue",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 268.422,
+    "phase": "reject-blue",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 268.704,
+    "phase": "reject-blue",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 268.719,
+    "phase": "reject-blue",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 268.735,
+    "phase": "reject-blue",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 269.016,
+    "phase": "reject-blue",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 269.047,
+    "phase": "reject-blue",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 269.079,
+    "phase": "reject-blue",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 269.391,
+    "phase": "reject-blue",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 269.454,
+    "phase": "reject-blue",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 269.469,
+    "phase": "reject-blue",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 269.75,
+    "phase": "reject-blue",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 269.797,
+    "phase": "reject-blue",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 269.813,
+    "phase": "reject-blue",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 270.094,
+    "phase": "reject-blue",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 270.125,
+    "phase": "reject-blue",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 270.141,
+    "phase": "reject-blue",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 270.422,
+    "phase": "reject-blue",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 270.454,
+    "phase": "reject-blue",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 270.485,
+    "phase": "reject-blue",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 270.797,
+    "phase": "reject-blue",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 270.829,
+    "phase": "reject-blue",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 270.86,
+    "phase": "reject-blue",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 271.172,
+    "phase": "reject-blue",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 271.204,
+    "phase": "reject-blue",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 271.25,
+    "phase": "reject-blue",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 271.563,
+    "phase": "reject-blue",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 271.61,
+    "phase": "reject-blue",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 271.657,
+    "phase": "reject-blue",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 271.954,
+    "phase": "reject-blue",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 271.985,
+    "phase": "reject-blue",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 272.016,
+    "phase": "reject-blue",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 272.313,
+    "phase": "reject-blue",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 272.36,
+    "phase": "reject-blue",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 272.407,
+    "phase": "reject-blue",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 272.719,
+    "phase": "reject-blue",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 272.782,
+    "phase": "reject-blue",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 272.829,
+    "phase": "reject-blue",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 273.125,
+    "phase": "reject-blue",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 273.157,
+    "phase": "reject-blue",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 273.204,
+    "phase": "reject-blue",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 273.516,
+    "phase": "reject-blue",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 273.547,
+    "phase": "reject-blue",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 273.579,
+    "phase": "reject-blue",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 273.891,
+    "phase": "reject-blue",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 273.938,
+    "phase": "reject-blue",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 273.985,
+    "phase": "reject-blue",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 274.282,
+    "phase": "reject-blue",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 274.313,
+    "phase": "reject-blue",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 274.36,
+    "phase": "reject-blue",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 274.657,
+    "phase": "reject-blue",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 274.704,
+    "phase": "reject-blue",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 274.75,
+    "phase": "reject-blue",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 275.032,
+    "phase": "reject-blue",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 275.063,
+    "phase": "reject-blue",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 275.11,
+    "phase": "reject-blue",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 275.391,
+    "phase": "reject-blue",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 275.422,
+    "phase": "reject-blue",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 275.454,
+    "phase": "reject-blue",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 275.735,
+    "phase": "reject-blue",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 275.766,
+    "phase": "reject-blue",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 275.797,
+    "phase": "reject-blue",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 276.11,
+    "phase": "reject-blue",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 276.188,
+    "phase": "reject-blue",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 276.25,
+    "phase": "reject-blue",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 276.563,
+    "phase": "reject-blue",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 276.625,
+    "phase": "reject-blue",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 276.672,
+    "phase": "reject-blue",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 277.0,
+    "phase": "reject-blue",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 277.063,
+    "phase": "reject-blue",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 277.125,
+    "phase": "reject-blue",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 277.438,
+    "phase": "reject-blue",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 277.5,
+    "phase": "reject-blue",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 277.563,
+    "phase": "reject-blue",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 277.891,
+    "phase": "reject-blue",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 277.954,
+    "phase": "reject-blue",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 278.016,
+    "phase": "reject-blue",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 278.36,
+    "phase": "reject-blue",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 278.407,
+    "phase": "reject-blue",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 278.454,
+    "phase": "reject-blue",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 278.813,
+    "phase": "reject-blue",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 278.844,
+    "phase": "reject-blue",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 278.875,
+    "phase": "reject-blue",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 279.204,
+    "phase": "reject-blue",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 279.25,
+    "phase": "reject-blue",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 279.282,
+    "phase": "reject-blue",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 279.61,
+    "phase": "reject-blue",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 279.657,
+    "phase": "reject-blue",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 279.704,
+    "phase": "reject-blue",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 279.985,
+    "phase": "reject-blue",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 280.047,
+    "phase": "reject-blue",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 280.094,
+    "phase": "reject-blue",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 280.375,
+    "phase": "reject-blue",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 280.438,
+    "phase": "reject-blue",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 280.485,
+    "phase": "reject-blue",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 280.782,
+    "phase": "reject-blue",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 280.844,
+    "phase": "reject-blue",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 280.875,
+    "phase": "reject-blue",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 281.157,
+    "phase": "reject-blue",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 281.204,
+    "phase": "reject-blue",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 281.25,
+    "phase": "reject-blue",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 281.563,
+    "phase": "reject-blue",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 281.61,
+    "phase": "reject-blue",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 281.657,
+    "phase": "reject-blue",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 281.954,
+    "phase": "reject-blue",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 281.985,
+    "phase": "reject-blue",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 282.016,
+    "phase": "reject-blue",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 282.313,
+    "phase": "reject-blue",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 282.36,
+    "phase": "reject-blue",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 282.391,
+    "phase": "reject-blue",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 282.688,
+    "phase": "reject-blue",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 282.735,
+    "phase": "reject-blue",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 282.782,
+    "phase": "reject-blue",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 283.079,
+    "phase": "reject-blue",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 283.125,
+    "phase": "reject-blue",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 283.157,
+    "phase": "reject-blue",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 283.469,
+    "phase": "reject-blue",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 283.532,
+    "phase": "reject-blue",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 283.563,
+    "phase": "reject-blue",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 283.907,
+    "phase": "reject-blue",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 283.954,
+    "phase": "reject-blue",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 284.0,
+    "phase": "reject-blue",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 284.297,
+    "phase": "reject-blue",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 284.329,
+    "phase": "reject-blue",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 284.375,
+    "phase": "reject-blue",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 284.657,
+    "phase": "reject-blue",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 284.704,
+    "phase": "reject-blue",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 284.75,
+    "phase": "reject-blue",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 285.047,
+    "phase": "reject-blue",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 285.094,
+    "phase": "reject-blue",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 285.141,
+    "phase": "reject-blue",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 285.454,
+    "phase": "reject-blue",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 285.5,
+    "phase": "reject-blue",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 285.532,
+    "phase": "reject-blue",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 285.844,
+    "phase": "reject-blue",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 285.891,
+    "phase": "reject-blue",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 285.938,
+    "phase": "reject-blue",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 286.219,
+    "phase": "reject-blue",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 286.282,
+    "phase": "reject-blue",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 286.313,
+    "phase": "reject-blue",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 286.594,
+    "phase": "reject-blue",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 286.641,
+    "phase": "reject-blue",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 286.688,
+    "phase": "reject-blue",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 287.0,
+    "phase": "reject-blue",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 287.047,
+    "phase": "reject-blue",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 287.079,
+    "phase": "reject-blue",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 287.375,
+    "phase": "reject-blue",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 287.407,
+    "phase": "reject-blue",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 287.438,
+    "phase": "reject-blue",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 287.75,
+    "phase": "reject-blue",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 287.797,
+    "phase": "reject-blue",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 287.829,
+    "phase": "reject-blue",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 288.125,
+    "phase": "reject-blue",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 288.204,
+    "phase": "reject-blue",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 288.235,
+    "phase": "reject-blue",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 288.532,
+    "phase": "reject-blue",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 288.563,
+    "phase": "reject-blue",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 288.625,
+    "phase": "reject-blue",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 288.907,
+    "phase": "reject-blue",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 288.954,
+    "phase": "reject-blue",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 289.0,
+    "phase": "reject-blue",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 289.297,
+    "phase": "reject-blue",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 289.329,
+    "phase": "reject-blue",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 289.375,
+    "phase": "reject-blue",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 289.704,
+    "phase": "reject-blue",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 289.735,
+    "phase": "reject-blue",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 289.782,
+    "phase": "reject-blue",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 290.094,
+    "phase": "reject-blue",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 290.172,
+    "phase": "reject-blue",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 290.219,
+    "phase": "reject-blue",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 290.532,
+    "phase": "restore-blue-candidate",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 290.579,
+    "phase": "restore-blue-candidate",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 290.61,
+    "phase": "restore-blue-candidate",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 290.938,
+    "phase": "promotion-blue",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 291.0,
+    "phase": "promotion-blue",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 291.063,
+    "phase": "promotion-blue",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 291.36,
+    "phase": "promotion-blue",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 291.407,
+    "phase": "promotion-blue",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 291.454,
+    "phase": "promotion-blue",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 291.782,
+    "phase": "promotion-blue",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 291.829,
+    "phase": "promotion-blue",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 291.86,
+    "phase": "promotion-blue",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 292.172,
+    "phase": "promotion-blue",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 292.204,
+    "phase": "promotion-blue",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 292.25,
+    "phase": "promotion-blue",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 292.547,
+    "phase": "promotion-blue",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 292.61,
+    "phase": "promotion-blue",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 292.657,
+    "phase": "promotion-blue",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 292.954,
+    "phase": "promotion-blue",
+    "path": "frontend",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 293.016,
+    "phase": "promotion-blue",
+    "path": "health",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 293.079,
+    "phase": "promotion-blue",
+    "path": "game",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 293.391,
+    "phase": "fault-blue",
+    "path": "frontend",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 293.438,
+    "phase": "fault-blue",
+    "path": "health",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 293.485,
+    "phase": "fault-blue",
+    "path": "game",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 293.782,
+    "phase": "fault-blue",
+    "path": "frontend",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 293.829,
+    "phase": "fault-blue",
+    "path": "health",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 293.875,
+    "phase": "fault-blue",
+    "path": "game",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 294.188,
+    "phase": "fault-blue",
+    "path": "frontend",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 294.235,
+    "phase": "fault-blue",
+    "path": "health",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 294.282,
+    "phase": "fault-blue",
+    "path": "game",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 294.594,
+    "phase": "fault-blue",
+    "path": "frontend",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 294.625,
+    "phase": "fault-blue",
+    "path": "health",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 294.672,
+    "phase": "fault-blue",
+    "path": "game",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 294.985,
+    "phase": "fault-blue",
+    "path": "frontend",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 295.016,
+    "phase": "fault-blue",
+    "path": "health",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 295.047,
+    "phase": "fault-blue",
+    "path": "game",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 295.375,
+    "phase": "fault-blue",
+    "path": "frontend",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 295.407,
+    "phase": "fault-blue",
+    "path": "health",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 295.438,
+    "phase": "fault-blue",
+    "path": "game",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 295.719,
+    "phase": "fault-blue",
+    "path": "frontend",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 295.782,
+    "phase": "fault-blue",
+    "path": "health",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 295.813,
+    "phase": "fault-blue",
+    "path": "game",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 296.11,
+    "phase": "fault-blue",
+    "path": "frontend",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 296.188,
+    "phase": "fault-blue",
+    "path": "health",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 296.219,
+    "phase": "fault-blue",
+    "path": "game",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 296.5,
+    "phase": "fault-blue",
+    "path": "frontend",
+    "status": 502,
+    "release": null
+  },
+  {
+    "elapsed": 296.547,
+    "phase": "fault-blue",
+    "path": "health",
+    "status": 502,
+    "release": null
+  },
+  {
+    "elapsed": 296.579,
+    "phase": "fault-blue",
+    "path": "game",
+    "status": 502,
+    "release": null
+  },
+  {
+    "elapsed": 296.875,
+    "phase": "fault-blue",
+    "path": "frontend",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 296.907,
+    "phase": "fault-blue",
+    "path": "health",
+    "status": 0,
+    "release": null,
+    "error": "TimeoutError"
+  },
+  {
+    "elapsed": 299.954,
+    "phase": "fault-blue",
+    "path": "game",
+    "status": 503,
+    "release": "blue"
+  },
+  {
+    "elapsed": 300.25,
+    "phase": "fault-blue",
+    "path": "frontend",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 300.297,
+    "phase": "fault-blue",
+    "path": "health",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 300.329,
+    "phase": "fault-blue",
+    "path": "game",
+    "status": 503,
+    "release": "blue"
+  },
+  {
+    "elapsed": 300.641,
+    "phase": "fault-blue",
+    "path": "frontend",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 300.672,
+    "phase": "fault-blue",
+    "path": "health",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 300.704,
+    "phase": "fault-blue",
+    "path": "game",
+    "status": 503,
+    "release": "blue"
+  },
+  {
+    "elapsed": 301.016,
+    "phase": "fault-blue",
+    "path": "frontend",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 301.047,
+    "phase": "fault-blue",
+    "path": "health",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 301.079,
+    "phase": "fault-blue",
+    "path": "game",
+    "status": 503,
+    "release": "blue"
+  },
+  {
+    "elapsed": 301.36,
+    "phase": "rollback-green",
+    "path": "frontend",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 301.375,
+    "phase": "rollback-green",
+    "path": "health",
+    "status": 200,
+    "release": "blue"
+  },
+  {
+    "elapsed": 301.407,
+    "phase": "rollback-green",
+    "path": "game",
+    "status": 503,
+    "release": "blue"
+  },
+  {
+    "elapsed": 301.719,
+    "phase": "rollback-green",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 301.75,
+    "phase": "rollback-green",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 301.766,
+    "phase": "rollback-green",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 302.063,
+    "phase": "rollback-green",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 302.094,
+    "phase": "rollback-green",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 302.125,
+    "phase": "rollback-green",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 302.407,
+    "phase": "steady-green",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 302.438,
+    "phase": "steady-green",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 302.469,
+    "phase": "steady-green",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 302.75,
+    "phase": "steady-green",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 302.782,
+    "phase": "steady-green",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 302.813,
+    "phase": "steady-green",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 303.094,
+    "phase": "steady-green",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 303.125,
+    "phase": "steady-green",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 303.157,
+    "phase": "steady-green",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 303.438,
+    "phase": "steady-green",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 303.469,
+    "phase": "steady-green",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 303.485,
+    "phase": "steady-green",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 303.782,
+    "phase": "steady-green",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 303.813,
+    "phase": "steady-green",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 303.844,
+    "phase": "steady-green",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 304.125,
+    "phase": "steady-green",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 304.157,
+    "phase": "steady-green",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 304.188,
+    "phase": "steady-green",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 304.469,
+    "phase": "steady-green",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 304.5,
+    "phase": "steady-green",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 304.532,
+    "phase": "steady-green",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 304.813,
+    "phase": "steady-green",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 304.86,
+    "phase": "steady-green",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 304.875,
+    "phase": "steady-green",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 305.157,
+    "phase": "steady-green",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 305.188,
+    "phase": "steady-green",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 305.235,
+    "phase": "steady-green",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 305.532,
+    "phase": "steady-green",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 305.547,
+    "phase": "steady-green",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 305.579,
+    "phase": "steady-green",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 305.875,
+    "phase": "steady-green",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 305.891,
+    "phase": "steady-green",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 305.922,
+    "phase": "steady-green",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 306.204,
+    "phase": "steady-green",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 306.235,
+    "phase": "steady-green",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 306.266,
+    "phase": "steady-green",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 306.547,
+    "phase": "steady-green",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 306.579,
+    "phase": "steady-green",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 306.61,
+    "phase": "steady-green",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 306.907,
+    "phase": "steady-green",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 306.938,
+    "phase": "steady-green",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 306.985,
+    "phase": "steady-green",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 307.282,
+    "phase": "steady-green",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 307.329,
+    "phase": "steady-green",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 307.36,
+    "phase": "steady-green",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 307.657,
+    "phase": "steady-green",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 307.704,
+    "phase": "steady-green",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 307.891,
+    "phase": "steady-green",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 308.313,
+    "phase": "steady-green",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 308.407,
+    "phase": "steady-green",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 308.454,
+    "phase": "steady-green",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 308.766,
+    "phase": "steady-green",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 308.813,
+    "phase": "steady-green",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 308.86,
+    "phase": "steady-green",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 309.172,
+    "phase": "steady-green",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 309.204,
+    "phase": "steady-green",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 309.25,
+    "phase": "steady-green",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 309.579,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 309.61,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 309.641,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 309.938,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 309.969,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 310.0,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 310.297,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 310.329,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 310.375,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 310.688,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 310.719,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 310.75,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 311.063,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 311.094,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 311.11,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 311.407,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 311.438,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 311.485,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 311.782,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 311.813,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 311.875,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 312.172,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 312.204,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 312.235,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 312.547,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 312.579,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 312.594,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 312.891,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 312.922,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 312.938,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 313.25,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 313.282,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 313.329,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 313.704,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 313.75,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 313.829,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 314.141,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 314.188,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 314.235,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 314.563,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 314.594,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 314.625,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 314.922,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 314.954,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 314.985,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 315.282,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 315.313,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 315.344,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 315.641,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 315.672,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 315.688,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 316.0,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 316.032,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 316.094,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 316.407,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 316.438,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 316.469,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 316.766,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 316.813,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 316.844,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 317.125,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 317.172,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 317.219,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 317.532,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 317.563,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 317.61,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 317.907,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 317.922,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 317.954,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 318.25,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 318.282,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 318.344,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 318.704,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 318.719,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 318.75,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 319.063,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 319.11,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 319.157,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 319.438,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 319.485,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 319.516,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 319.797,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 319.829,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 319.875,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 320.157,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 320.188,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 320.219,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 320.5,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 320.532,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 320.563,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 320.86,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 320.891,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 320.907,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 321.204,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 321.235,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 321.266,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 321.547,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 321.594,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 321.61,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 321.907,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 321.922,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 321.969,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 322.266,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 322.297,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 322.313,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 322.61,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 322.641,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 322.672,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 322.969,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 323.0,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 323.032,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 323.329,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 323.36,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 323.407,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 323.688,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 323.735,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 323.766,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 324.047,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 324.079,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 324.11,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 324.391,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 324.422,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 324.454,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 324.75,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 324.782,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 324.813,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 325.11,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 325.141,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 325.157,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 325.485,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 325.516,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 325.547,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 325.829,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 325.875,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 325.922,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 326.219,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 326.266,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 326.282,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 326.579,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 326.625,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 326.641,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 326.938,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 326.969,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 327.0,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 327.282,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 327.313,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 327.36,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 327.657,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 327.688,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 327.735,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 328.032,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 328.063,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 328.094,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 328.391,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 328.422,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 328.454,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 328.75,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 328.797,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 328.844,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 329.172,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 329.204,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 329.235,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 329.547,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 329.579,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 329.61,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 329.891,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 329.922,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 329.938,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 330.235,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 330.282,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 330.313,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 330.594,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 330.625,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 330.657,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 330.938,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 330.969,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 331.0,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 331.282,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 331.313,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 331.36,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 331.657,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 331.672,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 331.719,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 332.0,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 332.032,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 332.063,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 332.344,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 332.391,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 332.407,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 332.688,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 332.735,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 332.75,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 333.047,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 333.079,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 333.11,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 333.407,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 333.438,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 333.469,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 333.75,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 333.782,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 333.813,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 334.11,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 334.157,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 334.172,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 334.469,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 334.516,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 334.547,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 334.844,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 334.875,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 334.922,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 335.219,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 335.266,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 335.313,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 335.61,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 335.657,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 335.719,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 336.047,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 336.094,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 336.141,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 336.438,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 336.5,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 336.547,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 336.86,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 336.922,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 336.985,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 337.297,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 337.344,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 337.407,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 337.719,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 337.782,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 337.844,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 338.172,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 338.235,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 338.297,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 338.625,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 338.688,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 338.75,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 339.11,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 339.172,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 339.25,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 339.61,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 339.688,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 339.75,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 340.079,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 340.141,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 340.204,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 340.532,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 340.594,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 340.657,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 340.985,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 341.032,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 341.094,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 341.407,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 341.485,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 341.547,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 341.875,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 341.938,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 342.016,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 342.344,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 342.422,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 342.516,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 342.829,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 342.891,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 342.954,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 343.266,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 343.313,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 343.375,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 343.704,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 343.75,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 343.797,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 344.11,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 344.157,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 344.204,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 344.516,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 344.563,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 344.594,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 344.907,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 344.954,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 344.985,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 345.266,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 345.297,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 345.344,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 345.641,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 345.672,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 345.704,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 346.0,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 346.047,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 346.079,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 346.375,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 346.391,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 346.422,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 346.719,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 346.75,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 346.797,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 347.079,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 347.141,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 347.172,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 347.469,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 347.516,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 347.563,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 347.86,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 347.907,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 347.938,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 348.219,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 348.235,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 348.266,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 348.563,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 348.61,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 348.625,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 348.922,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 348.954,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 349.016,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 349.297,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 349.344,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 349.391,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 349.672,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 349.719,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 349.766,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 350.079,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 350.094,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 350.11,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 350.407,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 350.438,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 350.454,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 350.735,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 350.75,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 350.782,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 351.063,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 351.094,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 351.125,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 351.407,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 351.438,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 351.454,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 351.735,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 351.75,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 351.766,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 352.047,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 352.079,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 352.094,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 352.375,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 352.391,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 352.407,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 352.688,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 352.735,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 352.75,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 353.016,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 353.032,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 353.063,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 353.329,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 353.36,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 353.375,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 353.641,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 353.672,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 353.704,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 354.0,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 354.063,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 354.094,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 354.391,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 354.454,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 354.485,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 354.766,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 354.813,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 354.844,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 355.141,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 355.188,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 355.25,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 355.563,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 355.594,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 355.625,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 355.907,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 355.938,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 355.954,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 356.25,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 356.282,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 356.329,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 356.625,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 356.672,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 356.704,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 357.0,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 357.016,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 357.047,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 357.344,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 357.375,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 357.422,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 357.704,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 357.735,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 357.766,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 358.063,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 358.11,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 358.141,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 500,
+    "release": "green"
+  },
+  {
+    "elapsed": 358.422,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 358.454,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 358.469,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 500,
+    "release": "green"
+  },
+  {
+    "elapsed": 358.797,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 358.813,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 358.844,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 500,
+    "release": "green"
+  },
+  {
+    "elapsed": 359.11,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 359.125,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 359.157,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 500,
+    "release": "green"
+  },
+  {
+    "elapsed": 359.454,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 359.485,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 502,
+    "release": "green"
+  },
+  {
+    "elapsed": 359.516,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 502,
+    "release": "green"
+  },
+  {
+    "elapsed": 359.813,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 359.86,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 502,
+    "release": "green"
+  },
+  {
+    "elapsed": 359.875,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 502,
+    "release": "green"
+  },
+  {
+    "elapsed": 360.172,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 360.188,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 502,
+    "release": "green"
+  },
+  {
+    "elapsed": 360.219,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 502,
+    "release": "green"
+  },
+  {
+    "elapsed": 360.5,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 360.516,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 502,
+    "release": "green"
+  },
+  {
+    "elapsed": 360.532,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 502,
+    "release": "green"
+  },
+  {
+    "elapsed": 361.844,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 361.875,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 502,
+    "release": "green"
+  },
+  {
+    "elapsed": 362.907,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 502,
+    "release": "green"
+  },
+  {
+    "elapsed": 364.172,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 364.204,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 502,
+    "release": "green"
+  },
+  {
+    "elapsed": 365.235,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 502,
+    "release": "green"
+  },
+  {
+    "elapsed": 366.516,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 366.563,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 502,
+    "release": "green"
+  },
+  {
+    "elapsed": 366.594,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 502,
+    "release": "green"
+  },
+  {
+    "elapsed": 367.891,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 367.922,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 502,
+    "release": "green"
+  },
+  {
+    "elapsed": 368.985,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 502,
+    "release": "green"
+  },
+  {
+    "elapsed": 370.25,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 370.297,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 502,
+    "release": "green"
+  },
+  {
+    "elapsed": 371.313,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 502,
+    "release": "green"
+  },
+  {
+    "elapsed": 372.625,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 372.657,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 502,
+    "release": "green"
+  },
+  {
+    "elapsed": 372.672,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 502,
+    "release": "green"
+  },
+  {
+    "elapsed": 373.969,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 374.0,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 502,
+    "release": "green"
+  },
+  {
+    "elapsed": 375.063,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 502,
+    "release": "green"
+  },
+  {
+    "elapsed": 376.36,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 404,
+    "release": null
+  },
+  {
+    "elapsed": 376.391,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 404,
+    "release": null
+  },
+  {
+    "elapsed": 376.422,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 404,
+    "release": null
+  },
+  {
+    "elapsed": 376.719,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 404,
+    "release": null
+  },
+  {
+    "elapsed": 376.766,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 404,
+    "release": null
+  },
+  {
+    "elapsed": 376.813,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 404,
+    "release": null
+  },
+  {
+    "elapsed": 377.125,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 404,
+    "release": null
+  },
+  {
+    "elapsed": 377.172,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 404,
+    "release": null
+  },
+  {
+    "elapsed": 377.204,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 404,
+    "release": null
+  },
+  {
+    "elapsed": 377.5,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 404,
+    "release": null
+  },
+  {
+    "elapsed": 377.547,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 404,
+    "release": null
+  },
+  {
+    "elapsed": 377.579,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 404,
+    "release": null
+  },
+  {
+    "elapsed": 377.86,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 404,
+    "release": null
+  },
+  {
+    "elapsed": 377.907,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 404,
+    "release": null
+  },
+  {
+    "elapsed": 377.938,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 404,
+    "release": null
+  },
+  {
+    "elapsed": 378.219,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 404,
+    "release": null
+  },
+  {
+    "elapsed": 378.25,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 404,
+    "release": null
+  },
+  {
+    "elapsed": 378.297,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 404,
+    "release": null
+  },
+  {
+    "elapsed": 378.61,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 404,
+    "release": null
+  },
+  {
+    "elapsed": 378.641,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 404,
+    "release": null
+  },
+  {
+    "elapsed": 378.672,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 404,
+    "release": null
+  },
+  {
+    "elapsed": 378.969,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 404,
+    "release": null
+  },
+  {
+    "elapsed": 379.0,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 404,
+    "release": null
+  },
+  {
+    "elapsed": 379.047,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 404,
+    "release": null
+  },
+  {
+    "elapsed": 379.36,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 404,
+    "release": null
+  },
+  {
+    "elapsed": 379.407,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 404,
+    "release": null
+  },
+  {
+    "elapsed": 379.438,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 404,
+    "release": null
+  },
+  {
+    "elapsed": 379.735,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 404,
+    "release": null
+  },
+  {
+    "elapsed": 379.782,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 404,
+    "release": null
+  },
+  {
+    "elapsed": 379.813,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 404,
+    "release": null
+  },
+  {
+    "elapsed": 380.11,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 404,
+    "release": null
+  },
+  {
+    "elapsed": 380.172,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 404,
+    "release": null
+  },
+  {
+    "elapsed": 380.204,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 404,
+    "release": null
+  },
+  {
+    "elapsed": 380.485,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 404,
+    "release": null
+  },
+  {
+    "elapsed": 380.547,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 404,
+    "release": null
+  },
+  {
+    "elapsed": 380.579,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 404,
+    "release": null
+  },
+  {
+    "elapsed": 380.86,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 404,
+    "release": null
+  },
+  {
+    "elapsed": 380.907,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 404,
+    "release": null
+  },
+  {
+    "elapsed": 380.954,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 404,
+    "release": null
+  },
+  {
+    "elapsed": 381.266,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 404,
+    "release": null
+  },
+  {
+    "elapsed": 381.297,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 404,
+    "release": null
+  },
+  {
+    "elapsed": 381.344,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 404,
+    "release": null
+  },
+  {
+    "elapsed": 381.657,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 404,
+    "release": null
+  },
+  {
+    "elapsed": 381.688,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 404,
+    "release": null
+  },
+  {
+    "elapsed": 381.719,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 404,
+    "release": null
+  },
+  {
+    "elapsed": 382.016,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 404,
+    "release": null
+  },
+  {
+    "elapsed": 382.047,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 404,
+    "release": null
+  },
+  {
+    "elapsed": 382.094,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 404,
+    "release": null
+  },
+  {
+    "elapsed": 382.391,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 404,
+    "release": null
+  },
+  {
+    "elapsed": 382.407,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 404,
+    "release": null
+  },
+  {
+    "elapsed": 382.469,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 404,
+    "release": null
+  },
+  {
+    "elapsed": 382.782,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 404,
+    "release": null
+  },
+  {
+    "elapsed": 382.829,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 404,
+    "release": null
+  },
+  {
+    "elapsed": 382.891,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 404,
+    "release": null
+  },
+  {
+    "elapsed": 383.172,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 404,
+    "release": null
+  },
+  {
+    "elapsed": 383.219,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 404,
+    "release": null
+  },
+  {
+    "elapsed": 383.266,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 404,
+    "release": null
+  },
+  {
+    "elapsed": 383.579,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 404,
+    "release": null
+  },
+  {
+    "elapsed": 383.625,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 404,
+    "release": null
+  },
+  {
+    "elapsed": 383.672,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 404,
+    "release": null
+  },
+  {
+    "elapsed": 383.969,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 404,
+    "release": null
+  },
+  {
+    "elapsed": 384.0,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 404,
+    "release": null
+  },
+  {
+    "elapsed": 384.032,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 404,
+    "release": null
+  },
+  {
+    "elapsed": 384.313,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 404,
+    "release": null
+  },
+  {
+    "elapsed": 384.344,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 404,
+    "release": null
+  },
+  {
+    "elapsed": 384.375,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 404,
+    "release": null
+  },
+  {
+    "elapsed": 384.657,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 404,
+    "release": null
+  },
+  {
+    "elapsed": 384.704,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 404,
+    "release": null
+  },
+  {
+    "elapsed": 384.735,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 404,
+    "release": null
+  },
+  {
+    "elapsed": 385.016,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 404,
+    "release": null
+  },
+  {
+    "elapsed": 385.063,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 404,
+    "release": null
+  },
+  {
+    "elapsed": 385.11,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 404,
+    "release": null
+  },
+  {
+    "elapsed": 385.422,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 385.454,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 385.5,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 385.797,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 385.86,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 385.907,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 386.219,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 386.266,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 386.313,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 386.594,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 386.641,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 386.672,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 386.969,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 387.032,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 387.063,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 387.36,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 387.407,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 387.438,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 387.75,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 387.797,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 387.844,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 388.157,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 388.188,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 388.219,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 388.516,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 388.563,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 388.594,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 388.891,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 388.922,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 388.954,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 389.25,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 389.297,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 389.344,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 389.625,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 389.688,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 389.735,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 390.016,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 390.063,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 390.094,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 390.407,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 390.454,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 390.485,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 390.797,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 390.844,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 390.891,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 391.188,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 391.235,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 391.297,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 391.579,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 391.625,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 391.657,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 391.954,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 391.985,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 392.016,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 392.313,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 392.344,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 392.375,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 392.688,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 392.735,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 392.766,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 393.063,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 393.11,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 393.157,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 393.469,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 393.5,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 393.547,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 393.844,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 393.891,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 393.922,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 394.219,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 394.25,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 394.282,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 394.594,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 394.625,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 394.672,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 394.969,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 395.016,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 395.063,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 395.36,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 395.407,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 395.454,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 395.766,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 395.813,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 395.86,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 396.172,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 396.204,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 396.219,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 396.516,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 396.563,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 396.594,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 396.891,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 396.938,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 396.969,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 397.25,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 397.313,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 397.36,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 397.641,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 397.672,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 397.719,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 398.032,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 398.079,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 398.125,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 398.438,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 398.485,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 398.532,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 398.829,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 398.86,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 398.891,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 399.172,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 399.204,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 399.235,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 399.547,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 399.579,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 399.61,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 399.907,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 399.954,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 399.985,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 400.282,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 400.344,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 400.375,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 400.688,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 400.735,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 400.782,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 401.094,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 401.125,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 401.157,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 401.438,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 401.469,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 401.516,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 401.813,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 401.844,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 401.891,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 402.188,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 402.235,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 402.266,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 402.563,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 402.594,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 402.625,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 402.938,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 402.985,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 403.032,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 403.344,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 403.375,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 403.422,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 403.735,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 403.766,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 403.813,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 404.079,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 404.125,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 404.141,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 404.438,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 404.469,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 404.516,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 404.813,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 404.844,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 404.875,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 405.188,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 405.219,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 405.25,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 405.532,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 405.563,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 405.594,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 405.891,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 405.938,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 405.969,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 406.266,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 406.297,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 406.329,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 406.625,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 406.657,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 406.688,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 407.0,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 407.032,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 407.047,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 407.344,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 407.391,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 407.407,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 407.688,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 407.719,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 407.75,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 408.047,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 408.079,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 408.11,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 408.422,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 408.454,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 408.5,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 408.797,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 408.829,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 408.86,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 409.157,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 409.188,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 409.219,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 409.532,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 409.563,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 409.594,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 409.907,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 409.922,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 409.969,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 410.266,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 410.313,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 410.36,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 410.625,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 410.657,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 410.688,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 411.0,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 411.032,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 411.063,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 411.36,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 411.407,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 411.438,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 411.719,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 411.766,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 411.782,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 412.094,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 412.125,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 412.172,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 412.469,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 412.485,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 412.516,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 412.813,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 412.844,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 412.86,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 413.172,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 413.188,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 413.235,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 413.516,
+    "phase": "observability-alerts",
+    "path": "frontend",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 413.579,
+    "phase": "observability-alerts",
+    "path": "health",
+    "status": 200,
+    "release": "green"
+  },
+  {
+    "elapsed": 413.594,
+    "phase": "observability-alerts",
+    "path": "game",
+    "status": 200,
+    "release": "green"
+  }
+]

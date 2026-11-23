@@ -1,5 +1,7 @@
 # FIN-04 â€” Baseline CI y artefactos
 
+> Estado vigente — 15/11/2026: **FIN-04 técnicamente completada; pendiente de aceptación documental definitiva**. Ratificación del propietario documentada al final. Los resultados PARTIAL anteriores se conservan como historial fechado y quedan superados por la decisión vigente.
+
 Fecha: 10/11/2026. Resultado: **FIN-04 PARTIAL**.
 Rama: `codex/pg01-07-consolidation`. HEAD sin cambios: `3a149b8964e631a22666ba4ea13281bf39188f8f`.
 
@@ -81,3 +83,19 @@ Referencias publicadas y verificadas (linux/amd64):
 Ambas usan etiqueta del SHA completo y etiqueta OCI revision coincidente. El publicador, autenticado únicamente mediante GITHUB_TOKEN con packages:write limitado a ese job, descargó ambas por digest, comprobó igualdad con el ID construido y verificó HTTP 200/healthy en contenedores sin red/puertos/credenciales. Artefacto wordle-ghcr-images-1 y anotaciones contienen las referencias. También se ejecutó docker pull por ambos digests desde Windows, exit 0 y revisión coincidente; no se configuraron nuevas credenciales. Los tamaños anteriores no son tamaños comprimidos de descarga. AKS fija estos digests; demo-kind/Blue-Green/observabilidad conservan sus imágenes locales. No se usa latest.
 
 **FIN-04 PARTIAL por criterio original**: la evidencia técnica de artefactos ya está satisfecha, pero el plan exige publicación solo en main y esta publicación usa la excepción de rama autorizada por FIN-CONSOLIDATE. No se afirma haber cumplido ese requisito original ni se modifica silenciosamente. **FIN-05 PARTIAL**: dependencia técnica GHCR resuelta; validación real AKS/FIN-18 sigue pendiente. Ninguna publicación acredita Azure, CSI o capacidad gestionada. No se ha desplegado Azure, ejecutado apply ni modificado PG-05/PG-06. Los doce históricos siguen excluidos e íntegros.
+
+## Ratificación del propietario y cierre técnico — 15/11/2026
+
+Fuente de autorización: solicitud expresa «TFG — FIN-04: Ratificación de política de publicación y cierre documental». Se ratifica la excepción aprobada en FIN-CONSOLIDATE y se sustituye el criterio original «publicación solo en main» por:
+
+- `main` como rama principal de publicación.
+- Autorización excepcional y exclusiva de `codex/pg01-07-consolidation` para publicar artefactos GHCR.
+- Ninguna otra rama autorizada por extensión; publicar no autoriza despliegues Azure/AKS.
+
+Comprobación estática de `.github/workflows/ci.yml`: `publish-ghcr` exige evento `push` y coincidencia exacta con una de esas dos ramas, depende de los siete controles CI y limita `packages: write` al publicador. PR y ejecución manual de CI no publican. El workflow ya cumple y no se modifica.
+
+Los criterios técnicos conservan la evidencia FIN-CONSOLIDATE anterior: 55 backend, 9 CORS, 11 PostgreSQL y 12 frontend sin omisiones mediante guardas; builds y runtime aislado satisfactorios; imágenes GHCR recuperadas por digest con revisión/ID concordantes; validación Terraform satisfactoria. Run y commit fuente, digests y tamaños permanecen arriba sin alteración. Esta revisión no consulta nuevamente GitHub/GHCR ni acredita una ejecución nueva.
+
+**Resultado propuesto: FIN-04 técnicamente completada y pendiente de aceptación documental definitiva.** No se identifica otra discrepancia bloqueante dentro de sus criterios. La aceptación final del documento corresponde al responsable. Los estados PARTIAL históricos describen correctamente la política anterior y no se eliminan.
+
+Se reconcilian únicamente el plan y este informe; no se ejecutan builds, suites, publicaciones, Terraform ni operaciones Azure/AKS. FIN-05 mantiene su aceptación AKS pendiente de FIN-18, con preparación FIN-16/17 existente; no se inicia esa actividad ni se alteran sus estados.
