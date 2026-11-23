@@ -1,0 +1,2 @@
+# Only temporary synthetic validation folders owned by this iteration.
+.validation-*/

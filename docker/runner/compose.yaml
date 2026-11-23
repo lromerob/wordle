@@ -1,0 +1,29 @@
+name: wordle-docker-runner
+services:
+  wordle-actions-runner:
+    image: wordle-actions-runner:fin17-private-store-02
+    platform: linux/amd64
+    build:
+      context: .
+      additional_contexts:
+        store_contract: ../../scripts
+    user: "10001:10001"
+    command: ["validate"]
+    restart: "no"
+    init: false
+    cap_drop: [ALL]
+    security_opt: ["no-new-privileges:true"]
+    stop_grace_period: 30s
+    shm_size: 512mb
+    environment:
+      WORDLE_AZURE_PRIVATE_DIR: /wordle-private
+      WORDLE_AZURE_STORE_ID: ${WORDLE_AZURE_STORE_ID:-}
+      WORDLE_PLAYWRIGHT_ROOT: /opt/wordle-browser/node_modules
+      WORDLE_BROWSER_EXECUTABLE: /opt/wordle-browser/chromium
+    volumes:
+      - type: bind
+        source: ${WORDLE_PRIVATE_HOST_DIR:?Explicit existing external private Windows directory required}
+        target: /wordle-private
+        bind:
+          create_host_path: false
+    # No published ports, socket, privileged mode, host network or Docker-in-Docker.
