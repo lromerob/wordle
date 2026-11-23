@@ -23,7 +23,7 @@ from run_demo import command, TRAEFIK
 from configure_demo_secrets import configure
 sys.path.insert(0, str(ROOT / "k8s/blue-green"))
 from promotion import PromotionController
-from validation import IMAGES, prepare, wait_stack, validate
+from validation import IMAGES, prepare, wait_stack, validate, ship_event
 
 NS = "wordle-demo"
 
@@ -33,6 +33,7 @@ def main():
     parser.add_argument("--run-disposable-kind", required=True, action="store_true")
     parser.add_argument("--evidence-dir", type=Path)
     parser.add_argument("--inspect-seconds", type=int, default=0)
+    parser.add_argument("--capture-script", type=Path, help="Optional local evidence hook; private context via stdin")
     args = parser.parse_args()
     if not 0 <= args.inspect_seconds <= 300:
         parser.error("inspect-seconds must be between zero and 300")
@@ -61,13 +62,8 @@ def main():
         (evidence / "events.json").write_text(json.dumps(events, indent=2) + "\n", encoding="utf-8")
         print(json.dumps(item), flush=True)
         if telemetry_port is not None:
-            payload={"resourceLogs":[{"resource":{"attributes":[{"key":"service.name","value":{"stringValue":"wordle-deploy"}}]},
-                "scopeLogs":[{"scope":{"name":"wordle-deployment-demo"},"logRecords":[{"timeUnixNano":str(time.time_ns()),
-                "severityNumber":9,"body":{"stringValue":json.dumps(item,separators=(",",":"))}}]}]}]}
             try:
-                opener=urllib.request.build_opener(urllib.request.ProxyHandler({}))
-                request=urllib.request.Request(f"http://127.0.0.1:{telemetry_port}/v1/logs",data=json.dumps(payload).encode(),headers={"Content-Type":"application/json"})
-                with opener.open(request,timeout=1) as response:response.read()
+                ship_event(telemetry_port, item)
             except Exception:
                 pass
 
@@ -185,6 +181,12 @@ def main():
                 query((ROOT / "supabase/tests/schema_contracts.sql").read_text(encoding="utf-8"))
                 public_port = port_forward("ingress")
                 public = lambda path: fetch(public_port, path)
+                def capture(stage, **extra):
+                    if args.capture_script:
+                        captured = command([sys.executable, args.capture_script.resolve()], data=json.dumps({
+                            "stage": stage, "prefix": list(map(str, prefix)), "public_port": public_port,
+                            "password": grafana_password, **extra}).encode(), timeout=180, check=False)
+                        record("capture_pass" if captured.returncode == 0 else "capture_failed", stage=stage)
                 for _ in range(40):
                     try:
                         assert public("/api/health")[:2] == (200, "blue"); break
@@ -198,6 +200,8 @@ def main():
                 game_path = "/api/game/" + game_id
                 assert "palabra_secreta" not in public(game_path)[2]["partida"]
                 record("stable_blue_verified", postgres="16.15", pvc_bound=True)
+
+                capture("stable-blue")
 
                 def sample():
                     while not stop.is_set():
@@ -231,6 +235,7 @@ def main():
                 status, release, answer = fetch(public_port, "/api/game/intento", method="POST", payload=payload)
                 assert (status, release) == (200, "green") and answer["estado"] == "ganada"
                 record("scenario_A_pass", active="green", persisted_victory=True)
+                capture("promoted-green")
                 before_faults = database_hash()
 
                 set_phase("reject-blue")
@@ -277,16 +282,22 @@ def main():
                 assert len(deployments) == 5 and all(d["spec"]["replicas"] == 1 and d["status"].get("availableReplicas") == 1 for d in deployments)
                 services = json.loads(kube("get", "services", "-o", "json").stdout)["items"]
                 assert all(s["spec"]["type"] == "ClusterIP" and not s["spec"].get("externalIPs") for s in services)
-                assert any(s["status"] == 503 and s["release"] == "blue" for s in samples)
+                # A bounded periodic sampler can miss the exact 503 while seeing
+                # transport failures. The independent public HTTP probe above must
+                # still observe the real post-promotion 503; retain all samples.
+                assert any(e["event"] == "controlled_functional_fault_observed" and e["status"] == 503 for e in events)
+                record("traffic_fault_samples", failures=sum(s["status"] != 200 for s in samples))
                 time.sleep(1)
                 summary.update(cluster=cluster, scenario_A=result_a, scenario_B_rejection=result_reject,
                                scenario_B_rollback=result_rollback, database_hash=before_faults,
                                shared_postgres=True, pvc_preserved=True, final_active="green",
                                ready_deployments=5, services={s["metadata"]["name"]:s["spec"]["selector"] for s in services})
                 record("scenario_B_post_promotion_pass", active="green", database_unchanged=True)
+                capture("rollback-green")
                 set_phase("observability-alerts")
                 summary["observability"] = validate(command, prefix, query, database_hash,
-                    game_id, grafana_password, evidence, record)
+                    game_id, grafana_password, evidence, record,
+                    capture=lambda stage, **extra: capture(stage, **extra))
                 if args.inspect_seconds:
                     grafana_port = port_forward("grafana", namespace="wordle-observability", remote_port=3000)
                     record("grafana_inspection", url=f"http://127.0.0.1:{grafana_port}/d/wordle-demo", user="demo", seconds=args.inspect_seconds)

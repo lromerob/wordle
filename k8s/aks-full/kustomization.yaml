@@ -1,0 +1,36 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- ../observability
+images:
+- name: wordle-fin0507-backend
+  newName: ghcr.io/lromerob/wordle-backend
+  digest: sha256:936fcf13b22666ce343399e6bb0c1fc73a2786bf11ad447caaa306ff83f4c210
+- name: wordle-fin0507-frontend
+  newName: ghcr.io/lromerob/wordle-frontend
+  digest: sha256:ebfe93fcad8d6896c55816c7c1d8f33e254234ed4d679833edd8d85022c520af
+- name: traefik
+  digest: sha256:f4bb143d1135a579b630ed491e17ec50f6f7c9c6a30585ff3d385471d2a86f5a
+- name: grafana/grafana
+  digest: sha256:488984b716c0862639f91a698adbe2862677a5a07bad42da5f03f3030883b205
+- name: grafana/loki
+  digest: sha256:be040ec94865dabe4821ce1c0f109452bd4b5acb566ae376672696eb43caedb7
+- name: grafana/tempo
+  digest: sha256:12b0820f13ffa10ce956b6e9acc3b03f3cffded99109be6cc09d106fe56e5d38
+- name: otel/opentelemetry-collector-contrib
+  digest: sha256:e40d61f10c9a617cca1ffd1be4d7e2b3a4b0f0001798ff07e58cabe82e618cea
+- name: postgres
+  digest: sha256:f9a7b9ebf6f56201f949db745e47bc423c0f0f8294bafe991cc10bf74b029657
+- name: prom/alertmanager
+  digest: sha256:e638797febd034838eca8b98cdbd46f951e9bf7f178777aa8669167406a9946c
+- name: prom/node-exporter
+  digest: sha256:1b4e4438faca4dd7e001dd445d161a4a2091b0fededa84093b3a8dfeae1f1be0
+- name: prom/prometheus
+  digest: sha256:e04987641b57704f408e31f6373ba4138ecf27cb4a165d24aabb6c38fddd0f06
+patches:
+- target:
+    kind: StatefulSet
+    name: postgres
+  patch: "- op: replace\n  path: /spec/volumeClaimTemplates/0/spec/storageClassName\n\
+    \  value: managed-csi\n- op: replace\n  path: /spec/volumeClaimTemplates/0/spec/resources/requests/storage\n\
+    \  value: 8Gi"

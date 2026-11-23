@@ -1,0 +1,7 @@
+{
+  "resource_group_name": "rg-wordle-state",
+  "storage_account_name": "stwordletfgstate7c92d4",
+  "container_name": "tfstate",
+  "key": "wordle/aks-demo.tfstate",
+  "use_azuread_auth": true
+}

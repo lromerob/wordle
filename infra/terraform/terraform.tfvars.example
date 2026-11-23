@@ -1,10 +1,12 @@
-# EXAMPLE ONLY: replace identifiers and documentation-only address before use.
-# IDs are placeholders, not credentials. Copy to ignored terraform.tfvars.
-subscription_id          = "00000000-0000-0000-0000-000000000000"
-tenant_id                = "00000000-0000-0000-0000-000000000000"
-admin_group_object_ids   = ["00000000-0000-0000-0000-000000000000"]
-api_authorized_cidrs     = ["203.0.113.10/32"]
-location                 = "westeurope"
+# Generic template: fill UUID placeholders only in an external private copy.
+# API /32 is NOT approved: empty list and false acknowledgement intentionally block validation.
+# Do not copy the Storage firewall IP or invent a placeholder address.
+subscription_id          = "REPLACE_WITH_APPROVED_SUBSCRIPTION_UUID"
+tenant_id                = "REPLACE_WITH_APPROVED_TENANT_UUID"
+admin_group_object_ids   = ["REPLACE_WITH_APPROVED_ADMIN_GROUP_UUID"]
+api_authorized_cidrs     = []
+api_access_approved      = false
+location                 = "swedencentral"
 resource_group_name      = "rg-wordle-academic"
 node_resource_group_name = "rg-wordle-academic-nodes"
 cluster_name             = "aks-wordle-academic"
@@ -16,9 +18,9 @@ node_pool_name           = "system"
 node_vm_size             = "Standard_D4s_v5"
 node_count               = 2
 os_disk_size_gb          = 64
-# Choose a supported AKS version for your region before provisioning.
-kubernetes_version = null
-tags               = {
+# Approved patch; revalidate availability before any authorized provisioning.
+kubernetes_version = "1.35.9"
+tags = {
   environment = "academic"
   lifecycle   = "temporary"
 }

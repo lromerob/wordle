@@ -51,6 +51,7 @@ resource "azurerm_kubernetes_cluster" "wordle" {
   sku_tier                          = "Free"
   role_based_access_control_enabled = true
   local_account_disabled            = true
+  run_command_enabled               = false
   private_cluster_enabled           = false
   tags                              = local.tags
 
@@ -65,6 +66,10 @@ resource "azurerm_kubernetes_cluster" "wordle" {
     os_sku          = "Ubuntu"
     type            = "VirtualMachineScaleSets"
     tags            = local.tags
+
+    upgrade_settings {
+      max_surge = "1"
+    }
   }
 
   identity {

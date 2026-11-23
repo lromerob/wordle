@@ -11,7 +11,7 @@ variable "tenant_id" {
 variable "location" {
   description = "Azure region; verify AKS support, SKU availability and costs first."
   type        = string
-  default     = "westeurope"
+  default     = "swedencentral"
 }
 
 variable "resource_group_name" {
@@ -101,9 +101,10 @@ variable "os_disk_size_gb" {
 }
 
 variable "kubernetes_version" {
-  description = "Select a supported regional version before provisioning; null lets AKS choose."
+  description = "Approved Sweden Central Kubernetes patch; revalidate regional support before provisioning."
   type        = string
-  default     = null
+  default     = "1.35.9"
+  nullable    = false
 }
 
 variable "admin_group_object_ids" {
@@ -117,14 +118,30 @@ variable "admin_group_object_ids" {
 }
 
 variable "api_authorized_cidrs" {
-  description = "Trusted public IPv4 CIDRs allowed to reach the Kubernetes API; never 0.0.0.0/0."
+  description = "Explicitly approved administrative public IPv4 /32 addresses; no implicit default."
   type        = list(string)
+  nullable    = false
 
   validation {
-    condition = length(var.api_authorized_cidrs) > 0 && alltrue([
-      for cidr in var.api_authorized_cidrs : can(cidrnetmask(cidr)) && cidr != "0.0.0.0/0"
+    condition = length(var.api_authorized_cidrs) == 1 && alltrue([
+      for cidr in var.api_authorized_cidrs : try(
+        can(cidrnetmask(cidr)) && endswith(cidr, "/32") &&
+        !can(regex("^(0[.]|10[.]|100[.](6[4-9]|[7-9][0-9]|1[01][0-9]|12[0-7])[.]|127[.]|169[.]254[.]|172[.](1[6-9]|2[0-9]|3[01])[.]|192[.](0[.]0[.]|0[.]2[.]|88[.]99[.]|168[.])|198[.](1[89][.]|51[.]100[.])|203[.]0[.]113[.]|(22[4-9]|23[0-9]|24[0-9]|25[0-5])[.])", cidr)),
+        false
+      )
     ])
-    error_message = "Supply valid IPv4 CIDRs and do not allow the entire internet."
+    error_message = "Supply exactly one approved public IPv4 /32; empty lists, placeholders, private/reserved ranges and broader networks are rejected."
+  }
+}
+
+variable "api_access_approved" {
+  description = "Set true only after the owner explicitly approves every API /32; not an Azure deployment authorization."
+  type        = bool
+  nullable    = false
+
+  validation {
+    condition     = var.api_access_approved
+    error_message = "API /32 approval is pending. Obtain explicit owner approval before setting api_access_approved=true."
   }
 }
 

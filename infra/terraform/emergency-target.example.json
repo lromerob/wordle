@@ -1,0 +1,15 @@
+{
+  "subscription_id": "REPLACE_WITH_APPROVED_SUBSCRIPTION_UUID",
+  "tenant_id": "REPLACE_WITH_APPROVED_TENANT_UUID",
+  "operator_object_id": "REPLACE_WITH_HUMAN_OPERATOR_UUID",
+  "resource_group_name": "rg-wordle-academic",
+  "node_resource_group_name": "rg-wordle-academic-nodes",
+  "cluster_name": "aks-wordle-academic",
+  "vnet_name": "vnet-wordle-academic",
+  "subnet_name": "snet-aks",
+  "identity_name": "id-wordle-aks",
+  "backend_resource_group": "rg-wordle-state",
+  "backend_account": "REPLACE_WITH_STATE_ACCOUNT",
+  "backend_container": "tfstate",
+  "backend_key": "wordle/aks-demo.tfstate"
+}

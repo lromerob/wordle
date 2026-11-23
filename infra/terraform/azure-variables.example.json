@@ -1,0 +1,20 @@
+{
+  "subscription_id": "REPLACE_WITH_APPROVED_SUBSCRIPTION_UUID",
+  "tenant_id": "REPLACE_WITH_APPROVED_TENANT_UUID",
+  "resource_group_name": "rg-wordle-academic",
+  "node_resource_group_name": "rg-wordle-academic-nodes",
+  "cluster_name": "aks-wordle-academic",
+  "location": "swedencentral",
+  "node_vm_size": "Standard_D4s_v5",
+  "node_count": 2,
+  "kubernetes_version": "1.35.9",
+  "admin_group_object_ids": [
+    "REPLACE_WITH_APPROVED_ADMIN_GROUP_UUID"
+  ],
+  "api_authorized_cidrs": [],
+  "tags": {
+    "environment": "academic",
+    "lifecycle": "temporary"
+  },
+  "api_access_approved": false
+}

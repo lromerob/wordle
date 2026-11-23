@@ -1,6 +1,6 @@
 # DEVOPS-04A: diseño de AKS temporal con Terraform
 
-Estado: código preparado, sin aprovisionamiento ni conexión con Azure. No se ha probado el despliegue. Esta carpeta no despliega Wordle ni modifica CI, GHCR, Supabase o Kubernetes local.
+Estado: configuración AKS preparada para Sweden Central, sin despliegue AKS validado. El backend remoto externo ya existe y tiene evidencias independientes; esta edición no accede a Azure. Esta carpeta no despliega Wordle ni modifica CI, GHCR, Supabase o Kubernetes local.
 
 ## Arquitectura y límites
 
@@ -20,7 +20,7 @@ Los manifiestos k8s/local NO son manifiestos AKS de producción: usan imagePullP
 
 Terraform >=1.6 y <2; AzureRM fijado a 4.50.0 para revisar un esquema concreto. El lock del proveedor se versiona tras init -backend=false; revisar sus cambios y hashes antes de actualizarlo. CI utiliza Terraform 1.9.8 y AzureRM 4.50.0. El binario local de validación es temporal, sin instalación global. Revisar versiones y avisos de seguridad antes del aprovisionamiento.
 
-kubernetes_version admite una versión explícita soportada en la región; null deja a AKS elegir y NO garantiza la misma versión entre despliegues. Seleccionar y registrar la versión antes de la prueba real; no asumir que la versión usada en kind está disponible en AKS.
+kubernetes_version tiene el valor predeterminado explícito 1.35.9 y no admite null. Región predeterminada swedencentral; dos Standard_D4s_v5, tier Free y upgrade_settings.max_surge="1" (un nodo temporal durante upgrades, no un pool permanente). Revalidar disponibilidad antes de aprovisionar; no asumir compatibilidad solo por kind.
 
 La documentación de Microsoft consultada el 19/10/2026 exige al menos dos nodos en el pool System, al menos 4 vCPU/4 GB y excluye B-series. El ejemplo D4s_v5 es un punto de partida a verificar, no una oferta de precio mínimo ni garantía de cuota regional. La validación rechaza B-series y cantidades inferiores a dos, pero no consulta el catálogo de SKU. No se supone que este tamaño soporte posteriormente toda la observabilidad: medir y dimensionar CPU, memoria, disco, número de pods y reservas de sistema antes de ampliar el stack. Escalar aumenta el coste.
 
@@ -73,11 +73,11 @@ Las dos candidatas satisfacen nominalmente los mínimos CPU/RAM de System y mant
 - providers.tf: proveedor sin registro automático ni credenciales incrustadas.
 - main.tf: seis recursos declarados y dependencias.
 - variables.tf / outputs.tf: parámetros y outputs sin credenciales.
-- terraform.tfvars.example: IDs ficticios y dirección TEST-NET-3; no son valores utilizables.
-- backend.hcl.example: nombres ficticios de almacenamiento preexistente; no crea Storage.
+- terraform.tfvars.example / azure-variables.example.json: tenant y grupo aprobados, suscripción pendiente de completar explícitamente y acceso API bloqueado hasta aprobación.
+- backend.hcl.example / azure-backend.example.json: coordenadas aprobadas del backend existente; no crean Storage.
 - .gitignore: excluye caches, variables locales, planes, estado y backend.hcl. El lock del proveedor sí debe versionarse cuando se genere.
 
-Copiar los ejemplos a terraform.tfvars y backend.hcl (ignorados) y sustituir los marcadores solo en una fase autorizada. subscription_id y tenant_id son identificadores, no credenciales; no se incluyen valores reales. Introducir el ID del grupo Entra y el CIDR público de salida real del operador. Nunca autorizar 0.0.0.0/0. Los planes y el estado pueden contener información sensible aunque los outputs no la muestren: protegerlos, no subirlos como artefactos públicos ni al repositorio. La carpeta .terraform también conserva configuración del backend.
+Copiar los ejemplos a terraform.tfvars y backend.hcl (ignorados) y sustituir los marcadores solo en una fase autorizada. subscription_id y tenant_id son identificadores, no credenciales. Los ejemplos incluyen tenant/grupo aprobados; completar la suscripción correcta y obtener aprobación explícita del /32 administrativo antes de introducirlo y activar api_access_approved. Nunca autorizar 0.0.0.0/0. Los planes y el estado pueden contener información sensible aunque los outputs no la muestren: protegerlos, no subirlos como artefactos públicos ni al repositorio. La carpeta .terraform también conserva configuración del backend.
 
 ## Validación sin Azure
 
@@ -178,3 +178,34 @@ La base Terraform existente ya declara RG, red, pool System, identidad, RBAC de 
 Después de un aprovisionamiento futuro expresamente autorizado, el perfil `k8s/aks` requiere StorageClass `managed-csi`, paquetes GHCR accesibles y secretos externos. Su controlador Traefik es ClusterIP: no crea otro LoadBalancer ni exposición pública. Acceso privado mediante port-forward para la demo; no activar exposición pública como parte de este perfil. PostgreSQL mantiene una réplica y PVC 8Gi, sin HA. Nginx conserva el proxy /api y FastAPI permanece ClusterIP.
 
 Reproducción local y decisión DNS/TLS/secretos: `k8s/README.md`, sección FIN-05/06/07. La validación local no demuestra disponibilidad de SKU, permisos Entra, discos CSI ni conectividad de AKS. No se ejecutan plan, apply o destroy en este incremento.
+
+## FIN-AKS-SWEDEN-CONFIG (16/11/2026)
+
+Configuración preparada; Gate A GO por evidencias anteriores, Gate B y AKS NO-GO.
+No ejecutar los comandos futuros anteriores en esta iteración: no init, plan, apply,
+destroy, descarga de proveedores ni acceso al backend. Esta edición es solo local.
+
+- Tenant: aff0390f-c390-4edc-919f-77da2a811eb9. Grupo administrador existente:
+  f35832fa-d632-43b1-a83e-112d17cc8ccc (grp-wordle-aks-admins).
+  Se conserva Entra + Kubernetes RBAC, azure_rbac_enabled=false y cuentas locales deshabilitadas.
+- Backend parcial azurerm con autenticación Entra: rg-wordle-state (metadatos del RG
+  en westeurope), stwordletfgstate7c92d4 (Storage en swedencentral), contenedor tfstate,
+  key wordle/aks-demo.tfstate. Parámetros no secretos en ambos ejemplos de backend;
+  deberán pasarse explícitamente en una futura inicialización autorizada. Shared Key
+  permanece deshabilitada; no se suministran claves/SAS. El backend no pertenece a los
+  recursos administrados ni al ciclo de destrucción de AKS.
+- api_authorized_cidrs no tiene valor por defecto, exige /32 IPv4 no vacíos y rechaza
+  placeholders y rangos de documentación. api_access_approved es obligatorio, sin valor implícito; false bloquea la ejecución.
+  Ambos ejemplos dejan []/false: NO son una configuración lista para desplegar.
+  No se ha obtenido ni aprobado ninguna IP; no copiar la regla del firewall de Storage.
+  La confirmación explícita no verifica por sí misma la aprobación humana, la titularidad
+  ni la conectividad del /32. No sustituye las autorizaciones de plan o despliegue.
+- Se conservan VNet 10.10.0.0/16, subnet 10.10.0.0/24, pods 10.244.0.0/16,
+  Services 10.20.0.0/16 y DNS 10.20.0.10. Falta aceptar ausencia de solapamientos externos.
+- FIN-AKS-DEPLOYMENT-DECISIONS reconcilia scripts/azure_preflight.py y
+  scripts/azure_supervised.py: región/SKU/nodos se leen de variables.tf y el acceso
+  administrativo exige un único /32 público y confirmación explícita. El runbook
+  docs/operations/azure-demo.md documenta presupuesto/ventana y checkpoints futuros;
+  sus comandos de infraestructura no están autorizados por esta preparación.
+- Pendientes: /32 y aprobación explícita, revisión de presupuesto/ventana y restantes
+  gates; init/plan y cualquier despliegue requieren autorización separada.

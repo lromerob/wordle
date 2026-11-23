@@ -37,7 +37,7 @@ def wait_stack(command, prefix):
     print("PASS: observability stack Ready", flush=True)
 
 
-def validate(command, prefix, query, database_hash, game_id, password, evidence, record):
+def validate(command, prefix, query, database_hash, game_id, password, evidence, record, *, disk_reader=None, capture=None):
     forwards = []
     results = {}
     def kube(*args):
@@ -118,6 +118,8 @@ def validate(command, prefix, query, database_hash, game_id, password, evidence,
         assert code==200 and logpanel["data"]["result"]
         results["grafana"]={"dashboard":"wordle-demo","panels":8,"datasources":["prometheus","loki","tempo"],"queries_with_data":True}
         record("signals_verified", trace_id=trace_id, targets_up=len(health), dashboard_panels=8)
+        if capture:
+            capture("signals", ports={"grafana":graf,"prometheus":prom,"loki":loki,"tempo":tempo,"notifications":sink,"alertmanager":am}, trace_id=trace_id)
         # Let previous Blue-Green log errors age out; normal must precede this new fault.
         time.sleep(25)
         eventually(lambda:not [a for a in get(am,"/api/v2/alerts?active=true")[1]
@@ -158,7 +160,9 @@ def validate(command, prefix, query, database_hash, game_id, password, evidence,
         nodes=json.loads(command([*prefix,"get","nodes","-o","json"]).stdout)["items"]
         results["node_capacity"]=[{"name":n["metadata"]["name"],"allocatable":n["status"]["allocatable"]} for n in nodes]
         node_name=nodes[0]["metadata"]["name"]
-        results["node_disk_df"]=command(["docker","exec",node_name,"df","-B1","/var/lib/containerd"]).stdout.decode().strip()
+        # AKS supplies a scoped PVC reader; kind retains its existing Docker-node check.
+        results["node_disk_df"] = disk_reader() if disk_reader is not None else command(
+            ["docker","exec",node_name,"df","-B1","/var/lib/containerd"]).stdout.decode().strip()
         results["database_size_bytes"]=int(query("SELECT pg_database_size(current_database());"))
         results["no_oom_observed"]=True
         record("observability_integrated_pass", alerts_resolved=True, database_unchanged=True, no_oom=True)
@@ -170,3 +174,13 @@ def validate(command, prefix, query, database_hash, game_id, password, evidence,
                 p.terminate()
                 try:p.wait(timeout=8)
                 except subprocess.TimeoutExpired:p.kill();p.wait(timeout=5)
+
+
+def ship_event(port, item):
+    payload={"resourceLogs":[{"resource":{"attributes":[{"key":"service.name","value":{"stringValue":"wordle-deploy"}}]},
+        "scopeLogs":[{"scope":{"name":"wordle-deployment-demo"},"logRecords":[{"timeUnixNano":str(time.time_ns()),
+        "severityNumber":9,"body":{"stringValue":json.dumps(item,separators=(",",":"))}}]}]}]}
+    opener=urllib.request.build_opener(urllib.request.ProxyHandler({}))
+    request=urllib.request.Request(f"http://127.0.0.1:{port}/v1/logs",data=json.dumps(payload).encode(),headers={"Content-Type":"application/json"})
+    with opener.open(request,timeout=1) as response:
+        response.read()

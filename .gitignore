@@ -267,3 +267,18 @@ ENV/
 # Local Kubernetes credentials and PG-06 runtime state
 *.kubeconfig
 /k8s/postgres/.local/
+
+# FIN-17: generated Terraform data and external private operational copies
+.terraform/
+*.tfplan
+/private/
+/recovery/
+/backups/
+/.wordle-private-store.json
+/target.json
+/variables.json
+/backend.json
+*.7z
+*.7z.[0-9]*
+*.dump
+*.backup
