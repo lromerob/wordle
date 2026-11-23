@@ -1,0 +1,76 @@
+name: Wordle supervised Storage connectivity test
+
+on:
+  workflow_dispatch:
+    inputs:
+      approved_sha:
+        description: Full reviewed commit containing this diagnostic
+        required: true
+        type: string
+      confirmation_issue:
+        description: Existing public issue number reserved for operator confirmation
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: wordle-storage-firewall-supervised
+  cancel-in-progress: false
+
+jobs:
+  diagnostic:
+    if: ${{ github.repository == 'lromerob/wordle' && github.ref == 'refs/heads/codex/pg01-07-consolidation' && github.actor == 'lromerob' }}
+    runs-on: ubuntu-24.04
+    environment: wordle-azure-demo
+    timeout-minutes: 30
+    permissions:
+      contents: read
+      id-token: write
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+      AZURE_CORE_COLLECT_TELEMETRY: 'no'
+      APPROVED_SHA: ${{ inputs.approved_sha }}
+      CONFIRMATION_ISSUE: ${{ inputs.confirmation_issue }}
+      TEST_CLIENT_ID: ${{ vars.WORDLE_STORAGE_TEST_CLIENT_ID }}
+      TEST_TENANT_ID: ${{ vars.WORDLE_STORAGE_TEST_TENANT_ID }}
+      TEST_SUBSCRIPTION_ID: ${{ vars.WORDLE_STORAGE_TEST_SUBSCRIPTION_ID }}
+      TEST_ACCOUNT: ${{ vars.WORDLE_STORAGE_TEST_ACCOUNT }}
+      TEST_RESOURCE_GROUP: ${{ vars.WORDLE_STORAGE_TEST_RESOURCE_GROUP }}
+      TEST_CONTAINER: ${{ vars.WORDLE_STORAGE_TEST_CONTAINER }}
+    steps:
+      - name: Reject unreviewed source before checkout or login
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import os, re
+          expected = os.environ['APPROVED_SHA']
+          if not re.fullmatch(r'[a-f0-9]{40}', expected) or expected != os.environ['GITHUB_SHA']:
+              raise SystemExit('Reviewed SHA must equal the dispatched workflow SHA')
+          PY
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          ref: ${{ github.sha }}
+      - name: OIDC login with container-only diagnostic identity
+        uses: azure/login@v2
+        with:
+          client-id: ${{ vars.WORDLE_STORAGE_TEST_CLIENT_ID }}
+          tenant-id: ${{ vars.WORDLE_STORAGE_TEST_TENANT_ID }}
+          subscription-id: ${{ vars.WORDLE_STORAGE_TEST_SUBSCRIPTION_ID }}
+      - name: PREPARE - publish operator instructions
+        shell: bash
+        run: python3 -B scripts/storage_connectivity_test.py --prepare
+      - name: WAIT - VERIFY - FINISH on the same runner
+        shell: bash
+        run: python3 -B scripts/storage_connectivity_test.py --verify
+      - name: Best-effort synthetic blob cleanup and recovery reminder
+        if: ${{ always() }}
+        shell: bash
+        run: |
+          if [ -f scripts/storage_connectivity_test.py ]; then
+            python3 -B scripts/storage_connectivity_test.py --cleanup
+          else
+            echo 'No diagnostic checkout: no diagnostic blob was created.'
+          fi
