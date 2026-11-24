@@ -19,7 +19,7 @@ on:
         description: Intent for this saved plan; never applies changes
         required: true
         type: choice
-        options: [create, update]
+        options: [create, update, diagnose-state]
 
 permissions:
   contents: read
@@ -82,7 +82,11 @@ jobs:
         run: python3 -B scripts/cd_plan_workflow.py prepare
       - name: WAIT for manually verified opening
         run: python3 -B scripts/cd_plan_workflow.py wait-open
+      - name: Diagnose state reads without planning or publication
+        if: ${{ inputs.operation == 'diagnose-state' }}
+        run: python3 -B scripts/cd_plan_workflow.py diagnose-state
       - name: Generate and privately persist the saved plan
+        if: ${{ inputs.operation != 'diagnose-state' }}
         run: python3 -B scripts/cd_plan_workflow.py plan
       - name: FINISH require manual closure and verify baseline
         if: ${{ always() }}
