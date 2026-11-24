@@ -1,0 +1,89 @@
+name: Wordle supervised Terraform PLAN
+
+on:
+  workflow_dispatch:
+    inputs:
+      approved_sha:
+        description: Full reviewed SHA on the authorized work branch
+        required: true
+        type: string
+      ci_run:
+        description: Successful CI run for the exact reviewed SHA
+        required: true
+        type: string
+      confirmation_issue:
+        description: Existing operator coordination issue number
+        required: true
+        type: string
+      operation:
+        description: Intent for this saved plan; never applies changes
+        required: true
+        type: choice
+        options: [create, update]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: wordle-storage-firewall-supervised
+  cancel-in-progress: false
+
+jobs:
+  plan:
+    if: ${{ vars.WORDLE_PLAN_ENABLED == 'true' && github.repository == 'lromerob/wordle' && github.ref == 'refs/heads/codex/pg01-07-consolidation' && github.actor == 'lromerob' }}
+    runs-on: ubuntu-24.04
+    environment: wordle-azure-demo
+    timeout-minutes: 60
+    permissions:
+      contents: read
+      actions: read
+      issues: read
+      deployments: read
+      id-token: write
+    env:
+      GH_TOKEN: ${{ github.token }}
+      APPROVED_SHA: ${{ inputs.approved_sha }}
+      CI_RUN: ${{ inputs.ci_run }}
+      CONFIRMATION_ISSUE: ${{ inputs.confirmation_issue }}
+      PLAN_OPERATION: ${{ inputs.operation }}
+      PLAN_VARIABLES_JSON: ${{ secrets.WORDLE_PLAN_VARIABLES_JSON }}
+      ARM_CLIENT_ID: ${{ vars.WORDLE_PLAN_CLIENT_ID }}
+      WORDLE_APPROVED_CLIENT_ID: ${{ vars.WORDLE_PLAN_CLIENT_ID }}
+      DIAGNOSTIC_CLIENT_ID: ${{ vars.WORDLE_STORAGE_TEST_CLIENT_ID }}
+      ARM_SUBSCRIPTION_ID: ${{ vars.WORDLE_PLAN_SUBSCRIPTION_ID }}
+      ARM_TENANT_ID: ${{ vars.WORDLE_PLAN_TENANT_ID }}
+      ARM_USE_OIDC: 'true'
+      ARM_USE_AZUREAD: 'true'
+      ARM_USE_CLI: 'false'
+      TF_IN_AUTOMATION: 'true'
+      TF_INPUT: 'false'
+      PYTHONDONTWRITEBYTECODE: '1'
+      AZURE_CORE_COLLECT_TELEMETRY: 'no'
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - name: Check reviewed source, private inputs and protected environment
+        run: python3 -B scripts/cd_plan_workflow.py check
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: '1.9.8'
+          terraform_wrapper: false
+      - uses: azure/login@v2
+        with:
+          client-id: ${{ vars.WORDLE_PLAN_CLIENT_ID }}
+          tenant-id: ${{ vars.WORDLE_PLAN_TENANT_ID }}
+          subscription-id: ${{ vars.WORDLE_PLAN_SUBSCRIPTION_ID }}
+      - name: PREPARE supervised Storage exception
+        run: python3 -B scripts/cd_plan_workflow.py prepare
+      - name: WAIT for manually verified opening
+        run: python3 -B scripts/cd_plan_workflow.py wait-open
+      - name: Generate and privately persist the saved plan
+        run: python3 -B scripts/cd_plan_workflow.py plan
+      - name: FINISH require manual closure and verify baseline
+        if: ${{ always() }}
+        run: python3 -B scripts/cd_plan_workflow.py finish
