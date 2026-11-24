@@ -4,6 +4,7 @@ from dataclasses import replace
 from datetime import datetime, timezone
 from pathlib import Path
 import io
+import json
 import os
 import socket
 import subprocess
@@ -188,13 +189,13 @@ class PlanTests(unittest.TestCase):
     def test_state_fingerprint_requires_real_lineage(self):
         with self.assertRaises((ContractError,KeyError)): flow.state_fingerprint(b"{}")
 
-    def planned_execution(self, changed_state=False, public_container=False):
+    def planned_execution(self, changed_state=False, public_container=False, representation_only=False):
         tfwork=self.work/"terraform"
         (self.work/"values.json").write_bytes(canonical(self.values))
         (self.work/"backend.json").write_bytes(canonical(flow.BACKEND))
         flow.ops.prepare(tfwork,self.work/"values.json",self.work/"backend.json")
         commands=[]; state_calls=[]; store=MemoryPublisher()
-        raw_state=canonical({"lineage":"11111111-1111-4111-8111-111111111111","serial":1})
+        raw_state=canonical({"version":4,"resources":[],"lineage":"11111111-1111-4111-8111-111111111111","serial":1})
         def command(args, cwd=None):
             commands.append(args)
             self.assertEqual(args[0],"terraform")
@@ -203,7 +204,8 @@ class PlanTests(unittest.TestCase):
             if args[1:]==["workspace","show"]: return b"default"
             if args[1:]==["state","pull"]:
                 state_calls.append(True)
-                return raw_state if len(state_calls)==1 or not changed_state else raw_state+b" "
+                if representation_only and len(state_calls)>1: return json.dumps(decode(raw_state),indent=2).encode()
+                return raw_state if len(state_calls)==1 or not changed_state else canonical(dict(decode(raw_state),serial=2))
             if args[1]=="plan": (tfwork/"approved.tfplan").write_bytes(PLAN)
             if args[1:]==["show","-json","approved.tfplan"]: return b'{"resource_changes":[]}'
             if args[1:]==["show","-no-color","approved.tfplan"]: return b"synthetic private review"
@@ -227,6 +229,14 @@ class PlanTests(unittest.TestCase):
         manifest=decode(store.objects["manifest.json"])
         self.assertEqual(manifest["terraform"]["backend"]["key"],flow.BACKEND["key"])
         self.assertEqual(manifest["producer"]["workflow"],flow.WORKFLOW)
+
+    def test_mocked_representation_change_preserves_manifest_contract(self):
+        with patch("sys.stdout",new_callable=io.StringIO) as output:
+            commands,store=self.planned_execution(representation_only=True)
+        self.assertIn("REPRESENTATION_ONLY",output.getvalue())
+        manifest=decode(store.objects["manifest.json"])
+        self.assertEqual(set(manifest["terraform"]["state"]),{"lineage","serial","sha256"})
+        self.assertEqual(manifest["plan"]["sha256"],digest(PLAN))
 
     def test_mocked_state_changed_rejected(self):
         with self.assertRaises(ContractError): self.planned_execution(changed_state=True)
@@ -521,5 +531,73 @@ class PlanTests(unittest.TestCase):
             self.assertIn(signature, details["signatures"])
             self.assertNotIn("private", canonical(details).decode())
 
+
+
+class StateIntegrityTests(unittest.TestCase):
+    def state(self, **changes):
+        value = {"version": 4, "lineage": "11111111-1111-4111-8111-111111111111",
+                 "serial": 1, "resources": [], "outputs": {}, "unknown": {"private": [1, 2]}}
+        value.update(changes)
+        return value
+
+    def compare(self, left, right):
+        flow.compare_state(flow.state_fingerprint(left), flow.state_fingerprint(right))
+
+    def test_identical(self):
+        raw = canonical(self.state()); self.compare(raw, raw)
+
+    def test_whitespace_and_object_order(self):
+        raw = canonical(self.state()); other = json.dumps(self.state(), indent=3).encode()
+        with patch("sys.stdout", new_callable=io.StringIO) as output: self.compare(raw, other)
+        self.assertIn("REPRESENTATION_ONLY", output.getvalue())
+        self.assertNotIn("private", output.getvalue())
+        self.assertNotEqual(flow.state_fingerprint(raw)["sha256"], flow.state_fingerprint(other)["sha256"])
+
+    def test_lineage_serial_and_content_categories(self):
+        for changes, code in [({"lineage":"22222222-2222-4222-8222-222222222222"},"STATE_LINEAGE_CHANGED"),
+                              ({"serial":2},"STATE_SERIAL_CHANGED"),
+                              ({"unknown":{"private":[1,3]}},"STATE_CONTENT_CHANGED")]:
+            with self.subTest(code=code), self.assertRaises(flow.StateIntegrityError) as caught:
+                self.compare(canonical(self.state()), canonical(self.state(**changes)))
+            self.assertEqual(caught.exception.code, code)
+
+    def test_types_array_order_added_removed_and_unknown_fields(self):
+        before = self.state()
+        variants = [self.state(unknown={"private":[True,2]}), self.state(unknown={"private":[2,1]}),
+                    self.state(extra="sensitive"), self.state(outputs={"sensitive":{"value":"changed"}}),
+                    self.state(resources=[{"mode":"managed","instances":[]}]), self.state(check_results=[])]
+        removed = self.state(); del removed["unknown"]; variants.append(removed)
+        for value in variants:
+            with self.subTest(value=list(value)), self.assertRaises(flow.StateIntegrityError):
+                self.compare(canonical(before),canonical(value))
+
+    def test_duplicate_invalid_ambiguous_and_invalid_structure(self):
+        for raw in [b'{', b'{"version":4,"version":4}', b'[]', b'{}',
+                    canonical(self.state(serial=True)), canonical(self.state(resources={})),
+                    canonical(self.state(lineage="invalid")), canonical(self.state(version=3)),
+                    canonical(self.state())[:-1]+b',"x":NaN}',
+                    canonical(self.state())[:-1]+b',"x":Infinity}',
+                    canonical(self.state())[:-1]+b',"x":"\\ud800"}',
+                    canonical(self.state())[:-1]+b',"x":{"duplicate":1,"duplicate":2}}']:
+            with self.subTest(raw=raw[:10]), self.assertRaises(flow.StateIntegrityError) as caught:
+                flow.state_fingerprint(raw)
+            self.assertEqual(caught.exception.code,"STATE_STRUCTURE_INVALID")
+
+    def test_exact_numbers_no_float_rounding(self):
+        prefix=canonical(self.state())[:-1]+b',"precise":'
+        self.compare(prefix+b'1.2300}',prefix+b'123e-2}')
+        for a,b in [(b'9007199254740992',b'9007199254740993'),
+                    (b'0.123456789012345678901',b'0.123456789012345678902'),
+                    (b'1e10000',b'1e10001'),(b'1',b'1.0'),(b'1',b'true')]:
+            with self.subTest(a=a), self.assertRaises(flow.StateIntegrityError):self.compare(prefix+a+b'}',prefix+b+b'}')
+
+    def test_safe_failure_diagnostics(self):
+        output=io.StringIO()
+        for raw in [b'{"secret-token":',canonical(self.state(serial=-1))]:
+            with patch("sys.stdout",output):
+                try: flow.state_fingerprint(raw)
+                except flow.StateIntegrityError as error: flow.diagnostic_failure("STATE_AFTER","terraform",error)
+        self.assertIn("STATE_STRUCTURE_INVALID",output.getvalue());self.assertNotIn("secret-token",output.getvalue())
+        self.assertNotIn("11111111",output.getvalue())
 
 if __name__=="__main__": unittest.main(verbosity=2)

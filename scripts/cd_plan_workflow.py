@@ -1,6 +1,7 @@
 """Supervised PLAN only. Cloud operations are reachable only through explicit workflow stages."""
 import argparse
 import base64
+from decimal import Decimal
 import re
 from contextlib import contextmanager
 import subprocess
@@ -16,7 +17,7 @@ import urllib.request
 import uuid
 
 import azure_supervised as ops
-from cd_plan_contract import build_manifest, canonical, decode, digest, identifier, keys, matching, require
+from cd_plan_contract import ContractError, build_manifest, canonical, decode, digest, identifier, keys, matching, require
 from cd_github_adapter import GitHubReadAdapter
 from release_gate import ci_evidence
 from storage_connectivity_test import NoRedirect, outward_ip, confirmation_matches, summary
@@ -207,16 +208,70 @@ def publish(store, manifest, plan, challenge, review):
             "complete_sha256": marker["sha256"], "state": "PENDING_APPROVAL"}
 
 
+class StateIntegrityError(ContractError):
+    def __init__(self, code):
+        super().__init__(code)
+        self.code = code
+
+
 def state_fingerprint(raw):
-    value = decode(raw); identifier(value["lineage"])
-    require(type(value["serial"]) is int and value["serial"] >= 0, "Existing remote state required")
-    return {"lineage": value["lineage"], "serial": value["serial"], "sha256": digest(raw)}
+    # Tagged canonical tree avoids float rounding and preserves JSON types/array order.
+    def unique(pairs):
+        result = {}
+        for key, value in pairs:
+            key.encode("utf-8", errors="strict")
+            if key in result: raise ValueError()
+            result[key] = value
+        return result
+    def invalid_constant(_): raise ValueError()
+    def tree(value):
+        if isinstance(value, dict): return ["object", [[k, tree(v)] for k, v in sorted(value.items())]]
+        if isinstance(value, list): return ["array", [tree(v) for v in value]]
+        if isinstance(value, Decimal):
+            sign, digits, exponent = value.as_tuple()
+            digits = list(digits)
+            while len(digits) > 1 and digits[-1] == 0:
+                digits.pop(); exponent += 1
+            if not any(digits): sign, digits, exponent = 0, [0], 0
+            return ["decimal", sign, digits, exponent]
+        if value is None: return ["null"]
+        if type(value) is bool: return ["boolean", value]
+        if type(value) is int: return ["integer", str(value)]
+        if isinstance(value, str):
+            value.encode("utf-8", errors="strict")  # Reject unpaired Unicode surrogates.
+            return ["string", value]
+        raise ValueError()
+    try:
+        value = json.loads(raw.decode("utf-8", errors="strict"), object_pairs_hook=unique,
+                           parse_float=Decimal, parse_constant=invalid_constant)
+        require(isinstance(value, dict) and type(value.get("version")) is int and value["version"] == 4,
+                "Invalid state")
+        identifier(value["lineage"])
+        require(type(value["serial"]) is int and value["serial"] >= 0
+                and isinstance(value.get("resources"), list) and isinstance(value.get("outputs", {}), dict)
+                and all(isinstance(r, dict) and isinstance(r.get("instances", []), list) for r in value["resources"]),
+                "Invalid state")
+        semantic = digest(canonical(tree(value)))
+    except (ValueError, KeyError, TypeError, OverflowError, RecursionError):
+        raise StateIntegrityError("STATE_STRUCTURE_INVALID") from None
+    return {"lineage": value["lineage"], "serial": value["serial"],
+            "sha256": digest(raw), "semantic_sha256": semantic}
+
+
+def compare_state(before, after):
+    for key, code in (("lineage", "STATE_LINEAGE_CHANGED"), ("serial", "STATE_SERIAL_CHANGED"),
+                      ("semantic_sha256", "STATE_CONTENT_CHANGED")):
+        if before[key] != after[key]: raise StateIntegrityError(code)
+    if before["sha256"] != after["sha256"]:
+        print("[STATE-INTEGRITY] REPRESENTATION_ONLY semantic equality verified", flush=True)
 
 
 def diagnostic_failure(step, component, error):
     # All output fields are fixed strings or numeric metadata, never exception text.
     category, code, exit_code = "UNKNOWN_ERROR", "UNCLASSIFIED", None
-    if isinstance(error, ops.CommandFailure):
+    if isinstance(error, StateIntegrityError):
+        category, code = "INTEGRITY_ERROR", error.code
+    elif isinstance(error, ops.CommandFailure):
         component, category, code, exit_code = error.component, error.category, error.code, error.exit_code
     elif isinstance(error, urllib.error.HTTPError):
         category = "AUTHENTICATION_ERROR" if error.code == 401 else "AUTHORIZATION_ERROR" if error.code == 403 else "PERSISTENCE_ERROR"
@@ -277,7 +332,7 @@ def execute_plan():
     with diagnostic("GENERATE", "terraform"):
         tf("plan", "-input=false", "-lock-timeout=60s", "-var-file=variables.tfvars.json", "-out=approved.tfplan")
     with diagnostic("STATE_AFTER", "terraform"):
-        require(before == state_fingerprint(tf("state", "pull")), "Remote state changed during PLAN")
+        compare_state(before, state_fingerprint(tf("state", "pull")))
     with diagnostic("PLAN_REVIEW", "terraform"):
         rendered = decode(tf("show", "-json", "approved.tfplan"))
         ops.check_plan(rendered, "deploy", values)
@@ -296,7 +351,7 @@ def execute_plan():
                 "lock_sha256": digest(lock), "configuration_sha256": ops.fingerprint(work),
                 "variables_sha256": digest((work / "variables.tfvars.json").read_bytes()),
                 "backend": {"type": "azurerm", "resource_group": GROUP, "account": ACCOUNT, "container": "tfstate",
-                            "key": BACKEND["key"], "workspace": "default"}, "state": before},
+                            "key": BACKEND["key"], "workspace": "default"}, "state": {k: before[k] for k in ("lineage", "serial", "sha256")}},
             "targets": {"subscription_id": values["subscription_id"], "tenant_id": values["tenant_id"],
                         "resource_group": values["resource_group_name"], "node_resource_group": values["node_resource_group_name"],
                         "cluster": values["cluster_name"]}}
@@ -433,7 +488,8 @@ def diagnose_state():
             info = diagnostic_state_info(raw)
             require(dict(os.environ) == environment_before, "Diagnostic environment changed")
             wrapped = ops.run(["terraform", "state", "pull"], cwd=work)
-            require(diagnostic_state_info(wrapped) == info and state_fingerprint(wrapped) == state_fingerprint(raw), "Direct/wrapper state mismatch")
+            require(diagnostic_state_info(wrapped) == info, "Direct/wrapper state mismatch")
+            compare_state(state_fingerprint(raw), state_fingerprint(wrapped))
             return True
         attempt("DIAG_06_WRAPPER", compare)
     else:
