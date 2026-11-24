@@ -367,4 +367,159 @@ class PlanTests(unittest.TestCase):
         self.assertNotIn("private-secret", output.getvalue())
 
 
+    def test_diagnostic_operation_cannot_enter_plan(self):
+        os.environ["PLAN_OPERATION"] = "diagnose-state"
+        self.assertEqual(flow.config(), self.values)
+        with patch.object(flow.ops, "run") as run, patch.object(flow, "publish") as publish:
+            with self.assertRaises(ContractError): flow.execute_plan()
+            run.assert_not_called(); publish.assert_not_called()
+        os.environ["PLAN_OPERATION"] = "create"
+        with patch.object(flow.ops, "run") as run:
+            with self.assertRaises(ContractError): flow.diagnose_state()
+            run.assert_not_called()
+
+    def state_diagnostic_execution(self, direct_failure=False, blob_failure=False, wrong_identity=False, wrapper_failure=False, missing_blob=False, init_failure=False, invalid_state=False, changed_metadata=False):
+        import base64
+        os.environ["PLAN_OPERATION"] = "diagnose-state"
+        work = self.work / "terraform"; work.mkdir()
+        (work / ".terraform").mkdir(); (work / ".terraform.lock.hcl").write_bytes(b"synthetic-lock")
+        (work / ".terraform/terraform.tfstate").write_bytes(canonical({"backend": {"type": "azurerm", "config": flow.BACKEND}}))
+        raw = canonical({"version": 4, "lineage": "11111111-1111-4111-8111-111111111111", "serial": 1, "resources": []})
+        props = {"contentLength": len(raw), "etag": '"0xABCD"', "lastModified": "2026-11-24T07:00:00+00:00", "lease": {"state": "available", "status": "unlocked"}}
+        token = "header." + base64.urlsafe_b64encode(canonical({"appid": self.env["ARM_CLIENT_ID"], "oid": "synthetic-principal", "tid": self.values["tenant_id"]})).decode().rstrip("=") + ".synthetic"
+        commands, wrapped, metadata_calls = [], [], []
+        def az(*args):
+            if args[:2] == ("account", "show"):
+                return {"id": self.values["subscription_id"], "tenantId": self.values["tenant_id"], "state": "Enabled", "user": {"type": "servicePrincipal", "name": self.env["ARM_CLIENT_ID"]}}
+            if args[:2] == ("identity", "show"):
+                return {"clientId": self.env["DIAGNOSTIC_CLIENT_ID"] if wrong_identity else self.env["ARM_CLIENT_ID"], "principalId": "synthetic-principal", "tenantId": self.values["tenant_id"]}
+            if args[:2] == ("account", "get-access-token"): return {"accessToken": token}
+            if args[:3] == ("storage", "blob", "show"):
+                self.assertIn("login", args)
+                if missing_blob: raise RuntimeError("private missing blob")
+                metadata_calls.append(True)
+                current = dict(props, etag='"0xFFFF"') if changed_metadata and len(metadata_calls) > 1 else props
+                return {"properties": current}
+            raise AssertionError("Unexpected Azure operation")
+        def direct(args, **kwargs):
+            commands.append(args)
+            self.assertEqual(kwargs["cwd"], work); self.assertEqual(kwargs["timeout"], 2700)
+            self.assertTrue(kwargs["capture_output"])
+            permitted = {"version", "init", "workspace", "state"}
+            self.assertIn(args[1], permitted)
+            if args[1] == "init":
+                if init_failure: return SimpleNamespace(returncode=3, stdout=b"private-variables", stderr=b"failed to acquire token private-token")
+                self.assertEqual(args[2:], ["-input=false", "-reconfigure", "-lockfile=readonly", "-backend-config=backend.hcl"])
+            if args[1] == "state":
+                self.assertEqual(args, ["terraform", "state", "pull"])
+                if direct_failure: return SimpleNamespace(returncode=1, stdout=b"private-state", stderr=b"Error loading state: status code 403 AuthorizationPermissionMismatch Bearer secret-token ?sig=secret-sas")
+                return SimpleNamespace(returncode=0, stdout=b"invalid-private-state" if invalid_state else raw, stderr=b"")
+            return SimpleNamespace(returncode=0, stdout=b'{"terraform_version":"1.9.8"}' if args[1] == "version" else b"default", stderr=b"")
+        def wrapper(args, **kwargs):
+            wrapped.append(args); self.assertEqual(args, ["terraform", "state", "pull"]); self.assertEqual(kwargs["cwd"], work)
+            if wrapper_failure: raise flow.ops.command_failure(args, 7, b"private-secret")
+            return raw
+        class Opener:
+            def open(_, request, timeout):
+                self.assertEqual(request.method, "GET"); self.assertEqual(request.get_header("If-match"), props["etag"])
+                if blob_failure: raise urllib.error.HTTPError(request.full_url, 403, "secret-token", {}, None)
+                return Response(raw, 200)
+        # Response mock permits the ordinary urllib read() without leaking the body.
+        class ReadResponse(Response):
+            def read(self, size=-1): return self.raw if size == -1 else self.raw[:size]
+        class SafeOpener(Opener):
+            def open(_, request, timeout):
+                response = super().open(request, timeout)
+                return ReadResponse(response.raw, response.status)
+        j = {"opening_verified": True, "baseline": self.baseline, "ip": "1.1.1.1", "inputs_sha256": digest(canonical(self.values))}
+        output=io.StringIO(); failed=False
+        with patch.object(flow, "workdir", return_value=self.work), patch.object(flow, "journal_for_run", return_value=j), patch.object(flow, "account", return_value={}), patch.object(flow, "boundary", return_value=flow.opened(self.baseline,"1.1.1.1")), patch.object(flow, "outward_ip", return_value="1.1.1.1"), patch.object(flow.ops,"az",side_effect=az), patch.object(flow.subprocess,"run",side_effect=direct), patch.object(flow.ops,"run",side_effect=wrapper), patch.object(flow.urllib.request,"build_opener",return_value=SafeOpener()), patch.object(flow,"publish") as publish, patch("sys.stdout",output):
+            try: flow.diagnose_state()
+            except ContractError: failed=True
+            publish.assert_not_called()
+        text=output.getvalue()
+        for secret in (token, "secret-token", "secret-sas", "private-state", "private-secret", "synthetic-principal", self.values["tenant_id"]): self.assertNotIn(secret,text)
+        return failed,commands,wrapped,text
+
+    def test_diagnostic_complete_sequence_no_plan_or_publication(self):
+        failed, commands, wrapped, text = self.state_diagnostic_execution()
+        self.assertFalse(failed); self.assertEqual([a[1] for a in commands], ["version", "init", "workspace", "state"])
+        self.assertEqual(len(wrapped),1); self.assertIn("DIAG_06_WRAPPER] PASS",text);self.assertIn("metadata unchanged",text)
+        for phase in ("DIAG_01_IDENTITY", "DIAG_02_METADATA", "DIAG_03_BLOB_READ", "DIAG_04_INIT", "DIAG_05_DIRECT_PULL"):
+            self.assertIn(phase+"] PASS",text)
+
+    def test_diagnostic_direct_failure_skips_wrapper_and_keeps_metadata_check(self):
+        failed, commands, wrapped, text = self.state_diagnostic_execution(direct_failure=True)
+        self.assertTrue(failed);self.assertFalse(wrapped);self.assertIn('"http_status":["403"]',text)
+        self.assertIn("REQUEST_AUTHORIZATION",text);self.assertIn("DIAG_METADATA_AFTER] PASS",text)
+
+    def test_diagnostic_blob_read_failure_still_tests_independent_terraform(self):
+        failed, commands, wrapped, text = self.state_diagnostic_execution(blob_failure=True)
+        self.assertTrue(failed);self.assertTrue(wrapped);self.assertIn("DIAG_03_BLOB_READ] FAIL",text)
+        self.assertIn("DIAG_05_DIRECT_PULL] PASS",text)
+
+    def test_diagnostic_wrong_identity_stops_before_blob_or_terraform(self):
+        failed, commands, wrapped, text = self.state_diagnostic_execution(wrong_identity=True)
+        self.assertTrue(failed);self.assertFalse(commands);self.assertFalse(wrapped)
+
+    def test_diagnostic_missing_blob_never_initializes_backend(self):
+        failed, commands, wrapped, text = self.state_diagnostic_execution(missing_blob=True)
+        self.assertTrue(failed);self.assertFalse(commands);self.assertFalse(wrapped)
+
+    def test_diagnostic_wrapper_failure_is_distinct(self):
+        failed, commands, wrapped, text = self.state_diagnostic_execution(wrapper_failure=True)
+        self.assertTrue(failed);self.assertIn("DIAG_05_DIRECT_PULL] PASS",text);self.assertIn("DIAG_06_WRAPPER] FAIL",text)
+        self.assertIn("exit_code=7",text)
+
+    def test_state_error_details_unknown_still_has_restrictive_signals(self):
+        raw=b"unknown backend credential token error password=secret-value ?sig=secret-sas 203.0.113.17 {resources: private-state}"
+        result=flow.state_error_details(SimpleNamespace(returncode=19,stderr=raw))
+        self.assertEqual(result["exit_code"],19);self.assertIn("backend",result["hints"]);self.assertTrue(result["details_withheld"])
+        for value in ("secret-value","secret-sas","203.0.113.17","private-state"):self.assertNotIn(value,canonical(result).decode())
+
+    def test_diagnostic_state_structure_resources_and_invalid(self):
+        base={"version":4,"lineage":"11111111-1111-4111-8111-111111111111","serial":1,"resources":[]}
+        self.assertEqual(flow.diagnostic_state_info(canonical(base))["managed_instances"],0)
+        base["resources"]=[{"mode":"managed","instances":[{}]}]
+        self.assertEqual(flow.diagnostic_state_info(canonical(base))["managed_instances"],1)
+        for raw in (b"not-json",b"{}",canonical(dict(base,resources="private-state"))):
+            with self.assertRaises((ContractError,KeyError)):flow.diagnostic_state_info(raw)
+
+    def test_diagnostic_yaml_exclusive_routes_and_same_finish(self):
+        w=yaml.load((Path(__file__).parents[1]/".github/workflows/azure-plan.yml").read_text(),Loader=yaml.BaseLoader)
+        self.assertIn("diagnose-state",w["on"]["workflow_dispatch"]["inputs"]["operation"]["options"])
+        steps=w["jobs"]["plan"]["steps"]
+        diag=next(s for s in steps if s.get("run","").endswith(" diagnose-state"));plan=next(s for s in steps if s.get("run","").endswith(" plan"))
+        self.assertEqual(diag["if"],"${{ inputs.operation == 'diagnose-state' }}")
+        self.assertEqual(plan["if"],"${{ inputs.operation != 'diagnose-state' }}")
+        self.assertEqual(next(s for s in steps if s.get("run","").endswith(" finish"))["if"],"${{ always() }}")
+
+
+    def test_diagnostic_init_failure_skips_both_pulls_and_checks_preservation(self):
+        failed, commands, wrapped, text = self.state_diagnostic_execution(init_failure=True)
+        self.assertTrue(failed); self.assertFalse(wrapped)
+        self.assertNotIn("state", [c[1] for c in commands])
+        self.assertIn("TOKEN_ACQUISITION", text); self.assertIn("exit_code=3", text)
+        self.assertIn("DIAG_METADATA_AFTER] PASS", text)
+
+    def test_diagnostic_invalid_direct_state_never_calls_wrapper(self):
+        failed, commands, wrapped, text = self.state_diagnostic_execution(invalid_state=True)
+        self.assertTrue(failed); self.assertFalse(wrapped)
+        self.assertIn("DIAG_05_DIRECT_PULL] FAIL", text)
+        self.assertNotIn("invalid-private-state", text)
+
+    def test_diagnostic_metadata_change_cannot_report_success(self):
+        failed, commands, wrapped, text = self.state_diagnostic_execution(changed_metadata=True)
+        self.assertTrue(failed); self.assertNotIn("metadata unchanged", text)
+
+    def test_state_error_details_known_backend_and_empty_state_are_distinct(self):
+        for raw, signature in [(b"No state file was found", "NO_STATE"),
+                               (b'unsupported checkable object kind "private"', "STATE_FORMAT"),
+                               (b"Please run az login private-token", "CLI_CONTEXT"),
+                               (b"failed to acquire OIDC token StatusCode=401", "TOKEN_ACQUISITION")]:
+            details=flow.state_error_details(SimpleNamespace(returncode=1,stderr=raw))
+            self.assertIn(signature, details["signatures"])
+            self.assertNotIn("private", canonical(details).decode())
+
+
 if __name__=="__main__": unittest.main(verbosity=2)

@@ -1,5 +1,7 @@
 """Supervised PLAN only. Cloud operations are reachable only through explicit workflow stages."""
 import argparse
+import base64
+import re
 from contextlib import contextmanager
 import subprocess
 import urllib.error
@@ -44,7 +46,7 @@ def config(env=None):
             "Reviewed SHA differs or rerun unsupported")
     for name in ("GITHUB_RUN_ID", "CONFIRMATION_ISSUE", "CI_RUN"):
         matching(r"[1-9][0-9]*", e.get(name))
-    require(e.get("PLAN_OPERATION") in {"create", "update"}, "Only create/update PLAN is permitted")
+    require(e.get("PLAN_OPERATION") in {"create", "update", "diagnose-state"}, "Unsupported supervised operation")
     for name in ("ARM_CLIENT_ID", "ARM_SUBSCRIPTION_ID", "ARM_TENANT_ID", "DIAGNOSTIC_CLIENT_ID"):
         identifier(e.get(name))
     require(e["ARM_CLIENT_ID"] != e["DIAGNOSTIC_CLIENT_ID"], "Diagnostic identity cannot run infrastructure PLAN")
@@ -243,6 +245,7 @@ def diagnostic(step, component):
 
 
 def execute_plan():
+    require(os.environ.get("PLAN_OPERATION") in {"create", "update"}, "Diagnostic operation cannot execute PLAN")
     def tf(*args): return ops.run(["terraform", *args], cwd=work)
     with diagnostic("CONFIGURATION", "python"):
         values = config(); j = journal_for_run(); work = workdir() / "terraform"
@@ -312,6 +315,135 @@ def execute_plan():
     closing_instructions(j)
 
 
+def state_error_details(result):
+    """Project stderr onto fixed signatures, never echo an arbitrary redacted fragment."""
+    text = result.stderr.decode("utf-8", errors="replace")
+    known = {
+        "NO_STATE": r"No state file was found",
+        "STATE_LOAD": r"(?:Failed|Error) (?:to load|loading|to read) state",
+        "TOKEN_ACQUISITION": r"(?:failed|unable) to (?:get|acquire|obtain).*token",
+        "OIDC_ENVIRONMENT": r"(?:OIDC|ID_TOKEN).*?(?:missing|not set|not found|unavailable)",
+        "CLI_CONTEXT": r"Please run .?az login|Azure CLI Authorization Profile was not found",
+        "STATE_FORMAT": r"unsupported checkable object kind|unsupported state file format|Invalid resource instance data",
+        "PROVIDER_CONFIGURATION": r"Required plugins are not installed|Invalid provider configuration|No value for required variable",
+        "BLOB_NOT_FOUND": r"BlobNotFound",
+        "REQUEST_AUTHORIZATION": r"AuthorizationFailed|AuthorizationFailure|AuthorizationPermissionMismatch",
+    }
+    signatures = [k for k, pattern in known.items() if re.search(pattern, text, re.I)]
+    # Only fixed keywords and bounded protocol codes survive unknown diagnostics.
+    hints = [k for k in ("state", "backend", "oidc", "token", "credential", "lease", "json", "parse", "provider", "certificate", "timeout", "cli")
+             if re.search(r"\b" + k + r"\b", text, re.I)]
+    http = sorted(set(re.findall(r"(?:HTTP[/ ](?:1[.]1 |2 )?|status(?:[ _-]?code)?[ :=]+)([1-5][0-9]{2})\b", text, re.I)))
+    aadsts = sorted(set(re.findall(r"\bAADSTS(700213|70021|700016|700024|7000215|500011)\b", text)))
+    return {"exit_code": result.returncode, "signatures": signatures, "hints": hints,
+            "http_status": http, "aadsts": ["AADSTS" + x for x in aadsts],
+            "stderr_present": bool(result.stderr), "details_withheld": not bool(signatures or http or aadsts)}
+
+
+def diagnostic_state_info(raw):
+    value = decode(raw)
+    state_fingerprint(raw)
+    require(value.get("version") == 4 and isinstance(value.get("resources"), list), "Invalid Terraform state structure")
+    require(all(isinstance(r, dict) and isinstance(r.get("instances", []), list) for r in value["resources"]), "Invalid resource structure")
+    return {"valid": True, "managed_instances": sum(len(r.get("instances", [])) for r in value["resources"] if r.get("mode") == "managed")}
+
+
+def state_blob_metadata():
+    value = ops.az("storage", "blob", "show", "--account-name", ACCOUNT, "--container-name", BACKEND["container_name"],
+                   "--name", BACKEND["key"], "--auth-mode", "login")
+    p = value["properties"]
+    # Only typed, bounded metadata, never user metadata or arbitrary CLI payloads.
+    require(type(p["contentLength"]) is int and p["contentLength"] >= 0, "Invalid blob length")
+    require(re.fullmatch(r'"?0x[0-9a-fA-F]+"?', p["etag"]) is not None, "Invalid ETag")
+    modified = datetime.fromisoformat(p["lastModified"].replace("Z", "+00:00")).isoformat()
+    lease = p["lease"]
+    require(lease.get("state") in {"available", "leased", "expired", "breaking", "broken"}
+            and lease.get("status") in {"locked", "unlocked"}, "Invalid lease metadata")
+    return {"exists": True, "size": p["contentLength"], "etag": p["etag"], "last_modified": modified,
+            "lease_state": lease["state"], "lease_status": lease["status"]}
+
+
+def diagnose_state():
+    require(os.environ.get("PLAN_OPERATION") == "diagnose-state", "Explicit diagnostic intent required")
+    values = config(); j = journal_for_run(); work = workdir() / "terraform"
+    require(j.get("opening_verified") is True and boundary(account()) == opened(j["baseline"], j["ip"])
+            and outward_ip() == j["ip"] and digest(canonical(values)) == j["inputs_sha256"], "Verified unchanged diagnostic context required")
+    failures = []
+    def attempt(step, action):
+        try:
+            with diagnostic(step, "state-diagnostic"):
+                return action()
+        except Exception:
+            failures.append(step)
+            return None
+    def direct(args):
+        # Same executable/cwd/environment/timeout as ops.run; no shell, retry or raw logging.
+        result = subprocess.run(["terraform", *args], cwd=work, capture_output=True, timeout=2700)
+        if result.returncode:
+            print("[STATE-DIAG] " + canonical(state_error_details(result)).decode(), flush=True)
+            raise ops.command_failure(["terraform"], result.returncode, result.stderr)
+        return result.stdout
+    def identity():
+        ops.authenticate(values)
+        session = ops.az("account", "show")
+        require(session.get("user", {}).get("type") == "servicePrincipal"
+                and session["user"].get("name", "").lower() == os.environ["ARM_CLIENT_ID"], "CLI identity mismatch")
+        managed = ops.az("identity", "show", "--name", "wordle-terraform-plan", "--resource-group", GROUP,
+                         "--subscription", values["subscription_id"])
+        require(managed["clientId"] == os.environ["ARM_CLIENT_ID"] and managed["tenantId"] == values["tenant_id"], "PLAN identity mismatch")
+        token = ops.az("account", "get-access-token", "--resource", "https://storage.azure.com/")["accessToken"]
+        claims = decode(base64.urlsafe_b64decode(token.split(".")[1] + "==="))
+        require(claims.get("appid", claims.get("azp")) == managed["clientId"] and claims.get("oid") == managed["principalId"]
+                and claims.get("tid") == managed["tenantId"], "Storage token identity mismatch")
+        # Claim comparison is context evidence, not standalone JWT verification or proof of Terraform's effective token.
+        print("[STATE-DIAG] CLI/token/managed identity match; Terraform OIDC wiring present; Terraform token identity not independently observed", flush=True)
+        return token
+    token = attempt("DIAG_01_IDENTITY", identity)
+    require(token is not None, "Cannot diagnose under an unverified identity")
+    before = attempt("DIAG_02_METADATA", state_blob_metadata)
+    if before is not None: print("[STATE-DIAG] " + canonical(before).decode(), flush=True)
+    def read_blob():
+        url = f"https://{ACCOUNT}.blob.core.windows.net/{BACKEND['container_name']}/{BACKEND['key']}"
+        headers = {"Authorization": "Bearer " + token, "x-ms-version": "2023-11-03"}
+        if before is not None: headers["If-Match"] = before["etag"]
+        with urllib.request.build_opener(NoRedirect()).open(urllib.request.Request(url, headers=headers, method="GET"), timeout=60) as response:
+            require(response.status == 200, "Unexpected Blob response")
+            return diagnostic_state_info(response.read())
+    blob_info = attempt("DIAG_03_BLOB_READ", read_blob)
+    if blob_info is not None: print("[STATE-DIAG] blob " + canonical(blob_info).decode(), flush=True)
+    def initialize():
+        require(decode(direct(["version", "-json"]))["terraform_version"] == "1.9.8", "Unexpected Terraform version")
+        lock = (work / ".terraform.lock.hcl").read_bytes()
+        direct(["init", "-input=false", "-reconfigure", "-lockfile=readonly", "-backend-config=backend.hcl"])
+        require((work / ".terraform.lock.hcl").read_bytes() == lock, "Provider lock changed")
+        require(direct(["workspace", "show"]).strip() == b"default", "Unexpected workspace")
+        cache = decode((work / ".terraform/terraform.tfstate").read_bytes())["backend"]
+        require(cache["type"] == "azurerm" and all(cache["config"].get(k) == v for k, v in BACKEND.items()), "Effective backend mismatch")
+        return True
+    initialized = attempt("DIAG_04_INIT", initialize) if before is not None and before["lease_status"] == "unlocked" else None
+    if not initialized: print("[STATE-DIAG] DIAG_05_DIRECT_PULL SKIP initialized existing backend required", flush=True)
+    environment_before = dict(os.environ)
+    def pull_direct():
+        raw = direct(["state", "pull"])
+        print("[STATE-DIAG] direct " + canonical(diagnostic_state_info(raw)).decode(), flush=True)
+        return raw
+    raw = attempt("DIAG_05_DIRECT_PULL", pull_direct) if initialized else None
+    if raw is not None:
+        def compare():
+            info = diagnostic_state_info(raw)
+            require(dict(os.environ) == environment_before, "Diagnostic environment changed")
+            wrapped = ops.run(["terraform", "state", "pull"], cwd=work)
+            require(diagnostic_state_info(wrapped) == info and state_fingerprint(wrapped) == state_fingerprint(raw), "Direct/wrapper state mismatch")
+            return True
+        attempt("DIAG_06_WRAPPER", compare)
+    else:
+        print("[STATE-DIAG] DIAG_06_WRAPPER SKIP direct pull not successful", flush=True)
+    after = attempt("DIAG_METADATA_AFTER", state_blob_metadata)
+    require(before is not None and after == before, "Remote metadata preservation not verified")
+    print("[STATE-DIAG] metadata unchanged; no state writes or leases requested", flush=True)
+    require(not failures, "State diagnostic failed; follow FINISH; no planning or publication")
+
+
 def finish():
     path = workdir() / "firewall.json"
     if not path.exists():
@@ -328,11 +460,11 @@ def finish():
 
 
 def main():
-    parser = argparse.ArgumentParser(); parser.add_argument("stage", choices=("check", "prepare", "wait-open", "plan", "finish"))
+    parser = argparse.ArgumentParser(); parser.add_argument("stage", choices=("check", "prepare", "wait-open", "plan", "finish", "diagnose-state"))
     args = parser.parse_args()
     try:
-        with diagnostic({"check": "CHECK", "prepare": "PREPARE", "wait-open": "WAIT_OPEN", "plan": "EXECUTION", "finish": "FINISH"}[args.stage], "python"):
-            {"check": check, "prepare": prepare, "wait-open": wait_open, "plan": execute_plan, "finish": finish}[args.stage]()
+        with diagnostic({"check": "CHECK", "prepare": "PREPARE", "wait-open": "WAIT_OPEN", "plan": "EXECUTION", "finish": "FINISH", "diagnose-state": "STATE_DIAG"}[args.stage], "python"):
+            {"check": check, "prepare": prepare, "wait-open": wait_open, "plan": execute_plan, "finish": finish, "diagnose-state": diagnose_state}[args.stage]()
     except Exception:
         print("PLAN stage failed; raw output suppressed. No automatic retry or firewall write; follow manual closure runbook.", file=sys.stderr)
         return 1
