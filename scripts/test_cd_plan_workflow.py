@@ -6,6 +6,8 @@ from pathlib import Path
 import io
 import os
 import socket
+import subprocess
+from types import SimpleNamespace
 import tempfile
 import unittest
 from unittest.mock import patch
@@ -253,6 +255,116 @@ class PlanTests(unittest.TestCase):
         f.api.issue_comments[0]["body"]=confirmation(snapshot,policy,f.challenge)
         service=PlanContract(f.store,GitHubTrustVerifier(f.api,snapshot,f.expected,policy,f.challenge,lambda:NOW))
         self.assertEqual(service.approve(m["plan_id"],f.expected,f.reference,"200","1",NOW).state,"APPROVED")
+
+
+    def test_command_diagnostic_categories_and_no_raw_output(self):
+        sensitive = b"Bearer synthetic-token password=synthetic-secret ?sig=synthetic-sas private_variables=synthetic-input 203.0.113.17"
+        cases = [(b"AADSTS700213", "AUTHENTICATION_ERROR"),
+                 (b"AuthorizationPermissionMismatch", "AUTHORIZATION_ERROR"),
+                 (b"AuthorizationFailure", "AUTHORIZATION_ERROR"),
+                 (b"Error acquiring the state lock", "BACKEND_LOCK_ERROR"),
+                 (b"Failed to install provider", "PROVIDER_ERROR"),
+                 (b"Missing required argument", "CONFIGURATION_ERROR"),
+                 (b"Connection refused", "CONNECTIVITY_ERROR"),
+                 (b"context deadline exceeded", "TIMEOUT"),
+                 (b"unfamiliar failure", "UNKNOWN_ERROR")]
+        for marker, category in cases:
+            with self.subTest(category=category):
+                output = io.StringIO()
+                with patch.object(flow.ops.subprocess, "run", return_value=SimpleNamespace(returncode=17, stdout=sensitive, stderr=marker + b" " + sensitive)), patch("sys.stdout", output):
+                    with self.assertRaises(flow.ops.CommandFailure) as caught:
+                        with flow.diagnostic("BACKEND_INIT", "terraform"):
+                            flow.ops.run(["terraform", "init", "private-argument"])
+                self.assertEqual(caught.exception.exit_code, 17)
+                self.assertEqual(caught.exception.category, category)
+                text = output.getvalue()
+                self.assertIn("[PLAN][BACKEND_INIT] FAIL component=terraform exit_code=17 category=" + category, text)
+                self.assertNotIn(" PASS", text)
+                for secret in ("synthetic-token", "synthetic-secret", "synthetic-sas", "synthetic-input", "203.0.113.17", "private-argument"):
+                    self.assertNotIn(secret, text + str(caught.exception))
+
+    def test_command_timeout_and_missing_tool_are_safe(self):
+        for error, category in [(subprocess.TimeoutExpired(["private-token"], 2700, output=b"private-output"), "TIMEOUT"),
+                                (OSError("private-password"), "TOOL_ERROR")]:
+            with patch.object(flow.ops.subprocess, "run", side_effect=error):
+                with self.assertRaises(flow.ops.CommandFailure) as caught:
+                    flow.ops.run(["terraform", "version"])
+            self.assertEqual(caught.exception.category, category)
+            self.assertIsNone(caught.exception.exit_code)
+            self.assertNotIn("private", str(caught.exception))
+
+    def test_command_success_preserves_output_and_timeout(self):
+        with patch.object(flow.ops.subprocess, "run", return_value=SimpleNamespace(returncode=0, stdout=b"private-json", stderr=b"")) as run:
+            self.assertEqual(flow.ops.run(["terraform", "version"], cwd=self.work), b"private-json")
+        self.assertEqual(run.call_args.kwargs["timeout"], 2700)
+        self.assertTrue(run.call_args.kwargs["capture_output"])
+
+    def test_unknown_exception_identifies_step_without_message(self):
+        output = io.StringIO()
+        with patch("sys.stdout", output):
+            with self.assertRaises(RuntimeError):
+                with flow.diagnostic("PRIVATE_CONTAINER", "azure-cli"):
+                    raise RuntimeError("Bearer token password=sensitive ?sig=sensitive 203.0.113.17")
+        self.assertIn("[PLAN][PRIVATE_CONTAINER] FAIL", output.getvalue())
+        self.assertIn("category=UNKNOWN_ERROR", output.getvalue())
+        self.assertNotIn("sensitive", output.getvalue())
+        self.assertNotIn("203.0.113.17", output.getvalue())
+        self.assertNotIn(" PASS", output.getvalue())
+
+    def test_http_failure_diagnostic_without_url_headers_or_body(self):
+        for status, expected in [(401, "AUTHENTICATION_ERROR"), (403, "AUTHORIZATION_ERROR"), (412, "PERSISTENCE_ERROR")]:
+            output = io.StringIO()
+            with patch("sys.stdout", output):
+                with self.assertRaises(urllib.error.HTTPError):
+                    with flow.diagnostic("BLOB_WRITE", "blob"):
+                        raise urllib.error.HTTPError("https://private/?sig=synthetic-sas", status, "private-password", {}, None)
+            self.assertIn("category=" + expected + " code=HTTP_" + str(status), output.getvalue())
+            self.assertNotIn("synthetic-sas", output.getvalue())
+            self.assertNotIn("private-password", output.getvalue())
+
+    def test_integrity_failure_is_safe_and_not_success(self):
+        output = io.StringIO()
+        with patch("sys.stdout", output):
+            with self.assertRaises(ContractError):
+                with flow.diagnostic("STATE_AFTER", "terraform"):
+                    raise ContractError("private state content")
+        self.assertIn("category=INTEGRITY_ERROR", output.getvalue())
+        self.assertNotIn("private state", output.getvalue())
+        self.assertNotIn(" PASS", output.getvalue())
+
+    def test_main_failure_stays_nonzero_and_finish_remains_separate(self):
+        output, errors = io.StringIO(), io.StringIO()
+        with patch.object(flow.sys, "argv", ["cd_plan_workflow.py", "plan"]), patch.object(flow, "execute_plan", side_effect=RuntimeError("private-password")), patch("sys.stdout", output), patch("sys.stderr", errors):
+            self.assertEqual(flow.main(), 1)
+        self.assertIn("[PLAN][EXECUTION] FAIL", output.getvalue())
+        self.assertNotIn("private-password", output.getvalue() + errors.getvalue())
+        value=yaml.load((Path(__file__).parents[1]/".github/workflows/azure-plan.yml").read_text(),Loader=yaml.BaseLoader)
+        finish=next(step for step in value["jobs"]["plan"]["steps"] if step.get("run", "").endswith(" finish"))
+        self.assertEqual(finish["if"], "${{ always() }}")
+
+    def test_main_finish_success_remains_zero(self):
+        with patch.object(flow.sys, "argv", ["cd_plan_workflow.py", "finish"]), patch.object(flow, "finish"), patch("sys.stdout", io.StringIO()):
+            self.assertEqual(flow.main(), 0)
+
+
+    def test_real_sequence_failure_reports_init_and_stops_before_generation(self):
+        output = io.StringIO()
+        # Intercept only the diagnostic context at init, preserving original exception semantics.
+        original_diagnostic = flow.diagnostic
+        from contextlib import contextmanager
+        @contextmanager
+        def injected(step, component):
+            with original_diagnostic(step, component):
+                if step == "BACKEND_INIT":
+                    raise flow.ops.command_failure(["terraform"], 23, b"AuthorizationFailed private-secret")
+                yield
+        with patch.object(flow, "diagnostic", injected), patch("sys.stdout", output):
+            with self.assertRaises(flow.ops.CommandFailure) as caught:
+                self.planned_execution()
+        self.assertEqual(caught.exception.exit_code, 23)
+        self.assertIn("[PLAN][BACKEND_INIT] FAIL component=terraform exit_code=23", output.getvalue())
+        self.assertNotIn("[PLAN][GENERATE] START", output.getvalue())
+        self.assertNotIn("private-secret", output.getvalue())
 
 
 if __name__=="__main__": unittest.main(verbosity=2)

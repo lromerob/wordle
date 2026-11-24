@@ -108,10 +108,55 @@ def prepare(work, variables, backend_file):
     print("Prepared isolated workspace; no Azure or Terraform command executed")
 
 
+class CommandFailure(RuntimeError):
+    """Only fixed diagnostic metadata survives; command output/arguments are discarded."""
+    def __init__(self, component, exit_code, category, code):
+        super().__init__("Operation failed; raw output suppressed")
+        self.component = component
+        self.exit_code = exit_code
+        self.category = category
+        self.code = code
+
+
+def command_failure(args, exit_code, raw=b""):
+    # Match only known signatures. Never echo a captured substring or command argument.
+    text = raw.decode("utf-8", errors="replace") if isinstance(raw, bytes) else str(raw)
+    signatures = (
+        (r"\bAADSTS700213\b", "AUTHENTICATION_ERROR", "AADSTS700213"),
+        (r"\bAADSTS70021\b", "AUTHENTICATION_ERROR", "AADSTS70021"),
+        (r"\bAuthenticationFailed\b|\bInvalidAuthenticationToken\b", "AUTHENTICATION_ERROR", "AuthenticationFailed"),
+        (r"\bAuthorizationPermissionMismatch\b", "AUTHORIZATION_ERROR", "AuthorizationPermissionMismatch"),
+        (r"\bAuthorizationFailure\b", "AUTHORIZATION_ERROR", "AuthorizationFailure"),
+        (r"\bAuthorizationFailed\b", "AUTHORIZATION_ERROR", "AuthorizationFailed"),
+        (r"\bLeaseAlreadyPresent\b|Error acquiring the state lock", "BACKEND_LOCK_ERROR", "STATE_LOCK"),
+        (r"Failed to query available provider packages|Failed to install provider", "PROVIDER_ERROR", "PROVIDER_INSTALL"),
+        (r"Unsupported argument|Missing required argument|Invalid value for", "CONFIGURATION_ERROR", "INVALID_CONFIGURATION"),
+        (r"Connection refused|Name or service not known|no such host|Could not resolve host", "CONNECTIVITY_ERROR", "CONNECTION_FAILED"),
+        (r"timed out|context deadline exceeded", "TIMEOUT", "TIMEOUT"),
+    )
+    category, code = "UNKNOWN_ERROR", "UNCLASSIFIED"
+    for pattern, known_category, known_code in signatures:
+        if re.search(pattern, text, re.IGNORECASE):
+            category, code = known_category, known_code
+            break
+    executable = str(args[0]).replace("\\", "/").rsplit("/", 1)[-1].lower()
+    component = "terraform" if executable in {"terraform", "terraform.exe"} else "azure-cli" if executable in {"az", "az.cmd", "az.exe"} else "subprocess"
+    return CommandFailure(component, exit_code, category, code)
+
+
 def run(args, *, cwd=None):
-    result = subprocess.run(list(map(str, args)), cwd=cwd, capture_output=True, timeout=2700)
+    try:
+        result = subprocess.run(list(map(str, args)), cwd=cwd, capture_output=True, timeout=2700)
+    except subprocess.TimeoutExpired:
+        failure = command_failure(args, None)
+        failure.category, failure.code = "TIMEOUT", "TIMEOUT"
+        raise failure from None
+    except OSError:
+        failure = command_failure(args, None)
+        failure.category, failure.code = "TOOL_ERROR", "EXECUTABLE_UNAVAILABLE"
+        raise failure from None
     if result.returncode:
-        raise RuntimeError("Operation failed; raw output suppressed to protect identifiers and plan data")
+        raise command_failure(args, result.returncode, result.stderr + b"\n" + result.stdout) from None
     return result.stdout
 
 

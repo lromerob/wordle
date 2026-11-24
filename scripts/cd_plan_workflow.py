@@ -1,5 +1,8 @@
 """Supervised PLAN only. Cloud operations are reachable only through explicit workflow stages."""
 import argparse
+from contextlib import contextmanager
+import subprocess
+import urllib.error
 from datetime import datetime, timezone, timedelta
 import json
 import os
@@ -171,13 +174,13 @@ class PlanBlobStore:
         headers = {"Authorization": "Bearer " + self.credential, "x-ms-version": "2023-11-03",
                    "x-ms-date": now().strftime("%a, %d %b %Y %H:%M:%S GMT"), "x-ms-blob-type": "BlockBlob",
                    "If-None-Match": "*", "Content-Type": "application/octet-stream"}
-        with self.opener.open(urllib.request.Request(url, data=raw, headers=headers, method="PUT"), timeout=60) as response:
+        with diagnostic("BLOB_WRITE", "blob"), self.opener.open(urllib.request.Request(url, data=raw, headers=headers, method="PUT"), timeout=60) as response:
             require(response.status == 201 and bool(response.headers.get("ETag")), "Private object creation not verified")
             etag = response.headers["ETag"]
             version = response.headers.get("x-ms-version-id")
         read_headers = {k: v for k, v in headers.items() if k not in {"If-None-Match", "x-ms-blob-type"}}
         read_headers["If-Match"] = etag
-        with self.opener.open(urllib.request.Request(url, headers=read_headers, method="GET"), timeout=60) as response:
+        with diagnostic("BLOB_VERIFY", "blob"), self.opener.open(urllib.request.Request(url, headers=read_headers, method="GET"), timeout=60) as response:
             require(response.status == 200 and response.read(len(raw) + 1) == raw, "Private readback integrity failed")
         return {"sha256": digest(raw), "size": len(raw), "etag": etag, "version_id": version}
 
@@ -208,51 +211,103 @@ def state_fingerprint(raw):
     return {"lineage": value["lineage"], "serial": value["serial"], "sha256": digest(raw)}
 
 
+def diagnostic_failure(step, component, error):
+    # All output fields are fixed strings or numeric metadata, never exception text.
+    category, code, exit_code = "UNKNOWN_ERROR", "UNCLASSIFIED", None
+    if isinstance(error, ops.CommandFailure):
+        component, category, code, exit_code = error.component, error.category, error.code, error.exit_code
+    elif isinstance(error, urllib.error.HTTPError):
+        category = "AUTHENTICATION_ERROR" if error.code == 401 else "AUTHORIZATION_ERROR" if error.code == 403 else "PERSISTENCE_ERROR"
+        code = "HTTP_" + str(error.code) if type(error.code) is int and 100 <= error.code <= 599 else "HTTP_ERROR"
+    elif isinstance(error, (TimeoutError, subprocess.TimeoutExpired)):
+        category, code = "TIMEOUT", "TIMEOUT"
+    elif isinstance(error, urllib.error.URLError):
+        category, code = "CONNECTIVITY_ERROR", "CONNECTION_FAILED"
+    elif isinstance(error, (ValueError, KeyError, TypeError)):
+        category, code = ("INTEGRITY_ERROR", "VALIDATION_REJECTED") if step in {"STATE_BEFORE", "STATE_AFTER", "LOCK_VERIFY", "PLAN_REVIEW", "MANIFEST", "HASHES", "BLOB_VERIFY"} else ("CONFIGURATION_ERROR", "VALIDATION_REJECTED")
+    elif isinstance(error, OSError):
+        category, code = "IO_ERROR", "IO_FAILED"
+    print(f"[PLAN][{step}] FAIL component={component} exit_code={exit_code if type(exit_code) is int else 'NA'} category={category} code={code}", flush=True)
+
+
+@contextmanager
+def diagnostic(step, component):
+    print(f"[PLAN][{step}] START component={component}", flush=True)
+    try:
+        yield
+    except Exception as error:
+        diagnostic_failure(step, component, error)
+        raise
+    else:
+        print(f"[PLAN][{step}] PASS component={component}", flush=True)
+
+
 def execute_plan():
-    values = config(); j = journal_for_run(); work = workdir() / "terraform"
-    require(j.get("opening_verified") is True and boundary(account()) == opened(j["baseline"], j["ip"])
-            and outward_ip() == j["ip"], "Verified firewall opening required")
-    require(digest(canonical(values)) == j["inputs_sha256"], "PLAN inputs changed")
     def tf(*args): return ops.run(["terraform", *args], cwd=work)
-    require(decode(tf("version", "-json"))["terraform_version"] == "1.9.8", "Unexpected Terraform version")
-    container = ops.az("storage", "container", "show", "--account-name", ACCOUNT, "--name", CONTAINER, "--auth-mode", "login")
-    require("publicAccess" in container.get("properties", {}) and container["properties"]["publicAccess"] is None,
-            "Existing private plan container required")
-    lock = (work / ".terraform.lock.hcl").read_bytes()
-    tf("init", "-input=false", "-reconfigure", "-lockfile=readonly", "-backend-config=backend.hcl")
-    require((work / ".terraform.lock.hcl").read_bytes() == lock, "Provider lock changed")
-    require(tf("workspace", "show").strip() == b"default", "Unexpected backend workspace")
-    before = state_fingerprint(tf("state", "pull"))
-    require(not (work / "approved.tfplan").exists(), "Refusing plan overwrite")
-    tf("validate", "-no-color")
-    tf("plan", "-input=false", "-lock-timeout=60s", "-var-file=variables.tfvars.json", "-out=approved.tfplan")
-    require(before == state_fingerprint(tf("state", "pull")), "Remote state changed during PLAN")
-    rendered = decode(tf("show", "-json", "approved.tfplan"))
-    ops.check_plan(rendered, "deploy", values)
-    if os.environ["PLAN_OPERATION"] == "create":
-        require(all(set(change["change"]["actions"]) <= {"create", "no-op"}
-                    for change in rendered.get("resource_changes", []) if change.get("mode") != "data"),
-                "Create intent contains updates; review a new update PLAN")
-    plan = (work / "approved.tfplan").read_bytes()
-    review = tf("show", "-no-color", "approved.tfplan")
-    context = {"operation": os.environ["PLAN_OPERATION"], "repository": "lromerob/wordle",
-        "commit_sha": os.environ["GITHUB_SHA"], "environment": "wordle-azure-demo", "terraform": {
-            "version": "1.9.8", "provider": {"source": "hashicorp/azurerm", "version": "4.50.0"},
-            "lock_sha256": digest(lock), "configuration_sha256": ops.fingerprint(work),
-            "variables_sha256": digest((work / "variables.tfvars.json").read_bytes()),
-            "backend": {"type": "azurerm", "resource_group": GROUP, "account": ACCOUNT, "container": "tfstate",
-                        "key": BACKEND["key"], "workspace": "default"}, "state": before},
-        "targets": {"subscription_id": values["subscription_id"], "tenant_id": values["tenant_id"],
-                    "resource_group": values["resource_group_name"], "node_resource_group": values["node_resource_group_name"],
-                    "cluster": values["cluster_name"]}}
-    created = now()
-    manifest = build_manifest(plan, context, {"workflow": WORKFLOW, "run_id": os.environ["GITHUB_RUN_ID"], "attempt": "1"},
-                              stamp(created), stamp(created + timedelta(hours=2)))
-    challenge = {"schema_version": 1, "purpose": "PLAN_REVIEW_ONLY_NOT_APPLY_AUTHORIZATION", "plan_id": manifest["plan_id"],
-                 "manifest_sha256": digest(canonical(manifest)), "plan_sha256": digest(plan), "producer": manifest["producer"],
-                 "nonce": secrets.token_hex(16), "issued_at": stamp(created), "expires_at": manifest["expires_at"]}
-    token = ops.az("account", "get-access-token", "--resource", "https://storage.azure.com/")["accessToken"]
-    receipt = publish(PlanBlobStore(token), manifest, plan, challenge, review)
+    with diagnostic("CONFIGURATION", "python"):
+        values = config(); j = journal_for_run(); work = workdir() / "terraform"
+    with diagnostic("FIREWALL_VERIFY", "azure-cli"):
+        require(j.get("opening_verified") is True and boundary(account()) == opened(j["baseline"], j["ip"])
+                and outward_ip() == j["ip"], "Verified firewall opening required")
+    with diagnostic("INPUT_VERIFY", "python"):
+        require(digest(canonical(values)) == j["inputs_sha256"], "PLAN inputs changed")
+    with diagnostic("TF_VERSION", "terraform"):
+        require(decode(tf("version", "-json"))["terraform_version"] == "1.9.8", "Unexpected Terraform version")
+    with diagnostic("PRIVATE_CONTAINER", "azure-cli"):
+        container = ops.az("storage", "container", "show", "--account-name", ACCOUNT, "--name", CONTAINER, "--auth-mode", "login")
+        require("publicAccess" in container.get("properties", {}) and container["properties"]["publicAccess"] is None,
+                "Existing private plan container required")
+    with diagnostic("LOCK_READ", "python"):
+        lock = (work / ".terraform.lock.hcl").read_bytes()
+    with diagnostic("BACKEND_INIT", "terraform"):
+        tf("init", "-input=false", "-reconfigure", "-lockfile=readonly", "-backend-config=backend.hcl")
+    with diagnostic("LOCK_VERIFY", "python"):
+        require((work / ".terraform.lock.hcl").read_bytes() == lock, "Provider lock changed")
+    with diagnostic("WORKSPACE", "terraform"):
+        require(tf("workspace", "show").strip() == b"default", "Unexpected backend workspace")
+    with diagnostic("STATE_BEFORE", "terraform"):
+        before = state_fingerprint(tf("state", "pull"))
+    with diagnostic("OUTPUT_GUARD", "python"):
+        require(not (work / "approved.tfplan").exists(), "Refusing plan overwrite")
+    with diagnostic("VALIDATE", "terraform"):
+        tf("validate", "-no-color")
+    with diagnostic("GENERATE", "terraform"):
+        tf("plan", "-input=false", "-lock-timeout=60s", "-var-file=variables.tfvars.json", "-out=approved.tfplan")
+    with diagnostic("STATE_AFTER", "terraform"):
+        require(before == state_fingerprint(tf("state", "pull")), "Remote state changed during PLAN")
+    with diagnostic("PLAN_REVIEW", "terraform"):
+        rendered = decode(tf("show", "-json", "approved.tfplan"))
+        ops.check_plan(rendered, "deploy", values)
+        if os.environ["PLAN_OPERATION"] == "create":
+            require(all(set(change["change"]["actions"]) <= {"create", "no-op"}
+                        for change in rendered.get("resource_changes", []) if change.get("mode") != "data"),
+                    "Create intent contains updates; review a new update PLAN")
+    with diagnostic("PLAN_READ", "python"):
+        plan = (work / "approved.tfplan").read_bytes()
+    with diagnostic("REVIEW_TEXT", "terraform"):
+        review = tf("show", "-no-color", "approved.tfplan")
+    with diagnostic("HASHES", "python"):
+        context = {"operation": os.environ["PLAN_OPERATION"], "repository": "lromerob/wordle",
+            "commit_sha": os.environ["GITHUB_SHA"], "environment": "wordle-azure-demo", "terraform": {
+                "version": "1.9.8", "provider": {"source": "hashicorp/azurerm", "version": "4.50.0"},
+                "lock_sha256": digest(lock), "configuration_sha256": ops.fingerprint(work),
+                "variables_sha256": digest((work / "variables.tfvars.json").read_bytes()),
+                "backend": {"type": "azurerm", "resource_group": GROUP, "account": ACCOUNT, "container": "tfstate",
+                            "key": BACKEND["key"], "workspace": "default"}, "state": before},
+            "targets": {"subscription_id": values["subscription_id"], "tenant_id": values["tenant_id"],
+                        "resource_group": values["resource_group_name"], "node_resource_group": values["node_resource_group_name"],
+                        "cluster": values["cluster_name"]}}
+    with diagnostic("MANIFEST", "python"):
+        created = now()
+        manifest = build_manifest(plan, context, {"workflow": WORKFLOW, "run_id": os.environ["GITHUB_RUN_ID"], "attempt": "1"},
+                                  stamp(created), stamp(created + timedelta(hours=2)))
+        challenge = {"schema_version": 1, "purpose": "PLAN_REVIEW_ONLY_NOT_APPLY_AUTHORIZATION", "plan_id": manifest["plan_id"],
+                     "manifest_sha256": digest(canonical(manifest)), "plan_sha256": digest(plan), "producer": manifest["producer"],
+                     "nonce": secrets.token_hex(16), "issued_at": stamp(created), "expires_at": manifest["expires_at"]}
+    with diagnostic("STORAGE_TOKEN", "azure-cli"):
+        token = ops.az("account", "get-access-token", "--resource", "https://storage.azure.com/")["accessToken"]
+    with diagnostic("PRIVATE_PERSIST", "blob"):
+        receipt = publish(PlanBlobStore(token), manifest, plan, challenge, review)
     summary("PLAN stored privately; no APPLY authorized. Receipt: " + canonical(receipt).decode())
     closing_instructions(j)
 
@@ -276,7 +331,8 @@ def main():
     parser = argparse.ArgumentParser(); parser.add_argument("stage", choices=("check", "prepare", "wait-open", "plan", "finish"))
     args = parser.parse_args()
     try:
-        {"check": check, "prepare": prepare, "wait-open": wait_open, "plan": execute_plan, "finish": finish}[args.stage]()
+        with diagnostic({"check": "CHECK", "prepare": "PREPARE", "wait-open": "WAIT_OPEN", "plan": "EXECUTION", "finish": "FINISH"}[args.stage], "python"):
+            {"check": check, "prepare": prepare, "wait-open": wait_open, "plan": execute_plan, "finish": finish}[args.stage]()
     except Exception:
         print("PLAN stage failed; raw output suppressed. No automatic retry or firewall write; follow manual closure runbook.", file=sys.stderr)
         return 1
