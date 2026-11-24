@@ -88,15 +88,30 @@ describe('Wordle v1.0', () => {
     replies.push(response({ partida_id: 'g2' }));
     const fetch = mockFetch(...replies);
     const user = await start();
-    for (let n = 1; n <= 6; n++) {
-      type('PERRO'); submit();
-      await screen.findByText(n === 6 ? 'Fin de la partida. La palabra era CASAS.' : `Intento ${n + 1} de 6`);
-    }
+    // Send Enter as soon as the terminal render commits, before passive effects.
+    let terminalEvent = false;
+    const observer = new MutationObserver(() => {
+      if (!terminalEvent && screen.queryByText('Fin de la partida. La palabra era CASAS.')) {
+        terminalEvent = true;
+        submit();
+      }
+    });
+    observer.observe(document.body, { childList: true, subtree: true, characterData: true });
+    try {
+      for (let n = 1; n <= 6; n++) {
+        type('PERRO'); submit();
+        await screen.findByText(n === 6 ? 'Fin de la partida. La palabra era CASAS.' : `Intento ${n + 1} de 6`);
+      }
+    } finally { observer.disconnect(); }
+    expect(terminalEvent).toBe(true);
     expect(screen.getByRole('button', { name: 'Enviar' })).toBeDisabled();
     submit(); expect(fetch).toHaveBeenCalledTimes(7);
+    expect(fetch.mock.calls.filter(([url]) => url.endsWith('/game/intento'))).toHaveLength(6);
     await user.click(screen.getByRole('button', { name: 'Nueva partida' }));
     await screen.findByText('Intento 1 de 6');
     expect(screen.getByLabelText('Intento 1').textContent).toBe('');
+    expect(fetch).toHaveBeenCalledTimes(8);
+    expect(fetch.mock.calls[7][0]).toContain('/game/nueva?usuario_id=');
   });
 
   it('locks input and prevents duplicate requests while submitting', async () => {

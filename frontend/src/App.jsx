@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useLayoutEffect, useRef, useState } from 'react';
 import { api } from './api.js';
 import Board from './components/Board.jsx';
 import Keyboard from './components/Keyboard.jsx';
@@ -67,7 +67,7 @@ export default function App() {
     finally { inFlight.current = false; setBusy(false); }
   }
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const handler = event => {
       if (event.ctrlKey || event.metaKey || event.altKey || event.isComposing) return;
       if (['INPUT', 'TEXTAREA', 'SELECT'].includes(event.target?.tagName) || event.target?.isContentEditable) return;
