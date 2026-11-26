@@ -98,8 +98,8 @@ def opened(baseline, ip):
     return result
 
 
-def prepare():
-    values = config()
+def prepare(validate=None):
+    values = (validate or config)()
     ops.authenticate(values)
     session = ops.az("account", "show")
     require(session.get("user", {}).get("type") == "servicePrincipal"
@@ -142,8 +142,8 @@ def journal_for_run():
     return j
 
 
-def wait_open():
-    values = config(); j = journal_for_run()
+def wait_open(validate=None):
+    values = (validate or config)(); j = journal_for_run()
     require(j["inputs_sha256"] == digest(canonical(values)), "PLAN inputs changed")
     api = GitHubReadAdapter()
     deadline = time.monotonic() + 600

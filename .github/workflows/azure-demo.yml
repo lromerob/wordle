@@ -14,14 +14,14 @@ on:
       operation:
         type: choice
         required: true
-        options: [preflight, plan, plan-destroy, execute-infra, credentials, deploy, restore-deploy, verify, acceptance, backup, restore]
+        options: [apply-reviewed, preflight, plan, plan-destroy, execute-infra, credentials, deploy, restore-deploy, verify, acceptance, backup, restore]
       confirm:
         description: 'Exact ACTION resource-group/cluster; EXECUTE for execute-infra'
         type: string
         default: ''
       intent:
         type: choice
-        options: [NONE, CREATE, DESTROY]
+        options: [NONE, CREATE, UPDATE, DESTROY]
         default: NONE
       approve_costs:
         description: 'Externally reviewed budget/PVC costs explicitly approved'
@@ -42,28 +42,47 @@ on:
         type: string
         default: ''
 
+      approved_sha:
+        description: Full reviewed SHA for apply-reviewed only
+        type: string
+        default: ''
+      plan_id:
+        description: Private saved plan UUID for apply-reviewed only
+        type: string
+        default: ''
+      manifest_sha256:
+        description: Independently reviewed manifest hash for apply-reviewed only
+        type: string
+        default: ''
+      confirmation_issue:
+        description: Dedicated operator coordination issue for apply-reviewed only
+        type: string
+        default: ''
+
 permissions:
   contents: read
 
 concurrency:
-  group: wordle-azure-supervised
+  group: wordle-storage-firewall-supervised
   cancel-in-progress: false
 
 jobs:
   supervised:
-    if: ${{ vars.WORDLE_AZURE_ENABLED == 'true' && github.repository == 'lromerob/wordle' && github.ref == 'refs/heads/codex/pg01-07-consolidation' }}
-    runs-on: [self-hosted, linux, x64, wordle-azure]
+    if: ${{ ((inputs.operation == 'apply-reviewed' && vars.WORDLE_APPLY_ENABLED == 'true' && github.actor == 'lromerob') || (inputs.operation != 'apply-reviewed' && vars.WORDLE_AZURE_ENABLED == 'true')) && github.repository == 'lromerob/wordle' && github.ref == 'refs/heads/codex/pg01-07-consolidation' }}
+    runs-on: ${{ inputs.operation == 'apply-reviewed' && 'ubuntu-24.04' || fromJSON('["self-hosted","linux","x64","wordle-azure"]') }}
     defaults:
       run:
         shell: bash
-    timeout-minutes: 60
+    timeout-minutes: 90
     environment: wordle-azure-demo
     permissions:
       contents: read
       actions: read
+      issues: read
+      deployments: read
       id-token: write
     env:
-      AZURE_CORE_OUTPUT: none
+      AZURE_CORE_OUTPUT: ${{ inputs.operation == 'apply-reviewed' && 'json' || 'none' }}
       AZURE_CORE_COLLECT_TELEMETRY: 'no'
       TF_IN_AUTOMATION: 'true'
       TF_INPUT: 'false'
@@ -72,18 +91,34 @@ jobs:
       ARM_USE_OIDC: 'true'
       ARM_USE_AZUREAD: 'true'
       ARM_USE_CLI: 'false'
-      ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
-      WORDLE_APPROVED_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
-      ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
-      ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      ARM_CLIENT_ID: ${{ inputs.operation == 'apply-reviewed' && vars.WORDLE_APPLY_CLIENT_ID || secrets.AZURE_CLIENT_ID }}
+      WORDLE_APPROVED_CLIENT_ID: ${{ inputs.operation == 'apply-reviewed' && vars.WORDLE_APPLY_CLIENT_ID || secrets.AZURE_CLIENT_ID }}
+      ARM_TENANT_ID: ${{ inputs.operation == 'apply-reviewed' && vars.WORDLE_PLAN_TENANT_ID || secrets.AZURE_TENANT_ID }}
+      ARM_SUBSCRIPTION_ID: ${{ inputs.operation == 'apply-reviewed' && vars.WORDLE_PLAN_SUBSCRIPTION_ID || secrets.AZURE_SUBSCRIPTION_ID }}
       WORDLE_AZURE_STORE_ID: ${{ vars.WORDLE_AZURE_STORE_ID }}
       WORDLE_AZURE_PRIVATE_DIR: ${{ secrets.WORDLE_AZURE_PRIVATE_DIR }}
+      APPLY_COSTS_APPROVED: ${{ inputs.approve_costs }}
+      WORDLE_APPLY_ENABLED: ${{ vars.WORDLE_APPLY_ENABLED }}
+      GH_TOKEN: ${{ github.token }}
+      APPROVED_SHA: ${{ inputs.approved_sha }}
+      CI_RUN: ${{ inputs.ci_run }}
+      PLAN_ID: ${{ inputs.plan_id }}
+      MANIFEST_SHA256: ${{ inputs.manifest_sha256 }}
+      CONFIRMATION_ISSUE: ${{ inputs.confirmation_issue }}
+      PLAN_OPERATION: ${{ inputs.intent == 'CREATE' && 'create' || inputs.intent == 'UPDATE' && 'update' || 'invalid' }}
+      PLAN_VARIABLES_JSON: ${{ secrets.WORDLE_PLAN_VARIABLES_JSON }}
+      INFRA_CLIENT_ID: ${{ vars.WORDLE_APPLY_CLIENT_ID }}
+      PLAN_CLIENT_ID: ${{ vars.WORDLE_PLAN_CLIENT_ID }}
+      DIAGNOSTIC_CLIENT_ID: ${{ vars.WORDLE_STORAGE_TEST_CLIENT_ID }}
+      APPLY_WORKFLOW_ID: ${{ vars.WORDLE_APPLY_WORKFLOW_ID }}
+      APPLY_ENVIRONMENT_ID: ${{ vars.WORDLE_APPLY_ENVIRONMENT_ID }}
     steps:
       - uses: actions/checkout@v4
         with:
           persist-credentials: false
           fetch-depth: 0
       - name: Require configured reviewers before any Azure authentication
+        if: ${{ inputs.operation != 'apply-reviewed' }}
         env:
           GH_TOKEN: ${{ github.token }}
           CLIENT: ${{ secrets.AZURE_CLIENT_ID }}
@@ -108,19 +143,51 @@ jobs:
               raise SystemExit('Protected environment/reviewers could not be verified; refusing Azure login')
           PY
       - name: Require exact successful CI and freeze release/image selection
+        if: ${{ inputs.operation != 'apply-reviewed' }}
         env:
           GH_TOKEN: ${{ github.token }}
         run: python -B scripts/release_gate.py
       - name: Validate action and private inputs before Azure login
+        if: ${{ inputs.operation != 'apply-reviewed' }}
         run: python -B scripts/azure_dispatch.py --check-inputs
       - uses: azure/login@v2
+        if: ${{ inputs.operation != 'apply-reviewed' }}
         with:
           client-id: ${{ secrets.AZURE_CLIENT_ID }}
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
       - name: Run only the explicitly authorized operation
+        if: ${{ inputs.operation != 'apply-reviewed' }}
         env:
           WORDLE_DEMO_ADMIN_PASSWORD: ${{ secrets.WORDLE_DEMO_ADMIN_PASSWORD }}
           WORDLE_DEMO_APP_PASSWORD: ${{ secrets.WORDLE_DEMO_APP_PASSWORD }}
           WORDLE_GRAFANA_DEMO_PASSWORD: ${{ secrets.WORDLE_GRAFANA_DEMO_PASSWORD }}
         run: python -B scripts/azure_dispatch.py
+
+      - name: Check saved-plan APPLY gates
+        if: ${{ inputs.operation == 'apply-reviewed' }}
+        run: python3 -B scripts/cd_apply_workflow.py check
+      - uses: hashicorp/setup-terraform@v3
+        if: ${{ inputs.operation == 'apply-reviewed' }}
+        with:
+          terraform_version: '1.9.8'
+          terraform_wrapper: false
+      - name: OIDC infrastructure identity for saved-plan APPLY
+        if: ${{ inputs.operation == 'apply-reviewed' }}
+        uses: azure/login@v2
+        with:
+          client-id: ${{ vars.WORDLE_APPLY_CLIENT_ID }}
+          tenant-id: ${{ vars.WORDLE_PLAN_TENANT_ID }}
+          subscription-id: ${{ vars.WORDLE_PLAN_SUBSCRIPTION_ID }}
+      - name: PREPARE manual Storage exception for APPLY
+        if: ${{ inputs.operation == 'apply-reviewed' }}
+        run: python3 -B scripts/cd_apply_workflow.py prepare
+      - name: WAIT for manually verified Storage opening
+        if: ${{ inputs.operation == 'apply-reviewed' }}
+        run: python3 -B scripts/cd_apply_workflow.py wait-open
+      - name: Retrieve approve and exclusively consume saved plan
+        if: ${{ inputs.operation == 'apply-reviewed' }}
+        run: python3 -B scripts/cd_apply_workflow.py apply
+      - name: FINISH manual firewall restoration
+        if: ${{ always() && inputs.operation == 'apply-reviewed' }}
+        run: python3 -B scripts/cd_apply_workflow.py finish
